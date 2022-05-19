@@ -1,0 +1,66 @@
+//- patientloginform structure
+#patientloginview
+    #patientlogin-heading 
+        .back-button.click-button
+            .back-arrow: svg: use(href="#svg-left-arrow")
+            .heading-text Patienten Login
+    .form-section
+        #patient-svn-login-form 
+            .hint Sie haben eine Sozialversicherungsnummer und einen PIN-Code bei Ihrer Untersuchung erhalten
+            form
+                label#svn-label SVN + Geb.Datum:
+                #svn-block
+                    input#svn-part-input(type="number")
+                    #svn-separator -
+                    input#birthday-part-input(type="number")
+                label#pin-label PIN-Code:
+                input#pin-input(type="number")
+                .empty-cell
+                button#svn-submit-button.click-button Anmelden
+
+        #patient-authcode-login-form
+            .hint Sie haben keine SVN (keine e card). Sie haben bei Ihrer Untersuchung einen AUTH-Code erhalten
+            form
+                label#authcode-birthday-label Geburtsdatum:
+                input#authcode-birthday-input()
+                label#authcode-input AUTH-Code:
+                #authcode-block
+                    #authcode-prefix AT-
+                    input#authcode-input(type="number")
+                .empty-cell
+                button#authcode-submit-button.click-button Anmelden
+
+        #patient-renew-pin-form
+            .hint Sie haben bei Ihrer Untersuchung Ihre Handy-Nummer angegeben? Dann können Sie Ihren persönlichen PIN-Code jetzt mit Ihrer Sozialversicherungsnummer anfordern.<br> Sie erhalten diesen per SMS auf Ihr Handy.
+            form
+                label#pin-renew-svn-label SVN + Geb.Datum:
+                #pin-renew-svn-block
+                    input#pin-renew-svn-part-input(type="number")
+                    #pin-renew-svn-separator -
+                    input#pin-renew-birthday-part-input(type="number")
+                .empty-cell
+                button#pin-renew-submit-button PIN anfordern
+            
+        #patient-no-authcode 
+            .hint Ohne österreichische Sozialversichungsnummer (e card) können Sie keinen Code per SMS anfordern.<br><br>Bitte wenden Sie sich an Ihren Radiologen/Institut.
+
+    .agb-hint-block 
+        .hint Mit Klick auf ANMELDEN akzeptiere ich die <a href="/agb.pdf" target="_blank">AGB</a> und die <a href="/nutzungsbedingungen.pdf" target="_blank">Nutzungsbedingungen</a> der SustSol GmbH!
+
+    #patientlogin-options
+    
+        #patient-svn-form-button.on
+            .form-button.click-button SVN Login
+        #patient-authcode-form-button
+            .form-button.click-button AuthCode Login
+    
+    #patient-fail-options
+
+        #patient-renew-pin-button
+            .fail-button.click-button Neuen PIN Anfordern 
+        
+        #patient-no-authcode-button
+            .fail-button.click-button Ich habe keinen AuthCode  
+    
+    .support-link-block
+        a.link-button.click-button(href="/support.html") Support 

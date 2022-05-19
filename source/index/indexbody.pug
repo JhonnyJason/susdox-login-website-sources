@@ -1,2 +1,22 @@
-h1 Sample Index
-p Sample Paragraph little Text for no use so it better be also no test, well it might say hello, Hello! :D                  1
+include ../svgiconsmodule/svgicons.pug
+include ../patientloginviewmodule/patientloginview.pug
+include ../doctorloginviewmodule/doctorloginview.pug
+
+header
+    #header-logo
+    h1#header-subtitle Bilder und Befunde online
+main
+    #patient-login-block
+        .login-button.click-button
+            .login-text Patienten Login
+            .login-arrow: svg: use(href="#svg-right-arrow")
+    #doctor-login-block
+        .login-button.click-button
+            .login-text Ärzte und Personal
+            .login-arrow: svg: use(href="#svg-right-arrow")
+    .support-link-block
+        a.link-button.click-button(href="/support.html") Support 
+
+footer
+    #sustsol-icon: svg: use(href="#svg-cross-icon")
+    #sustsol-text SustSol GmbH - 8130 Frohnleiten, Eichenweg 3

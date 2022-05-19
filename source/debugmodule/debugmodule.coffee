@@ -1,8 +1,9 @@
-debugmodule = {name: "debugmodule", uimodule: false}
 
 ############################################################
-debugmodule.modulesToDebug = 
+export modulesToDebug = 
     unbreaker: true
-    configmodule: true
-
-export default debugmodule
+    # configmodule: true
+    statemodule: true
+    patientloginviewmodule: true
+    doctorloginviewmodule: true
+    registrationviewmodule: true

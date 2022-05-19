@@ -4,8 +4,12 @@
 Color Theme
 ==========================================================*/
 cd-foreground = white
-cd-flash = purple
-cd-background = black
+cd-flash = #1E3255
+cd-background = #3DA299
+
+// - darkblue: #1E3255
+// - turquoise: #3DA299
+// - turquoise-darker: #00A39C
 
 /*==========================================================
 Global Variables
@@ -25,11 +29,87 @@ body
     font-size: 12pt
     height 100vh
     width 100%
+    position fixed
     overflow hidden
-
 h1
     font-size: 17pt
 h2
     font-size: 15pt
 p
     font-size: 12pt
+
+
+/*==========================================================
+Specific Global Class Styles
+==========================================================*/
+.fullpage-view
+    width 100%
+    height 100vh
+    position absolute
+    top 0
+    left 0
+    background-color cd-background
+    transform: translateX(102vw)
+    transition: transform 0.3s
+    z-index 3
+
+.here
+    transform: translateX(0)
+    
+.support-link-block
+    font-size: 14pt
+    .link-button
+        padding 20px
+        box-sizing: border-box
+        border 1px solid white    
+        width 280px
+        text-align: center
+
+.form-section
+    position relative
+    height 40vh
+    box-sizing: border-box
+    padding 20px
+
+    label
+        font-size: 11pt
+        text-align: left
+    form
+        margin auto
+        max-width 500px
+        display grid
+        grid-template-columns: auto auto
+        grid-column-gap: 5px
+        grid-row-gap: 12px
+    
+    form > *
+        align-self: center
+
+    input
+        text-overflow: ellipsis;
+        padding: 7px
+        box-sizing: border-box
+        font-size: 11pt
+        color cd-flash
+        background-color cd-foreground
+        border none
+        width 100%
+        text-align: center
+
+    input:focus
+        padding: 7px
+        background-color cd-foreground
+
+    button
+        background-color cd-flash
+        color cd-foreground
+        font-size: 11pt
+        padding 10px
+
+.hint 
+    font-size: 10pt
+
+.agb-hint-block
+    padding 0 20px
+    a
+        color cd-flash

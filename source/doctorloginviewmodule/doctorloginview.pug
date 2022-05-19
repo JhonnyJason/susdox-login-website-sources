@@ -1,0 +1,23 @@
+//- doctorloginform structure
+#doctorloginview
+    #doctorlogin-heading 
+        .back-button.click-button
+            .back-arrow: svg: use(href="#svg-left-arrow")
+            .heading-text Ärzte und Personal
+
+    .form-section
+        form#doctorlogin-form
+            label#vpn-label(for="vpn") VPN
+            input#vpn-input(type="number" name="vpn")
+            label#username-label(for="username") Benutzername: 
+            input#username-input(type="text" name="username")
+            label#password-label(for="password") Passwort: 
+            input#password-input(type="password" name="password")
+            .empty-cell
+            button#doctorlogin-submit-button Anmelden
+
+    .agb-hint-block 
+        .hint Mit Klick auf ANMELDEN akzeptiere ich die <a href="/agb.pdf" target="_blank">AGB</a> und die <a href="/nutzungsbedingungen.pdf" target="_blank">Nutzungsbedingungen</a> der SustSol GmbH!
+
+    .support-link-block
+        a.link-button.click-button(href="/support.html") Support 
