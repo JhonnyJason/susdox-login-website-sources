@@ -2,6 +2,8 @@ import Modules from "./allmodules"
 import domconnect from "./indexdomconnect"
 domconnect.initialize()
 
+delete Modules.registrationviewmodule
+
 global.allModules = Modules
 
 ############################################################
