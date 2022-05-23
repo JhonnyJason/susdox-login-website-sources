@@ -12,3 +12,77 @@ Global Styles
 Including other components
 ==============================================================================*/
 @import '../allmodules/allstyles.styl'
+
+
+
+/*==============================================================================
+Index Styles - header
+==============================================================================*/
+header
+    height: 20vh
+    padding 20px
+    box-sizing: border-box
+    margin auto
+    max-width: 320px
+
+    #header-logo
+        height 50px
+        background-image: url("/img/logo-negative.png")
+        background-size: contain
+        background-repeat: no-repeat
+        background-position center
+        margin-bottom 10px
+
+    h1
+        font-size: 14pt
+        text-align: right
+/*==============================================================================
+Index Styles - main
+==============================================================================*/
+main
+    padding 5vh 0 20px 20px
+    box-sizing: border-box
+
+main > *
+    width 100%
+    box-sizing: border-box
+    position relative
+
+    font-size 16pt
+    
+    svg
+        height 30px
+        width 30px
+    
+    .registration-button
+        background-color cd-flash
+        position absolute
+        right 0
+        top 0
+        padding 20px
+        display flex
+        align-items: center
+        justify-content: space-between
+        overflow: hidden
+        
+/*==============================================================================
+Index Styles - footer
+==============================================================================*/
+footer
+    height 10vh
+    padding 20px
+    box-sizing: border-box
+
+    display: flex
+    justify-content: center
+    align-items: center
+
+    font-size: 10pt
+
+    #sustsol-icon
+        height 20px
+        width 20px
+        svg
+            height 20px
+            width 20px
+        margin-right 5px

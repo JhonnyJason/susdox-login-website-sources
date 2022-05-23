@@ -1,5 +1,42 @@
 // registrationform styles
-#registrationform
-    width 100%
-    min-height 20px
-    background-color rgba(0, 0, 0, 0.2)
+#registrationview.here
+    transform translateX(0)
+
+#registrationview
+    @extends .fullpage-view
+        
+#registrationview-heading
+    font-size 16pt
+    background-color: cd-flash
+    
+    .back-button
+        padding 10px 20px
+        display: flex
+        align-items: center
+        justify-content: space-between
+    
+    svg
+        width 30px
+        height 30px
+
+
+#location-block
+    display flex
+    align-items: center
+    #plz-input 
+        width 60px
+        margin-right 5px
+    #location-input
+        width calc(100% - 65px)
+
+#want-fax-block
+    display: flex
+    align-items: center
+    #want-fax-input
+        width 20px
+
+#want-call-block
+    display: flex
+    align-items: center
+    #want-call-input
+        width 20px

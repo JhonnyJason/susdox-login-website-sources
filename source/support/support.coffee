@@ -1,13 +1,37 @@
 import Modules from "./allmodules"
-import domconnect from "./indexdomconnect"
+import domconnect from "./supportdomconnect"
 domconnect.initialize()
 
+delete Modules.patientloginviewmodule
+delete Modules.doctorloginviewmodule
 global.allModules = Modules
 
 ############################################################
+S = Modules.statemodule
+
+############################################################
+registrationFormHere = false
+
+############################################################
 appStartup = ->
-    ## which modules shall be kickstarted?
-    # Modules.appcoremodule.startUp()
+    registrationBlock.addEventListener("click", registrationClicked)
+    S.addOnChangeListener("registrationFormHere", registrationFormHereChanged)
+    return
+
+############################################################
+registrationFormHereChanged = ->
+    console.log("registrationFormHereChanged")
+    registrationFormHere = S.get("registrationFormHere")
+
+    if registrationFormHere then registrationview.classList.add("here")
+    else registrationview.classList.remove("here")
+    return
+    
+
+############################################################
+registrationClicked = ->
+    console.log("registrationClicked")
+    S.set("registrationFormHere", true)
     return
 
 ############################################################

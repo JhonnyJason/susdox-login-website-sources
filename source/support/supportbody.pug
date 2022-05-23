@@ -1,2 +1,16 @@
-h1 Sample Support
-p Sample Paragraph little Text for no use so it better be also no test, well it might say hello, Hello! :D                  1
+include ../svgiconsmodule/svgicons.pug
+include ../registrationviewmodule/registrationview.pug
+
+header
+    #header-logo
+    h1#header-subtitle Support
+main
+
+    #registration-block
+        .registration-button.click-button
+            .registration-text Ärzte Registrierung
+            .registration-arrow: svg: use(href="#svg-right-arrow")
+    
+footer
+    #sustsol-icon: svg: use(href="#svg-cross-icon")
+    #sustsol-text SustSol GmbH - 8044 Graz, Mariatroster Strasse 378b/7 
