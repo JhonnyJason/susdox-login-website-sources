@@ -6,45 +6,45 @@
             .heading-text Ärzte Registrierung
 
     .form-section
-        form#registration-form
+        form#registration-form(method="post" action="https://bilder-befunde.at/index.php?site=scripts/login.php&value=&register=1&check=1")
             label#title-label Titel: 
-            input#title-input(type="text")
+            input#title-input(name="title" type="text")
             
-            label#name-label Name*: 
-            input#name-input(type="text")
+            label#firstname-label Name*: 
+            input#firstname-input(name="firstname" type="text")
             
-            label#surname-label Nachname*: 
-            input#surname-input(type="text")
+            label#lastname-label Nachname*: 
+            input#lastname-input(name="lastname" type="text")
 
             label#address-label Adresse*: 
-            input#address-input(type="text")
+            input#address-input(name="address" type="text")
             
             label#location-label PLZ Ort*: 
             #location-block
-                input#plz-input(type="text")
-                input#location-input(type="text")
+                input#plz-input(name="plz" type="text" maxlength="5")
+                input#location-input(name="city" type="text")
 
             label#email-label E-Mail*: 
-            input#email-input(type="text")
+            input#email-input(name="email" type="text")
             
             label#fax-label Fax: 
-            input#fax-input(type="text")
+            input#fax-input(name="fax" type="text")
 
             .empty-cell 
             #want-fax-block
-                input#want-fax-input(type="checkbox")
+                input#want-fax-input(name="contact_fax" type="checkbox")
                 label#want-fax-label Ich bitte um meine Zugangsdaten per Fax!
 
             label#phone-label Telefon: 
-            input#phone-input(type="text")
+            input#phone-input(name="phone" type="text")
 
             .empty-cell 
             #want-call-block
-                input#want-call-input(type="checkbox")
+                input#want-call-input(name="contact_phone" type="checkbox")
                 label#want-call-label Ich bitte um einen Rückruf!
 
             .empty-cell
-            button#registration-submit-button() Registrieren
+            button#registration-submit-button(type="submit" name="submit") Registrieren
 
     .agb-hint-block 
         .hint Mit Klick auf REGISTRIEREN akzeptiere ich die <a href="/agb.pdf" target="_blank">AGB</a> und die <a href="/nutzungsbedingungen.pdf" target="_blank">Nutzungsbedingungen</a> der SustSol GmbH!
