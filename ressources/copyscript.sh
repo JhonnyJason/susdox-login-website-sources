@@ -17,5 +17,6 @@ cp sources/ressources/video/* output/video/
 
 cp sources/ressources/favicon/* output/
 cp sources/ressources/manifest/* output/
+cp sources/ressources/crypto-pbkdf2.js output/
 
 echo 0

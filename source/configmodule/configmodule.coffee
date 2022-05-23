@@ -1,23 +1,10 @@
-configmodule = {name: "configmodule", uimodule: false}
-############################################################
-#region printLogFunctions
-log = (arg) ->
-    if allModules.debugmodule.modulesToDebug["configmodule"]?  then console.log "[configmodule]: " + arg
-    return
-ostr = (obj) -> JSON.stringify(obj, null, 4)
-olog = (obj) -> log "\n" + ostr(obj)
-print = (arg) -> console.log(arg)
-#endregion
-
 ########################################################
-configmodule.initialize = ->
-    log "configmodule.initialize"
-    return    
+demoRoot = "https://extern.bilder-befunde.at"
+productionRoot = "https://bilder-befunde.at"
+authPart = "/caas/auth/v1/auth"
 
-########################################################
-#region exposedProperties
-configmodule.prop = true
+export loginURL = demoRoot+authPart+"/login" # demo
+# export loginURL = productionRoot+authPart+"/login" # production
 
-#endregion
-
-export default configmodule
+export logoutURL = demoRoot+authPart+"/logout" # demo
+# export logoutURL = productionRoot+authPart+"/logout" # production
