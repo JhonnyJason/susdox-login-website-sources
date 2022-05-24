@@ -21,8 +21,14 @@ Global Variables
 /*==========================================================
 General Tag Styles
 ==========================================================*/
+html
+    height 100%
 body
-    background-color cd-background
+    background-image: url("/img/background_3.png")
+    background-position center
+    background-size cover
+    background-repeat: no-repeat
+    // background-color cd-background
     color cd-foreground
     font-family: Arial, Helvetica, sans-serif
     text-align: center
@@ -58,10 +64,12 @@ Specific Global Class Styles
     
 .support-link-block
     font-size: 14pt
+    color cd-flash
     .link-button
         padding 20px
         box-sizing: border-box
-        border 1px solid white    
+        // border 1px solid white    
+        border 1px solid cd-flash    
         width 280px
         text-align: center
 
