@@ -1,0 +1,16 @@
+#main
+    #main-block-top
+        #main-block-content 
+            h1#content-title !{content.contentTitleText}
+            #patient-login-block
+                .login-button.click-button
+                    .login-text !{content.patientsLoginButtonText}
+                    .login-arrow: svg: use(href="#svg-right-arrow")
+            #doctor-login-block
+                .login-button.click-button
+                    .login-text !{content.doctorsLoginButtonText}
+                    .login-arrow: svg: use(href="#svg-right-arrow")
+            #support-block
+                include ../../supportbuttonmodule/supportbutton.pug
+        #main-block-decoration 
+

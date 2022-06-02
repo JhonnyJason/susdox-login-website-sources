@@ -2,15 +2,8 @@ include ../svgiconsmodule/svgicons.pug
 include ../registrationviewmodule/registrationview.pug
 
 header
-    #header-logo
-    h1#header-subtitle Support
+    include ../headermodule/header.pug
 main
-
-    #registration-block
-        .registration-button.click-button
-            .registration-text Ärzte Registrierung
-            .registration-arrow: svg: use(href="#svg-right-arrow")
-    
+    include components/main.pug    
 footer
-    #sustsol-icon: svg: use(href="#svg-cross-icon")
-    #sustsol-text SustSol GmbH - 8044 Graz, Mariatroster Strasse 378b/7 
+    include ../footermodule/footer.pug

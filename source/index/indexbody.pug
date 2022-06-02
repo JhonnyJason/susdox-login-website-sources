@@ -2,22 +2,9 @@ include ../svgiconsmodule/svgicons.pug
 include ../patientloginviewmodule/patientloginview.pug
 include ../doctorloginviewmodule/doctorloginview.pug
 
-header
-    #header-logo
-    h1#header-subtitle Bilder und Befunde online
+header.index
+    include ../headermodule/header.pug
 main
-    #patient-login-block
-        .login-button.click-button
-            .login-text Patienten Login
-            .login-arrow: svg: use(href="#svg-right-arrow")
-    #doctor-login-block
-        .login-button.click-button
-            .login-text Ärzte und Personal
-            .login-arrow: svg: use(href="#svg-right-arrow")
-    .support-link-block
-        a.link-button.click-button(href="/support.html") Support 
-
+    include components/main.pug
 footer
-    //- #sustsol-icon: svg: use(href="#svg-cross-icon")
-    #sustsol-icon
-    #sustsol-text SustSol GmbH - 8044 Graz, Mariatroster Strasse 378b/7 
+    include ../footermodule/footer.pug

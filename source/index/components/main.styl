@@ -1,0 +1,54 @@
+main
+    background-color cd-flash
+    color white
+    min-height: calc(100vh - 180px)
+
+#main
+    max-width 1024px
+    margin auto
+    h1
+        font-size: 32pt
+    svg
+        height 30px
+        width 30px
+
+    .login-button
+        background-color cd-background
+        padding 20px
+        display flex
+        align-items: center
+        justify-content: space-between
+        overflow: hidden
+
+#main-block-top
+    display: flex
+    justify-content: center
+    padding 70px 0
+#main-block-content
+    max-width: 320px
+
+#content-title
+    padding-bottom 50px
+    text-align: left
+
+#patient-login-block
+    margin-bottom 30px
+
+#doctor-login-block
+    margin-bottom 90px
+
+#support-block
+    padding-bottom 30px
+
+#main-block-decoration
+    display: none
+    width 800px
+    background-image url("/img/iStock_Frau.png")
+    background-size: contain
+    background-repeat: no-repeat
+    background-position center
+
+
+@media screen and (min-width: 800px)
+    #main-block-decoration
+        display: block
