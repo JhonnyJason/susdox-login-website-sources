@@ -1,62 +1,17 @@
 // patientloginform styles
-#patientloginview.here
-    transform translateX(0)
-
 #patientloginview
-    @extends .fullpage-view
-    
-    .form-section > *
-        position absolute
-        top 0
-        left 50%
-        height 200px
-        transform translateX(102vw)
-        transition: transform 0.3s
-    
-    .form-section
-        .here
-            position:  relative
-            transform translateX(-50%)
-        
-#patientlogin-heading
-    font-size 16pt
-    background-color: cd-darkblue
-    .back-button
-        padding 10px 20px
-        display: flex
-        align-items: center
-        justify-content: space-between
-    svg
-        width 30px
-        height 30px
+    .dark-support-block
+        margin-top 50px
 
-#patientlogin-options
-    margin-top 10px
-    .form-button
-        border 2px solid cd-darkblue
-        background-color cd-darkblue
-        width 50%
-        padding 7px
-    .on
-        .form-button
-            background-color cd-turquoise
-            color cd-darkblue
-
-#patient-fail-options
-    margin-top 10px
-    margin-bottom 10px
-    .fail-button
-        margin-top 5px
-        text-decoration: underline
-        color cd-darkblue
-    .on
-        .fail-button
-            text-decoration: none
-            color white
-
-#patient-svn-login-form
     .hint
         margin-bottom 15px
+
+    #no-pin-question
+        font-weight: bold
+        margin-bottom 10px
+        cursor pointer
+
+#patient-svn-login-form
     #svn-block
         display flex
         align-items: center
@@ -65,14 +20,13 @@
             box-sizing: border-box
         #svn-separator
             width 12px
+            text-align: center
             box-sizing: border-box
         #birthday-part-input
             width calc(100% - 62px)
             box-sizing: border-box
 
 #patient-authcode-login-form
-    .hint
-        margin-bottom 15px
     #authcode-block
         display flex
         align-items: center
@@ -84,8 +38,6 @@
             box-sizing: border-box
 
 #patient-renew-pin-form
-    .hint
-        margin-bottom 15px
     #pin-renew-svn-block
         display flex
         align-items: center
@@ -95,6 +47,16 @@
         #pin-renew-svn-separator
             width 12px
             box-sizing: border-box
+            text-align: center
         #pin-renew-birthday-part-input
             width calc(100% - 62px)
             box-sizing: border-box
+
+
+// use larger screens
+@media screen and (min-width: 750px)
+    #patientloginview
+        .form-section
+            display grid
+            grid-gap 50px
+            grid-template-columns: auto auto

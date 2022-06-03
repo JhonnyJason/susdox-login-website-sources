@@ -1,0 +1,32 @@
+#svnloginformblock.form-section-block
+    .form-block-heading 
+        h2#svnlogin-heading-text !{content.svnLoginHeadingText}
+    .backshadow-block 
+        p.hint !{content.svnLoginHintText}
+
+        form#patient-svn-login-form 
+            label#svn-label !{content.svnLoginSVNLabelText}
+            #svn-block
+                input#svn-part-input(name="svn-part" type="number")
+                #svn-separator -
+                input#birthday-part-input(name="svn-birthday-part" type="number")
+            label#pin-label(for="pin") !{content.svnLoginPinLabelText}
+            input#pin-input(type="number" name="pin")
+            button#svn-submit-button.click-button !{content.svnLoginSubmitButtonText}
+            .empty-cell
+
+        .agb-hint-block: p.hint !{sharedContent.agbHintText}
+
+    .grey-extension-block
+        h3#no-pin-question !{content.svnLoginNoPinQuestionText}
+        p.hint !{content.svnLoginNoPinHintText}
+
+        form#patient-renew-pin-form
+            label#pin-renew-svn-label !{content.svnLoginSVNLabelText}
+            #pin-renew-svn-block
+                input#pin-renew-svn-part-input(name="svn-part" type="number")
+                #pin-renew-svn-separator -
+                input#pin-renew-birthday-part-input(name="svn-birthday-part" type="number")
+            
+            button#pin-renew-submit-button !{content.svnLoginRenewPinSubmitButtonText}
+            .empty-cell

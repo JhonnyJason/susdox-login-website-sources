@@ -1,0 +1,19 @@
+#nosvnloginformblock.form-section-block
+    .form-block-heading 
+        h2#svnlogin-heading-text !{content.nosvnLoginHeadingText}
+    .backshadow-block 
+        p.hint !{content.nosvnLoginHintText}
+        form#patient-authcode-login-form
+            label#authcode-birthday-label(for="birthday") !{content.nosvnLoginBirthdayLabelText}
+            input#authcode-birthday-input(name="birthday" type="date")
+            label#authcode-input(for="authcode") !{content.nosvnLoginAuthcodeLabelText}
+            #authcode-block
+                #authcode-prefix AT-
+                input#authcode-input(name="authcode" type="number")
+            button#authcode-submit-button.click-button !{content.nosvnLoginSubmitButtonText}
+            .empty-cell
+            
+        .agb-hint-block: p.hint !{sharedContent.agbHintText}
+
+    .grey-extension-block
+        p#no-authcode-hint.hint !{content.nosvnLoginNoAuthcodeHintText}
