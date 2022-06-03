@@ -2,8 +2,8 @@ indexdomconnect = {name: "indexdomconnect"}
 
 ############################################################
 indexdomconnect.initialize = () ->
-    global.patientLoginBlock = document.getElementById("patient-login-block")
     global.doctorLoginBlock = document.getElementById("doctor-login-block")
+    global.patientLoginBlock = document.getElementById("patient-login-block")
     global.doctorloginview = document.getElementById("doctorloginview")
     global.doctorloginHeading = document.getElementById("doctorlogin-heading")
     global.vpnInput = document.getElementById("vpn-input")

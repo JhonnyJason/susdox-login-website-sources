@@ -1,0 +1,18 @@
+#doctorloginformblock.form-section-block
+    .form-block-heading 
+        h2#doctorlogin-heading-text !{content.doctorloginHeadingText}
+    .backshadow-block
+        form#doctorlogin-form
+            label#vpn-label(for="vpn") !{content.doctorloginVPNLabelText}
+            input#vpn-input(type="text" name="vpn")
+            label#username-label(for="username") !{content.doctorloginUsernameLabelText} 
+            input#username-input(type="text" name="username")
+            label#password-label(for="password") !{content.doctorloginPasswordLabelText}
+            input#password-input(type="password" name="password")
+            #save-login-block
+                input#save-login-input(type="checkbox" name="save-login")
+                label#save-login-label(for="save-login") !{content.doctorloginSaveLoginLabelText}
+            .empty-cell
+            button#doctorlogin-submit-button(type="submit") !{content.doctorloginSubmitButtonText}
+        
+        .agb-hint-block: .hint !{sharedContent.agbHintText}

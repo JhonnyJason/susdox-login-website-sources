@@ -1,21 +1,36 @@
 // doctorloginform styles
-#doctorloginview.here
-    transform translateX(0)
 
-#doctorloginview
-    @extends .fullpage-view
+// specifics for doctorloginformblock
+#save-login-block
+    display flex
+    align-items: center
+    margin-top 10px
 
-    .support-link-block
-        margin-top 30px
-        
-#doctorlogin-heading
-    font-size 16pt
-    background-color: cd-flash
-    .back-button
-        padding 10px 20px
-        display: flex
-        align-items: center
-        justify-content: space-between
-    svg
-        width 30px
-        height 30px
+#save-login-input
+    width 20px
+
+#doctorlogin-submit-button
+    margin-top 10px
+    cursor: pointer
+
+// specifics for doctormiscblock
+#doctormisc-hint-text
+    margin-bottom 20px
+
+#doctormisc-continue-button
+    min-width 150px
+
+#no-login-data
+    margin-bottom 5px
+
+// #get-login-data-link    
+//     text-transform: uppercase
+
+// use larger screens
+@media screen and (min-width: 750px)
+    #doctorloginview
+        .form-section
+            display grid
+            grid-gap 50px
+            grid-template-columns: auto auto
+    

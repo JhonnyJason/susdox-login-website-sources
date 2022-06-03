@@ -1,5 +1,5 @@
 main
-    background-color cd-flash
+    background-color cd-darkblue
     color white
     min-height: calc(100vh - 180px)
 
@@ -7,35 +7,44 @@ main
     max-width 1024px
     margin auto
     h1
-        font-size: 32pt
-    svg
-        height 30px
-        width 30px
+        font-size: 36pt
+        font-weight: bold
 
     .login-button
-        background-color cd-background
+        background-color cd-turquoise
         padding 20px
         display flex
         align-items: center
         justify-content: space-between
         overflow: hidden
+        text-align left
+
+        svg
+            height 35px
+            width 35px
 
 #main-block-top
     display: flex
     justify-content: center
-    padding 70px 0
+    padding-top content-padding-top
+    padding-bottom content-padding-bottom
+
 #main-block-content
     max-width: 320px
+    padding: 10px
+    box-sizing: border-box
 
 #content-title
-    padding-bottom 50px
-    text-align: left
+    padding-bottom 20px
 
+#content-slogan
+    padding-bottom 60px
+    
 #patient-login-block
-    margin-bottom 30px
+    margin-bottom 90px
 
 #doctor-login-block
-    margin-bottom 90px
+    margin-bottom 30px
 
 #support-block
     padding-bottom 30px

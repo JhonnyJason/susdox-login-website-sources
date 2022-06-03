@@ -1,0 +1,84 @@
+// formstyle styles
+.form-section
+    position relative
+    box-sizing: border-box
+    padding 20px
+    width 100%
+    font-size: 11pt
+
+    p
+        font-size 11pt
+        
+    label
+        font-size: 11pt
+        text-align: left
+    form
+        margin auto
+        max-width 500px
+        display grid
+        grid-template-columns: auto auto
+        grid-column-gap: 5px
+        grid-row-gap: 12px
+    a
+        color cd-turquoise
+    
+    form > *
+        align-self: center
+
+    input
+        text-overflow: ellipsis;
+        padding: 7px
+        box-sizing: border-box
+        color cd-darkblue
+        background-color white
+        border solid 1px cd-darkblue
+        width 100%
+        text-align: center
+
+    input:focus
+        padding: 7px
+        background-color white
+
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button
+        -webkit-appearance: none
+        margin: 0
+
+    input[type=number]
+        -moz-appearance:textfield
+
+    // input[type="number"]
+    //     appearance: none
+    // input[type="number"]:focus, 
+    // input[type="number"]:hover
+    //     appearance: text
+
+    button
+        background-color cd-darkblue
+        color white
+        font-size: 11pt
+        padding 10px
+
+.hint 
+    font-size: 10pt
+
+.form-block-heading
+    text-align center
+    background-color cd-turquoise
+    color white
+    text-transform uppercase
+    font-size: 14pt
+    font-weight bold
+    padding 20px
+
+.backshadow-block
+    padding 20px
+    background white
+    filter: drop-shadow(0 2px 2px #bbb);
+    .agb-hint-block
+        margin-top 20px
+        font-size 10pt
+.grey-extension-block
+    padding 20px
+    background-color cd-lightgrey
