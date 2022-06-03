@@ -1,50 +1,20 @@
 //- registrationform structure
-#registrationview
-    #registrationview-heading
-        .back-button.click-button
-            .back-arrow: svg: use(href="#svg-left-arrow")
-            .heading-text Ärzte Registrierung
+#registrationview.fullpage-view
 
-    .form-section
-        form#registration-form(method="post" action="https://bilder-befunde.at/index.php?site=scripts/login.php&value=&register=1&check=1")
-            label#title-label Titel: 
-            input#title-input(name="title" type="text")
-            
-            label#firstname-label Name*: 
-            input#firstname-input(name="firstname" type="text")
-            
-            label#lastname-label Nachname*: 
-            input#lastname-input(name="lastname" type="text")
+    .pageviewheader
+        #registrationview-heading.pageview-heading
+            .back-arrow: svg: use(href="#svg-left-chevron")
+            .pageviewheader-logo-block
+                .pageviewheader-logo
+                h1.pageviewheader-subtitle !{content.headerSubtitle}
+            .pageviewheader-language-tags 
+                .pageviewheader-de-tag-link !{content.deTagLink} 
+                .pageviewheader-en-tag-link !{content.enTagLink}
 
-            label#address-label Adresse*: 
-            input#address-input(name="address" type="text")
-            
-            label#location-label PLZ Ort*: 
-            #location-block
-                input#plz-input(name="plz" type="text" maxlength="5")
-                input#location-input(name="city" type="text")
+    .content-section 
+        h1.content-title !{content.registrationButtonText}
+        p.content-slogan !{sharedContent.contentSloganText}
 
-            label#email-label E-Mail*: 
-            input#email-input(name="email" type="text")
-            
-            label#fax-label Fax: 
-            input#fax-input(name="fax" type="text")
+        .form-section: include registrationformblock.pug
 
-            .empty-cell 
-            #want-fax-block
-                input#want-fax-input(name="contact_fax" type="checkbox")
-                label#want-fax-label Ich bitte um meine Zugangsdaten per Fax!
-
-            label#phone-label Telefon: 
-            input#phone-input(name="phone" type="text")
-
-            .empty-cell 
-            #want-call-block
-                input#want-call-input(name="contact_phone" type="checkbox")
-                label#want-call-label Ich bitte um einen Rückruf!
-
-            .empty-cell
-            button#registration-submit-button(type="submit" name="submit") Registrieren
-
-    .agb-hint-block 
-        .hint Mit Klick auf REGISTRIEREN akzeptiere ich die <a href="/agb.pdf" target="_blank">AGB</a> und die <a href="/nutzungsbedingungen.pdf" target="_blank">Nutzungsbedingungen</a> der SustSol GmbH!
+    .footer-section: include ../footermodule/footer.pug

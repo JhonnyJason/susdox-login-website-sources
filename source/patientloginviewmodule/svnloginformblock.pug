@@ -5,7 +5,7 @@
         p.hint !{content.svnLoginHintText}
 
         form#patient-svn-login-form 
-            label#svn-label !{content.svnLoginSVNLabelText}
+            label#svn-labelfor(svn-part) !{content.svnLoginSVNLabelText}
             #svn-block
                 input#svn-part-input(name="svn-part" type="number")
                 #svn-separator -
@@ -15,14 +15,14 @@
             button#svn-submit-button.click-button !{content.svnLoginSubmitButtonText}
             .empty-cell
 
-        .agb-hint-block: p.hint !{sharedContent.agbHintText}
+        .agb-hint-block: p.hint !{content.agbHintText}
 
     .grey-extension-block
         h3#no-pin-question !{content.svnLoginNoPinQuestionText}
         p.hint !{content.svnLoginNoPinHintText}
 
         form#patient-renew-pin-form
-            label#pin-renew-svn-label !{content.svnLoginSVNLabelText}
+            label#pin-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
             #pin-renew-svn-block
                 input#pin-renew-svn-part-input(name="svn-part" type="number")
                 #pin-renew-svn-separator -

@@ -1,0 +1,45 @@
+#registrationformblock.form-section-block
+    .form-block-heading
+        h2#registration-heading-text !{content.registrationHeadingText}
+    .backshadow-block
+        form#registration-form(method="post" action="https://bilder-befunde.at/index.php?site=scripts/login.php&value=&register=1&check=1")
+            label#title-label(for="title") !{content.registrationTitleLableText}  
+            input#title-input(name="title" type="text")
+            
+            label#firstname-label(for="firstname") !{content.registrationFirstnameLableText}
+            input#firstname-input(name="firstname" type="text")
+            
+            label#lastname-label(for="lastname") !{content.registrationLastnameLableText} 
+            input#lastname-input(name="lastname" type="text")
+
+            label#address-label(for="address") !{content.registrationAddressLableText} 
+            input#address-input(name="address" type="text")
+            
+            label#location-label(for="plz") !{content.registrationPLZLableText} 
+            #location-block
+                input#plz-input(name="plz" type="text" maxlength="5")
+                input#location-input(name="city" type="text")
+
+            label#email-label(for="email") !{content.registrationEmailLableText}  
+            input#email-input(name="email" type="text")
+            
+            label#fax-label(for="fax") !{content.registrationFaxLableText}  
+            input#fax-input(name="fax" type="text")
+
+            .empty-cell 
+            #want-fax-block
+                input#want-fax-input(name="contact_fax" type="checkbox")
+                label#want-fax-label(for="contact_fax") !{content.registrationContactFaxLableText}
+
+            label#phone-label(for="phone") !{content.registrationPhoneLableText} 
+            input#phone-input(name="phone" type="text")
+
+            .empty-cell 
+            #want-call-block
+                input#want-call-input(name="contact_phone" type="checkbox")
+                label#want-call-label(for="contact_phone") !{content.registrationContactPhoneLableText}
+
+            .empty-cell
+            button#registration-submit-button(type="submit" name="submit") !{content.registrationSubmitButtonText}
+
+        .agb-hint-block: .hint !{content.agbHintText}
