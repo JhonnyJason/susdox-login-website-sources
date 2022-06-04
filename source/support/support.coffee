@@ -23,8 +23,12 @@ registrationFormHereChanged = ->
     console.log("registrationFormHereChanged")
     registrationFormHere = S.get("registrationFormHere")
 
-    if registrationFormHere then registrationview.classList.add("here")
-    else registrationview.classList.remove("here")
+    if registrationFormHere 
+        registrationview.classList.add("here")
+        document.body.style.height = ""+registrationview.clientHeight+"px"
+    else 
+        registrationview.classList.remove("here")
+        document.body.style.height = "auto"
     return
     
 

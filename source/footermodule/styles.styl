@@ -1,22 +1,21 @@
-.footer-section
 footer
     //for background experiment
     color cd-darkblue
     background-color white
 
-    height 70px
-    padding 20px
+    padding 30px 10px
     box-sizing: border-box
+    border-top solid 10px cd-turquoise
 
-    display: flex
-    justify-content: center
-    align-items: center
-
-    font-size: 10pt
+.footer-section
+    @extends footer
+    border-top solid 10px cd-darkblue
 
 .footer
     display: flex
+    justify-content: center
     align-items: center
+    font-size: 10pt
 
     .sustsol-icon
         height 25px
@@ -24,6 +23,7 @@ footer
         background-image url("/img/icon.png")
         background-size: contain
         background-repeat: no-repeat
+
     
 .footer-text-block
     margin 7px

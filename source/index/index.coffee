@@ -15,6 +15,7 @@ historyStatePushed = false
 
 ############################################################
 appStartup = ->
+
     patientLoginBlock.addEventListener("click", patientLoginClicked)
     doctorLoginBlock.addEventListener("click", doctorLoginClicked)
 
@@ -42,11 +43,15 @@ loginViewChanged = ->
 unsetLoginViews = ->
     doctorloginview.classList.remove("here")
     patientloginview.classList.remove("here")
+    document.body.style.height = "auto"
     return
 
 setStateInPatientView = ->
     doctorloginview.classList.remove("here")
     patientloginview.classList.add("here")
+    
+    document.body.style.height =""+patientloginview.clientHeight+"px"
+    
     # return if historyStatePushed 
     # window.history.pushState({loginView: "patient"}, "", "#patienten_login");
     # historyStatePushed = true
@@ -55,6 +60,9 @@ setStateInPatientView = ->
 setStateInDoctorView = ->
     patientloginview.classList.remove("here")
     doctorloginview.classList.add("here")
+    
+    document.body.style.height = ""+doctorloginview.clientHeight+"px"
+    
     # return if historyStatePushed 
     # window.history.pushState({loginView: "doctor"}, "", "#ärzte_login");
     # historyStatePushed = true
