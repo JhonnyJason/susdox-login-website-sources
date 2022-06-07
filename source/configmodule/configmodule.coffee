@@ -1,7 +1,7 @@
 ########################################################
 demoRoot = "https://extern.bilder-befunde.at"
 productionRoot = "https://bilder-befunde.at"
-authPart = "//service/api/v1/auth/login"
+authPart = "/service/api/v1/auth"
 
 export loginURL = demoRoot+authPart+"/login" # demo
 # export loginURL = productionRoot+authPart+"/login" # production
