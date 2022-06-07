@@ -47,12 +47,13 @@ loginClicked = (evt) ->
 extractLoginBody = ->
     vpn = vpnInput.value.toLowerCase()
     # TODO check if vpn is valid - ignoring for now
+    isMedic = true
     username = usernameInput.value.toLowerCase()
     password = passwordInput.value
 
     hashedPw = await computeHashedPw(vpn, username, password)
     
-    return {vpn, username, hashedPw}
+    return {vpn, username, hashedPw, isMedic}
 
 
 ############################################################

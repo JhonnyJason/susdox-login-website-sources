@@ -12,6 +12,14 @@ indexdomconnect.initialize = () ->
     global.doctorloginSubmitButton = document.getElementById("doctorlogin-submit-button")
     global.patientloginview = document.getElementById("patientloginview")
     global.patientloginHeading = document.getElementById("patientlogin-heading")
+    global.authcodeBirthdayInput = document.getElementById("authcode-birthday-input")
+    global.authcodeInput = document.getElementById("authcode-input")
+    global.authcodeInput = document.getElementById("authcode-input")
+    global.authcodeSubmitButton = document.getElementById("authcode-submit-button")
+    global.svnPartInput = document.getElementById("svn-part-input")
+    global.birthdayPartInput = document.getElementById("birthday-part-input")
+    global.pinInput = document.getElementById("pin-input")
+    global.svnSubmitButton = document.getElementById("svn-submit-button")
     return
     
 module.exports = indexdomconnect
