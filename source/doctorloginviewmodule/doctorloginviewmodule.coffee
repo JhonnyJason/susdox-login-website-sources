@@ -15,6 +15,7 @@ export initialize = ->
     log "initialize"
     doctorloginHeading.addEventListener("click", backButtonClicked)
     doctorloginSubmitButton.addEventListener("click", loginClicked)
+    doctormiscContinueButton.addEventListener("click", doctormiscContinueButtonClicked)
     return
 
 ############################################################
@@ -33,6 +34,11 @@ errorFeedback = (error) ->
     return
 
 ############################################################
+doctormiscContinueButtonClicked = (evt) ->
+    log "doctormiscContinueButtonClicked"
+    S.save("loginView", "patient")
+    return
+
 loginClicked = (evt) ->
     log "loginClicked"
     evt.preventDefault()

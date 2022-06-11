@@ -16,6 +16,8 @@ registrationFormHere = false
 appStartup = ->
     registrationBlock.addEventListener("click", registrationClicked)
     S.addOnChangeListener("registrationFormHere", registrationFormHereChanged)
+    
+    if location.href.indexOf("#registration") > 0 then S.set("registrationFormHere", true)
     return
 
 ############################################################
