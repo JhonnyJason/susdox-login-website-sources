@@ -54,7 +54,7 @@ loginClicked = (evt) ->
         # await response.redirect(loginRedirectURL)
         olog document.cookie
         document.cookie = "webviewToken:"+responseBody.webviewToken+";"
-        location.href = loginRedirectURL
+        # location.href = loginRedirectURL
 
     catch err then return errorFeedback(err)
     return
