@@ -56,7 +56,7 @@ loginClicked = (evt) ->
         # document.cookie = "webviewToken:"+responseBody.webviewToken+";"
 
         # response.redirect(loginRedirectURL+responseBody.redirect)
-        location.href = loginRedirectURL+responseBody.redirect
+        location.href = loginRedirectURL
 
     catch err then return errorFeedback(err)
     return
