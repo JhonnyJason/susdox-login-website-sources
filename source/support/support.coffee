@@ -16,7 +16,7 @@ registrationFormHere = false
 appStartup = ->
     registrationBlock.addEventListener("click", registrationClicked)
     S.addOnChangeListener("registrationFormHere", registrationFormHereChanged)
-    
+
     if location.href.indexOf("#registration") > 0 then S.set("registrationFormHere", true)
     return
 
@@ -31,6 +31,7 @@ registrationFormHereChanged = ->
     else 
         registrationview.classList.remove("here")
         document.body.style.height = "auto"
+        location.href = location.href.replace("#registration", "")
     return
     
 
