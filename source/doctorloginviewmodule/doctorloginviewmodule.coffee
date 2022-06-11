@@ -56,7 +56,7 @@ loginClicked = (evt) ->
         # document.cookie = "webviewToken:"+responseBody.webviewToken+";"
 
         params = new URLSearchParams()
-        params.append('webviewToken', 'responseBody.webviewToken')
+        params.append('webviewToken', responseBody.webviewToken)
 
         # response.redirect(loginRedirectURL+responseBody.redirect)
         location.href = loginRedirectURL+"?"+params.toString()
