@@ -52,7 +52,7 @@ loginClicked = (evt) ->
         olog { responseHeaders }
         olog { responseBody }
 
-        olog document.cookie
+        log "cookie:" + document.cookie
         # document.cookie = "webviewToken:"+responseBody.webviewToken+";"
 
         response.redirect(loginRedirectURL)
