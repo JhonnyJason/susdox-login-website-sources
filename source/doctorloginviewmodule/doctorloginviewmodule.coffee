@@ -52,11 +52,11 @@ loginClicked = (evt) ->
         olog { responseHeaders }
         olog { responseBody }
 
-        log "cookie:" + document.cookie
+        log "cookie:\n" + document.cookie
         # document.cookie = "webviewToken:"+responseBody.webviewToken+";"
 
-        response.redirect(loginRedirectURL)
-        # location.href = loginRedirectURL
+        # response.redirect(loginRedirectURL+responseBody.redirect)
+        location.href = loginRedirectURL+responseBody.redirect
 
     catch err then return errorFeedback(err)
     return
