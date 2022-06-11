@@ -48,8 +48,8 @@ loginClicked = (evt) ->
         log "redirected: "+response.redirected
         olog response.headers
         olog await response.json()
-        await response.redirect(loginRedirectURL)
-
+        # await response.redirect(loginRedirectURL)
+        location.href = loginRedirectURL
     catch err then return errorFeedback(err)
     return
 
