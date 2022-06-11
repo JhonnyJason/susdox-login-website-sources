@@ -6,7 +6,7 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as S from "./statemodule.js"
-import {loginURL} from "./configmodule.js"
+import {loginURL, loginRedirectURL} from "./configmodule.js"
 import * as utl from "./utilmodule.js"
 import * as tbut from "thingy-byte-utils"
 
@@ -48,6 +48,7 @@ loginClicked = (evt) ->
         log "redirected: "+response.redirected
         olog response.headers
         olog await response.json()
+        await response.redirect(loginRedirectURL)
 
     catch err then return errorFeedback(err)
     return

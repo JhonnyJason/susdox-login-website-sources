@@ -8,3 +8,5 @@ export loginURL = productionRoot+authPart+"/login" # production
 
 export logoutURL = demoRoot+authPart+"/logout" # demo
 # export logoutURL = productionRoot+authPart+"/logout" # production
+
+export loginRedirectURL = "https://www.bilder-befunde.at/webview"
