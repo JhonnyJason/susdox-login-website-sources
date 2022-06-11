@@ -41,19 +41,21 @@ loginClicked = (evt) ->
         olog {loginBody}
         response = await doLoginRequest(loginBody)
         responseBody = await response.json()
-        
+        responseHeaders = response.headers
+
         log " - - - - received response"
         olog response
         log "url: "+response.url
         log "status: "+response.status
         log "type: "+response.type
         log "redirected: "+response.redirected
-        olog response.headers
-        olog responseBody
+        olog { responseHeaders }
+        olog { responseBody }
 
-        # await response.redirect(loginRedirectURL)
         olog document.cookie
-        document.cookie = "webviewToken:"+responseBody.webviewToken+";"
+        # document.cookie = "webviewToken:"+responseBody.webviewToken+";"
+
+        response.redirect(loginRedirectURL)
         # location.href = loginRedirectURL
 
     catch err then return errorFeedback(err)
