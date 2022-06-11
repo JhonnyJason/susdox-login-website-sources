@@ -40,8 +40,15 @@ loginClicked = (evt) ->
         loginBody = await extractLoginBody()
         olog {loginBody}
         response = await doLoginRequest(loginBody)
+        log " - - - - received response"
         olog response
-        log response.url
+        log "url: "+response.url
+        log "status: "+response.status
+        log "type: "+response.type
+        log "redirected: "+response.redirected
+        olog response.headers
+        olog await response.json()
+
     catch err then return errorFeedback(err)
     return
 
@@ -156,8 +163,8 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
 doLoginRequest = (body) ->
     method = "POST"
     mode = 'cors'
-    # redirect =  'follow'
     redirect =  'follow'
+    # redirect =  'manual'
     credentials = 'include'
     
     # url encoded
