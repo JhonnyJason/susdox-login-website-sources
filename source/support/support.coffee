@@ -28,7 +28,7 @@ registrationFormHereChanged = ->
     if registrationFormHere 
         registrationview.classList.add("here")
         document.body.style.height = ""+registrationview.clientHeight+"px"
-        location.href = location.href + "#registration"
+        location.href = location.href + "#registration" unless location.href.indexOf("#registration") > 0
     else 
         registrationview.classList.remove("here")
         document.body.style.height = "auto"
