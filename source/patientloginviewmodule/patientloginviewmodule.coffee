@@ -59,12 +59,13 @@ svnSubmitClicked = (evt) ->
 extractSVNFormBody = ->
 
     isMedic = false
+    rememberMe = false
     username = ""+svnPartInput.value+birthdayPartInput.value
     password = ""+pinInput.value
 
     hashedPw = await computeHashedPw(username, password)
     
-    return {username, hashedPw, isMedic}
+    return {username, hashedPw, isMedic, rememberMe}
 
 extractNoSVNFormBody = ->
 

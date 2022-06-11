@@ -9,6 +9,7 @@ indexdomconnect.initialize = () ->
     global.vpnInput = document.getElementById("vpn-input")
     global.usernameInput = document.getElementById("username-input")
     global.passwordInput = document.getElementById("password-input")
+    global.saveLoginInput = document.getElementById("save-login-input")
     global.doctorloginSubmitButton = document.getElementById("doctorlogin-submit-button")
     global.patientloginview = document.getElementById("patientloginview")
     global.patientloginHeading = document.getElementById("patientlogin-heading")

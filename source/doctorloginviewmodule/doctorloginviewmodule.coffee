@@ -39,7 +39,9 @@ loginClicked = (evt) ->
     try
         loginBody = await extractLoginBody()
         olog {loginBody}
-        await doLoginRequest(loginBody)
+        response = await doLoginRequest(loginBody)
+        olog response
+        log response.url
     catch err then return errorFeedback(err)
     return
 
@@ -48,12 +50,13 @@ extractLoginBody = ->
     vpn = vpnInput.value.toLowerCase()
     # TODO check if vpn is valid - ignoring for now
     isMedic = true
+    rememberMe = saveLoginInput.checked
     username = usernameInput.value.toLowerCase()
     password = passwordInput.value
 
     hashedPw = await computeHashedPw(vpn, username, password)
     
-    return {vpn, username, hashedPw, isMedic}
+    return {vpn, username, hashedPw, isMedic, rememberMe}
 
 
 ############################################################
@@ -153,6 +156,7 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
 doLoginRequest = (body) ->
     method = "POST"
     mode = 'cors'
+    # redirect =  'follow'
     redirect =  'follow'
     credentials = 'include'
     
