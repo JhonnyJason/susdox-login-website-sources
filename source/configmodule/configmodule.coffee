@@ -10,4 +10,4 @@ export loginURL = demoRoot+authPartDemo+"/login" # demo
 
 
 # export loginRedirectURL = "https://www.bilder-befunde.at/webview"
-export loginRedirectURL = "https://webview.bilder-befunde.at/webview"
+export loginRedirectURL = "https://webview.bilder-befunde.at"
