@@ -1,13 +1,13 @@
 ########################################################
 demoRoot = "https://extern.bilder-befunde.at"
 productionRoot = "https://bilder-befunde.at"
-authPart = "/service/api/v1/auth"
 
-export loginURL = demoRoot+authPart+"/login" # demo
-# export loginURL = productionRoot+authPart+"/login" # production
+authPartProduction = "/service/api/v1/auth"
+authPartDemo = "caas/api/v1/auth"
 
-export logoutURL = demoRoot+authPart+"/logout" # demo
-# export logoutURL = productionRoot+authPart+"/logout" # production
+export loginURL = demoRoot+authPartDemo+"/login" # demo
+# export loginURL = productionRoot+authPartProduction+"/login" # production
+
 
 # export loginRedirectURL = "https://www.bilder-befunde.at/webview"
 export loginRedirectURL = "https://webview.bilder-befunde.at"
