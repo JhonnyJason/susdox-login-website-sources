@@ -16,7 +16,7 @@ pageview-header styles
 
     .pageviewheader-logo
         height 50px
-        width 240px
+        width 180px
         margin auto
         margin-bottom 10px
         background-image: url("img/logo-negative.png")
@@ -44,6 +44,12 @@ pageview-header styles
 .pageviewheader-language-tags > *
     padding 0 3px
     font-size: 10pt
+
+
+@media screen and (min-width: 380px)
+    .pageview-heading
+        .pageviewheader-logo
+            width 240px
 
 /*==============================================================================
 pageview styles
@@ -76,7 +82,7 @@ pageview styles
     h1
         font-size 28pt
         font-weight bold
-    
+        line-height 110%    
     .content-title
         text-align: center
         margin-bottom 20px

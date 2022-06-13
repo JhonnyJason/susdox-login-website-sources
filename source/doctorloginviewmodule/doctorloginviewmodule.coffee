@@ -48,6 +48,7 @@ doctormiscContinueButtonClicked = (evt) ->
 loginClicked = (evt) ->
     log "loginClicked"
     evt.preventDefault()
+    doctorloginSubmitButton.disabled = true
     try
         loginBody = await extractLoginBody()
         olog {loginBody}
@@ -55,9 +56,9 @@ loginClicked = (evt) ->
         if !loginBody.vpn and !loginBody.username and !loginBody.hashedPw then return
 
         redirectURL = loginRedirectURL
-        if loginBody.usedURL == "webviewroute" then redirectURL = webviewRoute
-        if loginBody.usedURL == "webviewsubdomain" then redirectURL = webviewSubdomain
-        if loginBody.usedURL == "webviewrouteandsubdomain" then redirectURL = webviewRouteAndSubdomain
+        # if loginBody.usedURL == "webviewroute" then redirectURL = webviewRoute
+        # if loginBody.usedURL == "webviewsubdomain" then redirectURL = webviewSubdomain
+        # if loginBody.usedURL == "webviewrouteandsubdomain" then redirectURL = webviewRouteAndSubdomain
 
         response = await doLoginRequest(loginBody)
         if !response.ok then errorFeedback("Response Status not OK!")
@@ -86,6 +87,7 @@ loginClicked = (evt) ->
 
 
     catch err then return errorFeedback(err)
+    finally doctorloginSubmitButton.disabled = false
     return
 
 ############################################################
@@ -97,13 +99,14 @@ extractLoginBody = ->
     username = usernameInput.value.toLowerCase()
     password = passwordInput.value
     
-    usedURL = usedUrlSelect.value
-    log usedURL
+    # usedURL = usedUrlSelect.value
+    # log usedURL
 
     if password then hashedPw = await computeHashedPw(vpn, username, password)
     else hashedPw = ""
 
-    return {vpn, username, hashedPw, isMedic, rememberMe, usedURL}
+    # return {vpn, username, hashedPw, isMedic, rememberMe, usedURL}
+    return {vpn, username, hashedPw, isMedic, rememberMe}
 
 
 ############################################################
@@ -224,3 +227,12 @@ doLoginRequest = (body) ->
 ############################################################
 export enterWasClicked = (evt) -> loginClicked(evt)
 
+export onPageViewEntry = ->
+    log "onPageViewEntry"
+
+    doFocus = ->
+        vpnInput.setSelectionRange(0,0)
+        vpnInput.focus()
+
+    setTimeout(doFocus, 400)
+    return

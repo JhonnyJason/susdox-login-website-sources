@@ -61,6 +61,7 @@ errorFeedback = (error) ->
 authcodeSubmitClicked = (evt) ->
     log "authcodeSubmitClicked"
     evt.preventDefault()
+    authcodeSubmitButton.disabled = true
     try
         loginBody = await extractNoSVNFormBody()
         olog {loginBody}
@@ -73,11 +74,13 @@ authcodeSubmitClicked = (evt) ->
         else location.href = loginRedirectURL
 
     catch err then return errorFeedback({authcode:true, msg: err.message})
+    finally authcodeSubmitButton.disabled = false
     return
 
 svnSubmitClicked = (evt) ->
     log "svnSubmitClicked"
     evt.preventDefault()
+    svnSubmitButton.disabled = true
     try
         loginBody = await extractSVNFormBody()
         olog {loginBody}
@@ -90,6 +93,7 @@ svnSubmitClicked = (evt) ->
         else location.href = loginRedirectURL
 
     catch err then return errorFeedback({svnLogin:true, msg: err.message})
+    finally svnSubmitButton.disabled = false
     return
 
 ############################################################
@@ -200,3 +204,14 @@ export enterWasClicked = (evt) ->
     if pinInput.value then svnSubmitClicked(evt)
     else if authcodeInput.value then authcodeSubmitClicked(evt)
     return
+
+export onPageViewEntry = ->
+    log "onPageViewEntry"
+
+    doFocus = ->
+        # svnPartInput.setSelectionRange(0, 0)
+        svnPartInput.focus()
+
+    setTimeout(doFocus, 400)
+    return
+

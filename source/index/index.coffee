@@ -53,7 +53,9 @@ setStateInPatientView = ->
     patientloginview.classList.add("here")
     
     document.body.style.height =""+patientloginview.clientHeight+"px"
-    
+
+    Modules.patientloginviewmodule.onPageViewEntry()
+
     # return if historyStatePushed 
     # window.history.pushState({loginView: "patient"}, "", "#patienten_login");
     # historyStatePushed = true
@@ -64,6 +66,8 @@ setStateInDoctorView = ->
     doctorloginview.classList.add("here")
     
     document.body.style.height = ""+doctorloginview.clientHeight+"px"
+    
+    Modules.doctorloginviewmodule.onPageViewEntry()
     
     # return if historyStatePushed 
     # window.history.pushState({loginView: "doctor"}, "", "#ärzte_login");
