@@ -56,7 +56,7 @@ loginClicked = (evt) ->
 
 
         response = await doLoginRequest(loginBody)
-        if response.status != "OK" then errorFeedback("Response Status not OK!")
+        if !response.ok then errorFeedback("Response Status not OK!")
         else location.href = loginRedirectURL        
         
         # responseBody = await response.json()
