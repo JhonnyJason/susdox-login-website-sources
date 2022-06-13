@@ -6,7 +6,7 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as S from "./statemodule.js"
-import {loginURL, loginRedirectURL} from "./configmodule.js"
+import { loginURL, loginRedirectURL, webviewSubdomain, webviewRoute, webviewRouteAndSubdomain } from "./configmodule.js"
 import * as utl from "./utilmodule.js"
 import * as tbut from "thingy-byte-utils"
 
@@ -54,10 +54,14 @@ loginClicked = (evt) ->
 
         if !loginBody.vpn and !loginBody.username and !loginBody.hashedPw then return
 
+        redirectURL = loginRedirectURL
+        if loginBody.usedURL == "webviewroute" then redirectURL = webviewRoute
+        if loginBody.usedURL == "webviewsubdomain" then redirectURL = webviewSubdomain
+        if loginBody.usedURL == "webviewrouteandsubdomain" then redirectURL = webviewRouteAndSubdomain
 
         response = await doLoginRequest(loginBody)
         if !response.ok then errorFeedback("Response Status not OK!")
-        else location.href = loginRedirectURL        
+        else location.href = redirectURL        
         
         # responseBody = await response.json()
         # responseHeaders = response.headers
@@ -92,11 +96,14 @@ extractLoginBody = ->
     rememberMe = saveLoginInput.checked
     username = usernameInput.value.toLowerCase()
     password = passwordInput.value
+    
+    usedURL = usedUrlSelect.value
+    log usedURL
 
     if password then hashedPw = await computeHashedPw(vpn, username, password)
     else hashedPw = ""
 
-    return {vpn, username, hashedPw, isMedic, rememberMe}
+    return {vpn, username, hashedPw, isMedic, rememberMe, usedURL}
 
 
 ############################################################

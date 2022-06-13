@@ -39,6 +39,7 @@ errorFeedback = (error) ->
         return
 
     if error.svnLogin
+        doctorloginForm.classList.remove("error")
         patientAuthcodeLoginForm.classList.remove("error")
         patientSvnLoginForm.classList.add("error")
         patientRenewPinForm.classList.remove("error")
@@ -46,6 +47,7 @@ errorFeedback = (error) ->
         return
 
     if error.renewPin
+        doctorloginForm.classList.remove("error")
         patientAuthcodeLoginForm.classList.remove("error")
         patientSvnLoginForm.classList.remove("error")
         patientRenewPinForm.classList.add("error")

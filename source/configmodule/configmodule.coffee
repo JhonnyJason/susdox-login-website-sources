@@ -12,3 +12,7 @@ export loginURL = demoRoot+authPartDemo+"/login" # demo
 # export loginRedirectURL = "https://bilder-befunde.at/webview"
 export loginRedirectURL = "https://webview.bilder-befunde.at/webview"
 # export loginRedirectURL = "https://webview.bilder-befunde.at"
+
+export webviewSubdomain = "https://webview.bilder-befunde.at"
+export webviewRoute = "https://bilder-befunde.at/webview"
+export webviewRouteAndSubdomain = "https://webview.bilder-befunde.at/webview"

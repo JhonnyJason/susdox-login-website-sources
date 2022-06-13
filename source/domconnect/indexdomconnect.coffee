@@ -12,6 +12,7 @@ indexdomconnect.initialize = () ->
     global.usernameInput = document.getElementById("username-input")
     global.passwordInput = document.getElementById("password-input")
     global.saveLoginInput = document.getElementById("save-login-input")
+    global.usedUrlSelect = document.getElementById("used-url-select")
     global.doctorloginSubmitButton = document.getElementById("doctorlogin-submit-button")
     global.patientloginview = document.getElementById("patientloginview")
     global.patientloginHeading = document.getElementById("patientlogin-heading")
