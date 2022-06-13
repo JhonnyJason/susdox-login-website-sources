@@ -5,8 +5,8 @@ productionRoot = "https://bilder-befunde.at"
 authPartProduction = "/service/api/v1/auth"
 authPartDemo = "/caas/api/v1/auth"
 
-export loginURL = demoRoot+authPartDemo+"/login" # demo
-# export loginURL = productionRoot+authPartProduction+"/login" # production
+# export loginURL = demoRoot+authPartDemo+"/login" # demo
+export loginURL = productionRoot+authPartProduction+"/login" # production
 
 
 # export loginRedirectURL = "https://bilder-befunde.at/webview"
