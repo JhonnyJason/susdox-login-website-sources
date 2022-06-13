@@ -221,3 +221,6 @@ doLoginRequest = (body) ->
     catch err then log err
 
 
+############################################################
+export enterWasClicked = (evt) -> loginClicked(evt)
+

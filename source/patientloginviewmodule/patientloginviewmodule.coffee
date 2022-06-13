@@ -195,4 +195,8 @@ doLoginRequest = (body) ->
     try return fetch(loginURL, fetchOptions)
     catch err then log err
 
-
+############################################################
+export enterWasClicked = (evt) ->
+    if pinInput.value then svnSubmitClicked(evt)
+    else if authcodeInput.value then authcodeSubmitClicked(evt)
+    return
