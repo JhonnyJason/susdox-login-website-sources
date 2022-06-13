@@ -28,8 +28,13 @@ backButtonClicked = -> S.save("loginView", "none")
 
 ############################################################
 errorFeedback = (error) ->
-    log "errorFeedback" 
+    log "errorFeedback"
     # TODO sophisticated error feedback
+    doctorloginForm.classList.add("error")
+    patientAuthcodeLoginForm.classList.remove("error")
+    patientSvnLoginForm.classList.remove("error")
+    patientRenewPinForm.classList.remove("error")
+
     log error
     return
 
@@ -39,33 +44,42 @@ doctormiscContinueButtonClicked = (evt) ->
     S.save("loginView", "patient")
     return
 
+############################################################
 loginClicked = (evt) ->
     log "loginClicked"
     evt.preventDefault()
     try
         loginBody = await extractLoginBody()
         olog {loginBody}
+
+        if !loginBody.vpn and !loginBody.username and !loginBody.hashedPw then return
+
+
         response = await doLoginRequest(loginBody)
-        responseBody = await response.json()
-        responseHeaders = response.headers
+        if response.status != "OK" then errorFeedback("Response Status not OK!")
+        else location.href = loginRedirectURL        
+        
+        # responseBody = await response.json()
+        # responseHeaders = response.headers
 
-        log " - - - - received response"
-        olog response
-        log "url: "+response.url
-        log "status: "+response.status
-        log "type: "+response.type
-        log "redirected: "+response.redirected
-        olog { responseHeaders }
-        olog { responseBody }
+        # log " - - - - received response"
+        # olog response
+        # log "url: "+response.url
+        # log "status: "+response.status
+        # log "type: "+response.type
+        # log "redirected: "+response.redirected
+        # olog { responseHeaders }
+        # olog { responseBody }
 
-        log "cookie:\n" + document.cookie
+        # log "cookie:\n" + document.cookie
         # document.cookie = "webviewToken:"+responseBody.webviewToken+";"
 
-        params = new URLSearchParams()
-        params.append('webviewToken', responseBody.webviewToken)
+        # params = new URLSearchParams()
+        # params.append('webviewToken', responseBody.webviewToken)
 
-        # response.redirect(loginRedirectURL+responseBody.redirect)
-        location.href = loginRedirectURL+"?"+params.toString()
+        # # response.redirect(loginRedirectURL+responseBody.redirect)
+        # location.href = loginRedirectURL+"?"+params.toString()
+
 
     catch err then return errorFeedback(err)
     return
@@ -79,8 +93,9 @@ extractLoginBody = ->
     username = usernameInput.value.toLowerCase()
     password = passwordInput.value
 
-    hashedPw = await computeHashedPw(vpn, username, password)
-    
+    if password then hashedPw = await computeHashedPw(vpn, username, password)
+    else hashedPw = ""
+
     return {vpn, username, hashedPw, isMedic, rememberMe}
 
 

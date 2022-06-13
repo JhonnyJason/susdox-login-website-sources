@@ -6,7 +6,7 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as S from "./statemodule.js"
-import {loginURL} from "./configmodule.js"
+import { loginURL, loginRedirectURL } from "./configmodule.js"
 import * as utl from "./utilmodule.js"
 import * as tbut from "thingy-byte-utils"
 
@@ -30,8 +30,29 @@ backButtonClicked = -> S.save("loginView", "none")
 ############################################################
 errorFeedback = (error) ->
     log "errorFeedback" 
-    # TODO sophisticated error feedback
-    log error
+    if error.authcode
+        doctorloginForm.classList.remove("error")
+        patientAuthcodeLoginForm.classList.add("error")
+        patientSvnLoginForm.classList.remove("error")
+        patientRenewPinForm.classList.remove("error")
+        log error.msg
+        return
+
+    if error.svnLogin
+        patientAuthcodeLoginForm.classList.remove("error")
+        patientSvnLoginForm.classList.add("error")
+        patientRenewPinForm.classList.remove("error")
+        log error.msg
+        return
+
+    if error.renewPin
+        patientAuthcodeLoginForm.classList.remove("error")
+        patientSvnLoginForm.classList.remove("error")
+        patientRenewPinForm.classList.add("error")
+        log error.msg
+        return
+
+    log error.msg
     return
 
 ############################################################
@@ -41,8 +62,15 @@ authcodeSubmitClicked = (evt) ->
     try
         loginBody = await extractNoSVNFormBody()
         olog {loginBody}
-        await doLoginRequest(loginBody)
-    catch err then return errorFeedback(err)
+
+        if !loginBody.hashedPw and !loginBody.username then return
+
+        response = await doLoginRequest(loginBody)
+        
+        if !response.ok then errorFeedback({authcode:true, msg: "Response was not OK!"})
+        else location.href = loginRedirectURL
+
+    catch err then return errorFeedback({authcode:true, msg: err.message})
     return
 
 svnSubmitClicked = (evt) ->
@@ -51,8 +79,15 @@ svnSubmitClicked = (evt) ->
     try
         loginBody = await extractSVNFormBody()
         olog {loginBody}
-        await doLoginRequest(loginBody)
-    catch err then return errorFeedback(err)
+
+        if !loginBody.hashedPw and !loginBody.username then return
+
+        response = await doLoginRequest(loginBody)
+        
+        if !response.ok then errorFeedback({svnLogin:true, msg: "Response was not OK!"})
+        else location.href = loginRedirectURL
+
+    catch err then return errorFeedback({svnLogin:true, msg: err.message})
     return
 
 ############################################################
@@ -63,7 +98,8 @@ extractSVNFormBody = ->
     username = ""+svnPartInput.value+birthdayPartInput.value
     password = ""+pinInput.value
 
-    hashedPw = await computeHashedPw(username, password)
+    if !password then hashedPw = ""
+    else hashedPw = await computeHashedPw(username, password)
     
     return {username, hashedPw, isMedic, rememberMe}
 
@@ -72,28 +108,14 @@ extractNoSVNFormBody = ->
     isMedic = false
     username = ""+authcodeBirthdayInput.value
     password = "AT-"+authcodeInput.value
-
-    hashedPw = await computeHashedPw(username, password)
+    
+    if password == "AT-" then hashedPw = ""
+    else hashedPw = await computeHashedPw(username, password)
     
     return {username, hashedPw, isMedic}
 
 
 ############################################################
-# function computeHashedPw(vpn: string, username: string, clearPw: string) {
-#     if (vpn.toUpperCase() === 'WFPI') {
-#         if (username.toUpperCase() === 'ENGI') {
-#             return hashUsernamePw(vpn + username, clearPw);
-#         } else {
-#             return hashUsernamePw(username + '.' + vpn, clearPw);
-#         }
-#     } else {
-#         if (username.toUpperCase() === 'DZW') {
-#             return hashUsernamePw(username, clearPw);
-#         } else {
-#             return hashUsernamePw(username, clearPw);
-#         }
-#     }
-# }
 computeHashedPw = (username, pwd) -> 
     return hashUsernamePw(username, pwd)
 
@@ -150,7 +172,6 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
     derivedKeyBytes = await crypto.exportKey("raw", derivedKeyObj)
     derivedKeyBase64 = utl.bufferToBase64(derivedKeyBytes)
     return derivedKeyBase64
-
 
 ############################################################
 doLoginRequest = (body) ->
