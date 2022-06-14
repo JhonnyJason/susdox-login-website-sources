@@ -118,8 +118,18 @@ keyDowned = (evt) ->
 
 ############################################################
 checkInstantRedirect = ->
-    cookie = document.cookie
-    if cookie.indexOf("username=") > 0 and cookie.indexOf("password=") > 0
+    allCookies = document.cookie
+    cookies = allCookies.split(";")
+    
+    passwordExists = false
+    usernameExists = false
+    
+    for cookie in cookies
+        c = cookie.trim()
+        if c.indexOf("password=") == 0 then passwordExists = true
+        if c.indexOf("username=") == 0 then usernameExists = true
+    
+    if passwordExists and usernameExists
         location.href = loginRedirectURL
     return
 
