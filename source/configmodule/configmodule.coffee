@@ -10,6 +10,3 @@ export loginURL = productionRoot+authPartProduction+"/login" # production
 
 
 export loginRedirectURL = "https://webview.bilder-befunde.at/webview"
-# export webviewSubdomain = "https://webview.bilder-befunde.at"
-# export webviewRoute = "https://bilder-befunde.at/webview"
-# export webviewRouteAndSubdomain = "https://webview.bilder-befunde.at/webview"

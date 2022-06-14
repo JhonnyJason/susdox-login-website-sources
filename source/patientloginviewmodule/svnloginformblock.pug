@@ -12,7 +12,7 @@
                 input#birthday-part-input(name="svn-birthday-part" type="number")
             label#pin-label(for="pin") !{content.svnLoginPinLabelText}
             input#pin-input(type="number" name="pin")
-            button#svn-submit-button.click-button !{content.svnLoginSubmitButtonText}
+            button#svn-submit-button(type="submit") !{content.svnLoginSubmitButtonText}
             .empty-cell
 
         .agb-hint-block: p.hint !{content.agbHintText}
@@ -28,5 +28,5 @@
                 #pin-renew-svn-separator -
                 input#pin-renew-birthday-part-input(name="svn-birthday-part" type="number")
             
-            button#pin-renew-submit-button !{content.svnLoginRenewPinSubmitButtonText}
+            button#pin-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
             .empty-cell

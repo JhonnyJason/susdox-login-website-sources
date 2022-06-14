@@ -6,9 +6,8 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as S from "./statemodule.js"
-import { loginURL, loginRedirectURL } from "./configmodule.js"
 import * as utl from "./utilmodule.js"
-import * as tbut from "thingy-byte-utils"
+import { loginURL, loginRedirectURL } from "./configmodule.js"
 
 ############################################################
 export initialize = ->
@@ -25,7 +24,6 @@ export initialize = ->
 ############################################################
 # no History
 backButtonClicked = -> S.save("loginView", "none")
-
 
 ############################################################
 errorFeedback = (error) ->
@@ -120,64 +118,9 @@ extractNoSVNFormBody = ->
     
     return {username, hashedPw, isMedic}
 
-
 ############################################################
-computeHashedPw = (username, pwd) -> 
-    return hashUsernamePw(username, pwd)
-
-hashUsernamePw = (username, pwd) ->
-    if username.length < 4 then username = username + username + username
-    if username.length < 8 then username = username + username
-
-    hash = await generatePBKDF2SubtleCrypto(username, pwd)
-    return hash
-
-############################################################
-generatePBKDF2SubtleCrypto = (username, pwd) ->
-    crypto = window.crypto.subtle
-    
-    # saltBytes = crypto.getRandomValues(new Uint8Array(8))
-    
-    saltBytes = tbut.utf8ToBytes(username)
-    rawKeyBytes = tbut.utf8ToBytes(pwd)
-
-    keyBytes = await crypto.importKey(
-        'raw',
-        rawKeyBytes, 
-        {name: 'PBKDF2'}, 
-        false, 
-        ['deriveBits', 'deriveKey']
-    )
-
-    derivedKeyObj = await crypto.deriveKey(
-        { 
-            "name": 'PBKDF2',
-            "salt": saltBytes,
-            "iterations": 1000,
-            # "hash": 'SHA-256'
-            "hash": 'SHA-1'
-        },
-        keyBytes,
-        # // Note: we don't actually need a cipher suite,
-        # // but the api requires that it must be specified.
-        # // For AES the length required to be 128 or 256 bits (not bytes)
-        # { "name": 'AES-CBC',"length": 256},
-        { 
-            "name": 'HMAC', 
-            "hash": "SHA-1", 
-            "length": 160 
-        },
-        # Whether or not the key is extractable (less secure) or not (more secure)
-        # when false, the key can only be passed as a web crypto object, not inspected
-        true,
-        # this web crypto object will only be allowed for these functions
-        # [ "encrypt", "decrypt" ]
-        ["sign", "verify"]
-    )
-
-    derivedKeyBytes = await crypto.exportKey("raw", derivedKeyObj)
-    derivedKeyBase64 = utl.bufferToBase64(derivedKeyBytes)
-    return derivedKeyBase64
+computeHashedPw = (username, pwd) ->
+    return utl.hashUsernamePw(username, pwd)
 
 ############################################################
 doLoginRequest = (body) ->

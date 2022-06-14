@@ -6,9 +6,8 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as S from "./statemodule.js"
-import { loginURL, loginRedirectURL, webviewSubdomain, webviewRoute, webviewRouteAndSubdomain } from "./configmodule.js"
 import * as utl from "./utilmodule.js"
-import * as tbut from "thingy-byte-utils"
+import { loginURL, loginRedirectURL } from "./configmodule.js"
 
 ############################################################
 export initialize = ->
@@ -108,99 +107,11 @@ extractLoginBody = ->
     # return {vpn, username, hashedPw, isMedic, rememberMe, usedURL}
     return {vpn, username, hashedPw, isMedic, rememberMe}
 
-
-############################################################
-# function computeHashedPw(vpn: string, username: string, clearPw: string) {
-#     if (vpn.toUpperCase() === 'WFPI') {
-#         if (username.toUpperCase() === 'ENGI') {
-#             return hashUsernamePw(vpn + username, clearPw);
-#         } else {
-#             return hashUsernamePw(username + '.' + vpn, clearPw);
-#         }
-#     } else {
-#         if (username.toUpperCase() === 'DZW') {
-#             return hashUsernamePw(username, clearPw);
-#         } else {
-#             return hashUsernamePw(username, clearPw);
-#         }
-#     }
-# }
 computeHashedPw = (vpn, username, pwd) -> 
     if vpn == 'wfpi'
-        if username == 'engi' then return hashUsernamePw(vpn+username, pwd)
-        else return hashUsernamePw(username+'.'+vpn, pwd)
-    else return hashUsernamePw(username, pwd)
-
-hashUsernamePw = (username, pwd) ->
-    if username.length < 4 then username = username + username + username
-    if username.length < 8 then username = username + username
-
-    # hashOne = generatePBKDF2CryptoJS(username, pwd)
-    hashTwo = await generatePBKDF2SubtleCrypto(username, pwd)
-    # olog {hashOne, hashTwo}
-    # return hashOne
-    return hashTwo
-
-############################################################
-generatePBKDF2CryptoJS = (username, pwd) ->
-    crypto = window.Crypto
-
-    binuser = crypto.charenc.UTF8.stringToBytes(username)
-    binpwd = crypto.charenc.UTF8.stringToBytes(pwd)
-
-    hashHex = crypto.PBKDF2(binpwd, binuser, 20, {iterations: 1000});
-    hashBytes = tbut.hexToBytes(hashHex)
-    hashBase64a = utl.bufferToBase64(hashBytes)
-    # hashBase64b = crypto.util.bytesToBase64(hashBytes)
-    # olog {hashBase64a, hashBase64b}
-    return hashBase64a
-
-generatePBKDF2SubtleCrypto = (username, pwd) ->
-    crypto = window.crypto.subtle
-    
-    # saltBytes = crypto.getRandomValues(new Uint8Array(8))
-    
-    saltBytes = tbut.utf8ToBytes(username)
-    rawKeyBytes = tbut.utf8ToBytes(pwd)
-
-    keyBytes = await crypto.importKey(
-        'raw',
-        rawKeyBytes, 
-        {name: 'PBKDF2'}, 
-        false, 
-        ['deriveBits', 'deriveKey']
-    )
-
-    derivedKeyObj = await crypto.deriveKey(
-        { 
-            "name": 'PBKDF2',
-            "salt": saltBytes,
-            "iterations": 1000,
-            # "hash": 'SHA-256'
-            "hash": 'SHA-1'
-        },
-        keyBytes,
-        # // Note: we don't actually need a cipher suite,
-        # // but the api requires that it must be specified.
-        # // For AES the length required to be 128 or 256 bits (not bytes)
-        # { "name": 'AES-CBC',"length": 256},
-        { 
-            "name": 'HMAC', 
-            "hash": "SHA-1", 
-            "length": 160 
-        },
-        # Whether or not the key is extractable (less secure) or not (more secure)
-        # when false, the key can only be passed as a web crypto object, not inspected
-        true,
-        # this web crypto object will only be allowed for these functions
-        # [ "encrypt", "decrypt" ]
-        ["sign", "verify"]
-    )
-
-    derivedKeyBytes = await crypto.exportKey("raw", derivedKeyObj)
-    derivedKeyBase64 = utl.bufferToBase64(derivedKeyBytes)
-    return derivedKeyBase64
-
+        if username == 'engi' then return utl.hashUsernamePw(vpn+username, pwd)
+        else return utl.hashUsernamePw(username+'.'+vpn, pwd)
+    else return utl.hashUsernamePw(username, pwd)
 
 ############################################################
 doLoginRequest = (body) ->
@@ -222,7 +133,6 @@ doLoginRequest = (body) ->
 
     try return fetch(loginURL, fetchOptions)
     catch err then log err
-
 
 ############################################################
 export enterWasClicked = (evt) -> loginClicked(evt)
