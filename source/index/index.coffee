@@ -119,7 +119,7 @@ keyDowned = (evt) ->
 ############################################################
 checkInstantRedirect = ->
     cookie = document.cookie
-    if cookie.indexOf("username:") > 0 and cookie.indexOf("password:") > 0
+    if cookie.indexOf("username=") > 0 and cookie.indexOf("password=") > 0
         location.href = loginRedirectURL
     return
 
