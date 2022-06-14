@@ -1,5 +1,7 @@
 import Modules from "./allmodules"
 import domconnect from "./indexdomconnect"
+import {loginRedirectURL} from "./configmodule.js"
+
 domconnect.initialize()
 
 delete Modules.registrationviewmodule
@@ -15,6 +17,7 @@ historyStatePushed = false
 
 ############################################################
 appStartup = ->
+    checkInstantRedirect()
 
     patientLoginBlock.addEventListener("click", patientLoginClicked)
     doctorLoginBlock.addEventListener("click", doctorLoginClicked)
@@ -106,11 +109,21 @@ doctorLoginClicked = ->
     S.save("loginView", "doctor")
     return
 
+############################################################
 keyDowned = (evt) ->
     return unless evt.keyCode == 13
     if loginView == "doctor" then Modules.doctorloginviewmodule.enterWasClicked(evt)
     if loginView == "patient" then Modules.patientloginviewmodule.enterWasClicked(evt)
     return
+
+############################################################
+checkInstantRedirect = ->
+    cookie = document.cookie
+    log cookie
+    if cookie.indexOf("username:") > 0 and cookie.indexOf("password:") > 0
+        location.href = loginRedirectURL
+    return
+
 ############################################################
 run = ->
     promises = (m.initialize() for n,m of Modules when m.initialize?) 
