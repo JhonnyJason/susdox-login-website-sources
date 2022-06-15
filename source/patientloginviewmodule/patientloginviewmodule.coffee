@@ -207,11 +207,14 @@ extractNoSVNFormBody = ->
 
 extractRenewPinBody = ->
 
-    username = ""+pinRenewSvnPartInput.value+pinRenewBirthdayPartInput.value
+    # username = ""+pinRenewSvnPartInput.value+pinRenewBirthdayPartInput.value
+    svn_pin1 = ""+pinRenewSvnPartInput.value
+    svn_pin2 = ""+pinRenewBirthdayPartInput.value
     pin_send = true
     pin_send_extern = true
 
-    return {username, pin_send, pin_send_extern}
+    # return {username, pin_send, pin_send_extern}
+    return {svn_pin1, svn_pin2, pin_send, pin_send_extern}
 
 ############################################################
 computeHashedPw = (username, pwd) ->
