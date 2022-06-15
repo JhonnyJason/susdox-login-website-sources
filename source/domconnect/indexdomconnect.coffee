@@ -18,13 +18,18 @@ indexdomconnect.initialize = () ->
     global.patientAuthcodeLoginForm = document.getElementById("patient-authcode-login-form")
     global.authcodeBirthdayInput = document.getElementById("authcode-birthday-input")
     global.authcodeInput = document.getElementById("authcode-input")
+    global.authcodeErrorFeedbackText = document.getElementById("authcode-error-feedback-text")
     global.authcodeSubmitButton = document.getElementById("authcode-submit-button")
     global.patientSvnLoginForm = document.getElementById("patient-svn-login-form")
     global.svnPartInput = document.getElementById("svn-part-input")
     global.birthdayPartInput = document.getElementById("birthday-part-input")
     global.pinInput = document.getElementById("pin-input")
+    global.svnErrorFeedbackText = document.getElementById("svn-error-feedback-text")
     global.svnSubmitButton = document.getElementById("svn-submit-button")
     global.patientRenewPinForm = document.getElementById("patient-renew-pin-form")
+    global.svnLoginError404 = document.getElementById("svn-login-error404")
+    global.svnLoginError401 = document.getElementById("svn-login-error401")
+    global.nosvnLoginError = document.getElementById("nosvn-login-error")
     return
     
 module.exports = indexdomconnect

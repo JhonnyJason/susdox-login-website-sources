@@ -33,7 +33,8 @@ errorFeedback = (error) ->
     patientAuthcodeLoginForm.classList.remove("error")
     patientSvnLoginForm.classList.remove("error")
     patientRenewPinForm.classList.remove("error")
-
+    authcodeErrorFeedbackText.innerHTML = ""
+    svnErrorFeedbackText.innerHTML = ""
     log error
     return
 

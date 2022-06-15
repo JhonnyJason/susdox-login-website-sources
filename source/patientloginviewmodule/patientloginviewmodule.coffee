@@ -10,11 +10,21 @@ import * as utl from "./utilmodule.js"
 import { loginURL, loginRedirectURL } from "./configmodule.js"
 
 ############################################################
+svnLogin404ErrorText = null
+svnLogin401ErrorText = null
+nosvnLoginErrorText = null
+
+############################################################
 export initialize = ->
     log "initialize"
     patientloginHeading.addEventListener("click", backButtonClicked)
     svnSubmitButton.addEventListener("click", svnSubmitClicked)
     authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
+    
+    svnLogin404ErrorText = svnLoginError404.innerHTML
+    svnLogin401ErrorText = svnLoginError401.innerHTML
+    nosvnLoginErrorText = nosvnLoginError.innerHTML
+
     return
 
 ############################################################
@@ -33,6 +43,8 @@ errorFeedback = (error) ->
         patientAuthcodeLoginForm.classList.add("error")
         patientSvnLoginForm.classList.remove("error")
         patientRenewPinForm.classList.remove("error")
+        svnErrorFeedbackText.innerHTML = ""
+        authcodeErrorFeedbackText.innerHTML = nosvnLoginErrorText
         log error.msg
         return
 
@@ -41,6 +53,11 @@ errorFeedback = (error) ->
         patientAuthcodeLoginForm.classList.remove("error")
         patientSvnLoginForm.classList.add("error")
         patientRenewPinForm.classList.remove("error")
+        authcodeErrorFeedbackText.innerHTML = ""
+        if error.code == 404
+            svnErrorFeedbackText.innerHTML = svnLogin404ErrorText
+        if error.code == 401
+            svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
         log error.msg
         return
 
@@ -49,6 +66,8 @@ errorFeedback = (error) ->
         patientAuthcodeLoginForm.classList.remove("error")
         patientSvnLoginForm.classList.remove("error")
         patientRenewPinForm.classList.add("error")
+        authcodeErrorFeedbackText.innerHTML = ""
+        svnErrorFeedbackText.innerHTML = ""
         log error.msg
         return
 
@@ -87,7 +106,7 @@ svnSubmitClicked = (evt) ->
 
         response = await doLoginRequest(loginBody)
         
-        if !response.ok then errorFeedback({svnLogin:true, msg: "Response was not OK!"})
+        if !response.ok then errorFeedback({svnLogin:true, msg: "Response was not OK!", code:response.status})
         else location.href = loginRedirectURL
 
     catch err then return errorFeedback({svnLogin:true, msg: err.message})
