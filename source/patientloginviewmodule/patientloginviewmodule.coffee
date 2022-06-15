@@ -47,19 +47,14 @@ export initialize = ->
 svnPartKeyUpped = (evt) ->
     # log "svnPartKeyUpped"
     value = svnPartInput.value
-    newLength = value.length
+    svnPartLength = value.length
     # olog {newLength}
 
-    if evt.keyCode == 46
-        svnPartLength = newLength
-        return
+    if evt.keyCode == 46 then return
     
-    if evt.keyCode == 8
-        svnPartLength = newLength
-        return
+    if evt.keyCode == 8 then return
 
     if svnPartLength == 4 then focusBirthdayPartFirst()
-    else svnPartLength = newLength
     return
 
 birthdayPartKeyUpped = (evt) ->
@@ -79,19 +74,14 @@ birthdayPartKeyUpped = (evt) ->
 pinRenewSVNPartKeyUpped = (evt) ->
     # log "pinRenewSVNPartKeyUpped"
     value = pinRenewSvnPartInput.value
-    newLength = value.length
+    pinRenewSvnPartLength = value.length
     # olog {newLength}
 
-    if evt.keyCode == 46
-        pinRenewSvnPartLength = newLength
-        return
+    if evt.keyCode == 46 then return
 
-    if evt.keyCode == 8
-        pinRenewSvnPartLength = newLength
-        return
+    if evt.keyCode == 8 then return
 
     if pinRenewSvnPartLength == 4 then focusPinRenewBirthdayPartFirst()
-    else pinRenewSvnPartLength = newLength
     return
 
 pinRenewBirthdayPartKeyUpped = (evt) ->
