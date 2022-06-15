@@ -46,6 +46,7 @@ errorFeedback = (error) ->
         svnErrorFeedbackText.innerHTML = ""
         authcodeErrorFeedbackText.innerHTML = nosvnLoginErrorText
         log error.msg
+        document.body.style.height =""+patientloginview.clientHeight+"px"
         return
 
     if error.svnLogin
@@ -59,6 +60,7 @@ errorFeedback = (error) ->
         if error.code == 401
             svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
         log error.msg
+        document.body.style.height =""+patientloginview.clientHeight+"px"
         return
 
     if error.renewPin
@@ -69,9 +71,11 @@ errorFeedback = (error) ->
         authcodeErrorFeedbackText.innerHTML = ""
         svnErrorFeedbackText.innerHTML = ""
         log error.msg
+        document.body.style.height =""+patientloginview.clientHeight+"px"
         return
 
     log error.msg
+    document.body.style.height =""+patientloginview.clientHeight+"px"
     return
 
 ############################################################
