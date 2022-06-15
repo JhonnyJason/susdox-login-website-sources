@@ -9,4 +9,8 @@ authPartDemo = "/caas/api/v1/auth"
 export loginURL = productionRoot+authPartProduction+"/login" # production
 
 
+########################################################
 export loginRedirectURL = "https://webview.bilder-befunde.at/webview"
+
+########################################################
+export renewPinURL = "https://bilder-befunde.at/index.php?site=scripts/login_patient.php"

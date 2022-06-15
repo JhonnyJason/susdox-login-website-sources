@@ -5,6 +5,7 @@ export modulesToDebug =
     unbreaker: true
     # configmodule: true
     # statemodule: true
+    errorfeedbackmodule: true
     patientloginviewmodule: true
     doctorloginviewmodule: true
     registrationviewmodule: true

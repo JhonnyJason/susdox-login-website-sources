@@ -7,12 +7,19 @@ import { createLogFunctions } from "thingy-debug"
 ############################################################
 import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
-import { loginURL, loginRedirectURL } from "./configmodule.js"
+import { resetAllErrorFeedback, errorFeedback } from "./errorfeedbackmodule.js"
+import { loginURL, loginRedirectURL, renewPinURL } from "./configmodule.js"
+
 
 ############################################################
-svnLogin404ErrorText = null
-svnLogin401ErrorText = null
-nosvnLoginErrorText = null
+#region inputField Length tracking
+svnPartLength = 0
+svnBirthdayPartLength = 0
+
+pinRenewSvnPartLength = 0
+pinRenewBirthdayPartLength = 0
+
+#endregion
 
 ############################################################
 export initialize = ->
@@ -20,12 +27,88 @@ export initialize = ->
     patientloginHeading.addEventListener("click", backButtonClicked)
     svnSubmitButton.addEventListener("click", svnSubmitClicked)
     authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
-    
-    svnLogin404ErrorText = svnLoginError404.innerHTML
-    svnLogin401ErrorText = svnLoginError401.innerHTML
-    nosvnLoginErrorText = nosvnLoginError.innerHTML
+    pinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
+
+    svnPartInput.addEventListener("keyup", svnPartKeyUpped)
+    birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
+    pinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
+    pinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
+
+    svnPartLength = svnPartInput.value.length
+    svnBirthdayPartLength = birthdayPartInput.value.length
+
+    pinRenewSvnPartLength = pinRenewSvnPartInput.value.length
+    pinRenewBirthdayPartLength = pinRenewBirthdayPartInput.value.length
 
     return
+
+############################################################
+#region keyUpListeners
+svnPartKeyUpped = (evt) ->
+    # log "svnPartKeyUpped"
+    value = svnPartInput.value
+    newLength = value.length
+    # olog {newLength}
+
+    if evt.keyCode == 46
+        svnPartLength = newLength
+        return
+    
+    if evt.keyCode == 8
+        svnPartLength = newLength
+        return
+
+    if svnPartLength == 4 then focusBirthdayPartFirst()
+    else svnPartLength = newLength
+    return
+
+birthdayPartKeyUpped = (evt) ->
+    # log "birthdayPartKeyUpped"
+    value = birthdayPartInput.value
+    newLength = value.length
+    # olog {newLength}
+
+    if evt.keyCode != 8
+        svnBirthdayPartLength = newLength
+        return
+
+    if svnBirthdayPartLength == 0 then focusSVNPartLast()
+    else svnBirthdayPartLength = newLength
+    return
+
+pinRenewSVNPartKeyUpped = (evt) ->
+    # log "pinRenewSVNPartKeyUpped"
+    value = pinRenewSvnPartInput.value
+    newLength = value.length
+    # olog {newLength}
+
+    if evt.keyCode == 46
+        pinRenewSvnPartLength = newLength
+        return
+
+    if evt.keyCode == 8
+        pinRenewSvnPartLength = newLength
+        return
+
+    if pinRenewSvnPartLength == 4 then focusPinRenewBirthdayPartFirst()
+    else pinRenewSvnPartLength = newLength
+    return
+
+pinRenewBirthdayPartKeyUpped = (evt) ->
+    # log "pinRenewBirthdayPartKeyUpped"
+    value = pinRenewBirthdayPartInput.value
+    newLength = value.length
+    # olog {newLength}
+
+    if evt.keyCode != 8
+        pinRenewBirthdayPartLength = newLength
+        return
+
+    if pinRenewBirthdayPartLength == 0 then focusPinRenewSVNPartLast()
+    else pinRenewBirthdayPartLength = newLength
+    return
+
+#endregion
 
 ############################################################
 # using History
@@ -35,48 +118,6 @@ export initialize = ->
 # no History
 backButtonClicked = -> S.save("loginView", "none")
 
-############################################################
-errorFeedback = (error) ->
-    log "errorFeedback" 
-    if error.authcode
-        doctorloginForm.classList.remove("error")
-        patientAuthcodeLoginForm.classList.add("error")
-        patientSvnLoginForm.classList.remove("error")
-        patientRenewPinForm.classList.remove("error")
-        svnErrorFeedbackText.innerHTML = ""
-        authcodeErrorFeedbackText.innerHTML = nosvnLoginErrorText
-        log error.msg
-        document.body.style.height =""+patientloginview.clientHeight+"px"
-        return
-
-    if error.svnLogin
-        doctorloginForm.classList.remove("error")
-        patientAuthcodeLoginForm.classList.remove("error")
-        patientSvnLoginForm.classList.add("error")
-        patientRenewPinForm.classList.remove("error")
-        authcodeErrorFeedbackText.innerHTML = ""
-        if error.code == 404
-            svnErrorFeedbackText.innerHTML = svnLogin404ErrorText
-        if error.code == 401
-            svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
-        log error.msg
-        document.body.style.height =""+patientloginview.clientHeight+"px"
-        return
-
-    if error.renewPin
-        doctorloginForm.classList.remove("error")
-        patientAuthcodeLoginForm.classList.remove("error")
-        patientSvnLoginForm.classList.remove("error")
-        patientRenewPinForm.classList.add("error")
-        authcodeErrorFeedbackText.innerHTML = ""
-        svnErrorFeedbackText.innerHTML = ""
-        log error.msg
-        document.body.style.height =""+patientloginview.clientHeight+"px"
-        return
-
-    log error.msg
-    document.body.style.height =""+patientloginview.clientHeight+"px"
-    return
 
 ############################################################
 authcodeSubmitClicked = (evt) ->
@@ -84,6 +125,8 @@ authcodeSubmitClicked = (evt) ->
     evt.preventDefault()
     authcodeSubmitButton.disabled = true
     try
+        resetAllErrorFeedback()
+
         loginBody = await extractNoSVNFormBody()
         olog {loginBody}
 
@@ -91,10 +134,10 @@ authcodeSubmitClicked = (evt) ->
 
         response = await doLoginRequest(loginBody)
         
-        if !response.ok then errorFeedback({authcode:true, msg: "Response was not OK!"})
+        if !response.ok then errorFeedback("authcodePatient", ""+response.status)
         else location.href = loginRedirectURL
 
-    catch err then return errorFeedback({authcode:true, msg: err.message})
+    catch err then return errorFeedback("authcodePatient", "Other: " + err.message)
     finally authcodeSubmitButton.disabled = false
     return
 
@@ -103,6 +146,8 @@ svnSubmitClicked = (evt) ->
     evt.preventDefault()
     svnSubmitButton.disabled = true
     try
+        resetAllErrorFeedback()
+       
         loginBody = await extractSVNFormBody()
         olog {loginBody}
 
@@ -110,11 +155,30 @@ svnSubmitClicked = (evt) ->
 
         response = await doLoginRequest(loginBody)
         
-        if !response.ok then errorFeedback({svnLogin:true, msg: "Response was not OK!", code:response.status})
+        if !response.ok then errorFeedback("svnPatient", ""+response.status)
         else location.href = loginRedirectURL
 
-    catch err then return errorFeedback({svnLogin:true, msg: err.message})
+    catch err then return errorFeedback("svnPatient", "Other: " + err.message)
     finally svnSubmitButton.disabled = false
+    return
+
+pinRenewSubmitClicked = (evt) ->
+    log "pinRenewSubmitClicked"
+    evt.preventDefault()
+    pinRenewSubmitButton.disabled = true
+    try
+        resetAllErrorFeedback()
+
+        if !pinRenewSvnPartInput.value and !pinRenewBirthdayPartInput.value then return
+
+        renewPinBody = extractRenewPinBody()
+        olog { renewPinBody } 
+    
+        response = await doRenewPinRequest(renewPinBody)
+        if !response.ok then errorFeedback("pinRenewPatient", ""+response.status)
+        
+    catch err then return errorFeedback("pinRenewPatient", "Other: " + err.message)
+    finally pinRenewSubmitButton.disabled = false
     return
 
 ############################################################
@@ -141,6 +205,14 @@ extractNoSVNFormBody = ->
     
     return {username, hashedPw, isMedic}
 
+extractRenewPinBody = ->
+
+    username = ""+pinRenewSvnPartInput.value+pinRenewBirthdayPartInput.value
+    pin_send = true
+    pin_send_extern = true
+
+    return {username, pin_send, pin_send_extern}
+
 ############################################################
 computeHashedPw = (username, pwd) ->
     return utl.hashUsernamePw(username, pwd)
@@ -152,9 +224,6 @@ doLoginRequest = (body) ->
     redirect =  'follow'
     credentials = 'include'
     
-    # url encoded
-    # headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-    # body = new URLSearchParams(body)
 
     # json body
     headers = { 'Content-Type': 'application/json' }
@@ -165,6 +234,50 @@ doLoginRequest = (body) ->
     try return fetch(loginURL, fetchOptions)
     catch err then log err
 
+doRenewPinRequest = (body) ->
+    method = "POST"
+    mode = 'cors'
+    redirect =  'follow'
+    credentials = 'include'
+    
+    # url encoded
+    headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+    body = new URLSearchParams(body)
+
+
+    fetchOptions = { method, mode, redirect, credentials, headers, body }
+
+    try return fetch(renewPinURL, fetchOptions)
+    catch err then log err
+
+
+############################################################
+#region focus inputs functions
+focusSVNPartFirst = ->
+    svnPartInput.setSelectionRange(0, 0)
+    svnPartInput.focus()
+
+focusSVNPartLast = ->
+    svnPartInput.setSelectionRange(4, 4)
+    svnPartInput.focus()
+
+focusBirthdayPartFirst = ->
+    birthdayPartInput.setSelectionRange(0, 0)
+    birthdayPartInput.focus()
+
+
+focusPinRenewSVNPartLast = ->
+    pinRenewSvnPartInput.setSelectionRange(4, 4)
+    pinRenewSvnPartInput.focus()
+
+focusPinRenewBirthdayPartFirst = ->
+    pinRenewBirthdayPartInput.setSelectionRange(0, 0)
+    pinRenewBirthdayPartInput.focus()
+
+
+#endregion
+
+
 ############################################################
 export enterWasClicked = (evt) ->
     if pinInput.value then svnSubmitClicked(evt)
@@ -173,11 +286,7 @@ export enterWasClicked = (evt) ->
 
 export onPageViewEntry = ->
     log "onPageViewEntry"
-
-    doFocus = ->
-        # svnPartInput.setSelectionRange(0, 0)
-        svnPartInput.focus()
-
-    setTimeout(doFocus, 400)
+    setTimeout(focusSVNPartFirst, 400)
     return
+
 

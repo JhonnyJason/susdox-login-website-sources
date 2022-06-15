@@ -7,6 +7,7 @@ import { createLogFunctions } from "thingy-debug"
 ############################################################
 import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
+import { errorFeedback, resetAllErrorFeedback } from "./errorfeedbackmodule.js"
 import { loginURL, loginRedirectURL } from "./configmodule.js"
 
 ############################################################
@@ -26,19 +27,6 @@ export initialize = ->
 backButtonClicked = -> S.save("loginView", "none")
 
 ############################################################
-errorFeedback = (error) ->
-    log "errorFeedback"
-    # TODO sophisticated error feedback
-    doctorloginForm.classList.add("error")
-    patientAuthcodeLoginForm.classList.remove("error")
-    patientSvnLoginForm.classList.remove("error")
-    patientRenewPinForm.classList.remove("error")
-    authcodeErrorFeedbackText.innerHTML = ""
-    svnErrorFeedbackText.innerHTML = ""
-    log error
-    return
-
-############################################################
 doctormiscContinueButtonClicked = (evt) ->
     log "doctormiscContinueButtonClicked"
     S.save("loginView", "patient")
@@ -50,6 +38,8 @@ loginClicked = (evt) ->
     evt.preventDefault()
     doctorloginSubmitButton.disabled = true
     try
+        resetAllErrorFeedback()
+
         loginBody = await extractLoginBody()
         olog {loginBody}
 
@@ -61,7 +51,7 @@ loginClicked = (evt) ->
         # if loginBody.usedURL == "webviewrouteandsubdomain" then redirectURL = webviewRouteAndSubdomain
 
         response = await doLoginRequest(loginBody)
-        if !response.ok then errorFeedback("Response Status not OK!")
+        if !response.ok then errorFeedback("doctor", ""+response.status)
         else location.href = redirectURL        
         
         # responseBody = await response.json()
@@ -86,7 +76,7 @@ loginClicked = (evt) ->
         # location.href = loginRedirectURL+"?"+params.toString()
 
 
-    catch err then return errorFeedback(err)
+    catch err then return errorFeedback("doctor", "Other: " + err.message)
     finally doctorloginSubmitButton.disabled = false
     return
 
