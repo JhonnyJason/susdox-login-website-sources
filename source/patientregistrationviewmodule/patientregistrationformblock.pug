@@ -1,0 +1,51 @@
+#patientregistrationformblock.form-section-block
+    .form-block-heading
+        h2#patientregistration-heading-text !{content.registrationHeadingText}
+    .backshadow-block
+        form#patientregistration-form(name="register" method="post" action="https://webview.bilder-befunde.at/webview/index.php?site=scripts/login.php&value=&register=1&check=1")
+            label#patient-title-label(for="title") !{content.registrationTitleLableText}  
+            input#patient-title-input(name="title" type="text")
+            
+            label#patient-firstname-label(for="firstname") !{content.registrationFirstnameLableText}
+            input#patient-firstname-input(name="firstname" type="text")
+            
+            label#patient-lastname-label(for="lastname") !{content.registrationLastnameLableText} 
+            input#patient-lastname-input(name="lastname" type="text")
+
+            label#patient-address-label(for="address") !{content.registrationAddressLableText} 
+            input#patient-address-input(name="address" type="text")
+            
+            label#patient-location-label(for="plz") !{content.registrationPLZLableText} 
+            #patient-location-block
+                input#patient-plz-input(name="plz" type="text" maxlength="5")
+                input#patient-location-input(name="city" type="text")
+
+            label#patient-birthday-label(for="birthday") !{content.registrationBirthdayLableText}
+            input#patient-birthday-input(name="birthday" type="date")
+
+            label#patient-email-label(for="email") !{content.registrationEmailLableText}  
+            input#patient-email-input(name="email" type="email")
+
+            .empty-cell 
+            #patient-want-email-block
+                input#patient-want-email-input(name="contact_email" type="checkbox")
+                label#patient-want-email-label(for="contact_email") !{content.registrationContactEmailLableText}
+
+            label#patient-phone-label(for="phone") !{content.registrationPhoneLableText} 
+            input#patient-phone-input(name="phone" type="text")
+
+            .empty-cell 
+            #patient-want-call-block
+                input#patient-want-call-input(name="contact_phone" type="checkbox")
+                label#patient-want-call-label(for="contact_phone") !{content.registrationContactPhoneLableText}
+
+            label#patient-referrer-label(for="organization") !{content.registrationOrganizationLableText}  
+            input#patient-email-input(name="organization" type="text")
+
+            label#patient-email-label(for="message") !{content.registrationMessageLableText}  
+            textarea#patient-email-input(name="message" rows="10^")
+
+            .empty-cell
+            button#patientregistration-submit-button(type="submit" name="submit") !{content.registrationSubmitButtonText}
+
+        .agb-hint-block: .hint !{content.agbHintText}

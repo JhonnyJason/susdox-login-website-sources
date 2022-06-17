@@ -1,0 +1,20 @@
+//- registrationform structure
+#doctorregistrationview.fullpage-view
+
+    .pageviewheader
+        #doctorregistrationview-heading.pageview-heading
+            .back-arrow: svg: use(href="#svg-left-chevron")
+            .pageviewheader-logo-block
+                .pageviewheader-logo
+                h1.pageviewheader-subtitle !{content.headerSubtitle}
+            .pageviewheader-language-tags 
+                .pageviewheader-de-tag-link !{content.deTagLink} 
+                .pageviewheader-en-tag-link !{content.enTagLink}
+
+    .content-section 
+        h1.content-title !{content.registrationButtonText}
+        p.content-slogan !{sharedContent.contentSloganText}
+
+        .form-section: include doctorregistrationformblock.pug
+
+    .footer-section: include ../footermodule/footer.pug

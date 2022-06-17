@@ -20,11 +20,11 @@ export initialize = ->
 
 ############################################################
 # using History
-# backButtonClicked = -> window.history.back()
+backButtonClicked = -> window.history.back()
 
 ############################################################
 # no History
-backButtonClicked = -> S.save("loginView", "none")
+# backButtonClicked = -> S.save("loginView", "none")
 
 ############################################################
 doctormiscContinueButtonClicked = (evt) ->

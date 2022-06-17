@@ -1,8 +1,8 @@
 //- registrationform structure
-#registrationview.fullpage-view
+#patientregistrationview.fullpage-view
 
     .pageviewheader
-        #registrationview-heading.pageview-heading
+        #patientregistrationview-heading.pageview-heading
             .back-arrow: svg: use(href="#svg-left-chevron")
             .pageviewheader-logo-block
                 .pageviewheader-logo
@@ -15,6 +15,6 @@
         h1.content-title !{content.registrationButtonText}
         p.content-slogan !{sharedContent.contentSloganText}
 
-        .form-section: include registrationformblock.pug
+        .form-section: include patientregistrationformblock.pug
 
     .footer-section: include ../footermodule/footer.pug

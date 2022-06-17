@@ -34,6 +34,7 @@ indexdomconnect.initialize = () ->
     global.svnLoginError404 = document.getElementById("svn-login-error404")
     global.svnLoginError401 = document.getElementById("svn-login-error401")
     global.nosvnLoginError = document.getElementById("nosvn-login-error")
+    global.pinRenewError = document.getElementById("pin-renew-error")
     return
     
 module.exports = indexdomconnect

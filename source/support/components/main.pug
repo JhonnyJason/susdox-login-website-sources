@@ -1,5 +1,10 @@
 #main
-    #registration-block
+    #doctorregistration-block.block
         .registration-button.click-button
-            .registration-text !{content.registrationButtonText}
+            .registration-text !{content.doctorregistrationButtonText}
+            .registration-arrow: svg: use(href="#svg-right-arrow")
+    
+    #patientregistration-block.block 
+        .registration-button.click-button
+            .registration-text !{content.patientregistrationButtonText}
             .registration-arrow: svg: use(href="#svg-right-arrow")

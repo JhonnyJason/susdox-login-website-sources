@@ -102,12 +102,7 @@ pinRenewBirthdayPartKeyUpped = (evt) ->
 
 ############################################################
 # using History
-# backButtonClicked = -> window.history.back()
-
-############################################################
-# no History
-backButtonClicked = -> S.save("loginView", "none")
-
+backButtonClicked = -> window.history.back()
 
 ############################################################
 authcodeSubmitClicked = (evt) ->

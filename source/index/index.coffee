@@ -4,7 +4,8 @@ import {loginRedirectURL} from "./configmodule.js"
 
 domconnect.initialize()
 
-delete Modules.registrationviewmodule
+delete Modules.doctorregistrationviewmodule
+delete Modules.patientregistrationviewmodule
 
 global.allModules = Modules
 
@@ -13,7 +14,6 @@ S = Modules.statemodule
 
 ############################################################
 loginView = null
-historyStatePushed = false
 
 ############################################################
 appStartup = ->
@@ -25,18 +25,31 @@ appStartup = ->
     document.addEventListener("keydown", keyDowned)
 
     loginView = S.get("loginView")
+    if location.hash == "#doctor-login" then loginView = "doctor"
+    if location.hash == "#patient-login" then loginView = "patient"
 
-    if loginView == "patient" then setStateInPatientView()
-    else if loginView == "doctor" then setStateInDoctorView()
-    
+    S.save("loginView", loginView)
+
     S.addOnChangeListener("loginView", loginViewChanged)
-    # window.onpopstate = popHistoryState
+    base = location.href.split("#")[0]
+
+    if loginView == "patient" 
+        history.replaceState({}, "", base)
+        history.pushState({}, "", base+"#patient-login")
+        setStateInPatientView()
+
+    if loginView == "doctor" 
+        history.replaceState({}, "", base)
+        history.pushState({}, "", base+"#doctor-login")
+        setStateInDoctorView()
+    
+    window.onhashchange = hashChanged
     return
 
 ############################################################
 #region loginView Changes
 loginViewChanged = ->
-    console.log("loginViewChanged")
+    # console.log("loginViewChanged")
     loginView = S.get("loginView")
 
     if loginView == "patient" then setStateInPatientView()
@@ -45,55 +58,48 @@ loginViewChanged = ->
     return
 
 ############################################################
-unsetLoginViews = ->
-    doctorloginview.classList.remove("here")
-    patientloginview.classList.remove("here")
-    document.body.style.height = "auto"
-    return
-
 setStateInPatientView = ->
     doctorloginview.classList.remove("here")
     patientloginview.classList.add("here")
-    
+
+    location.hash = "#patient-login"
+
     document.body.style.height =""+patientloginview.clientHeight+"px"
 
     Modules.patientloginviewmodule.onPageViewEntry()
-
-    # return if historyStatePushed 
-    # window.history.pushState({loginView: "patient"}, "", "#patienten_login");
-    # historyStatePushed = true
     return
 
 setStateInDoctorView = ->
     patientloginview.classList.remove("here")
     doctorloginview.classList.add("here")
-    
+
+    location.hash = "#doctor-login"    
+
     document.body.style.height = ""+doctorloginview.clientHeight+"px"
     
     Modules.doctorloginviewmodule.onPageViewEntry()
-    
-    # return if historyStatePushed 
-    # window.history.pushState({loginView: "doctor"}, "", "#ärzte_login");
-    # historyStatePushed = true
+    return
+
+unsetLoginViews = ->
+    doctorloginview.classList.remove("here")
+    patientloginview.classList.remove("here")
+
+    location.hash = ""
+
+    document.body.style.height = "auto"
     return
 
 ############################################################
-popHistoryState = (event) ->
-    console.log("popHistoryState")
-    return unless event?
-    state = event.state
-    if !state? or !state.loginView?
-        historyStatePushed = false
-        S.save("loginView", "none")
-    else if state.loginView == "patient"
-        historyStatePushed = true
-        S.save("loginView", "patient")
-    else if state.loginView == "doctor"
-        historyStatePushed = true
-        S.save("loginView", "doctor")
-    else 
-        console.log("Error, we had unknown loginView of: "+state.loginView)
-    console.log(state)
+hashChanged = (event) ->
+    # console.log("hash has changed")
+    # console.log(location.hash)
+
+    view = "none"
+
+    if location.hash == "#doctor-login" then view = "doctor"
+    if location.hash == "#patient-login" then view = "patient"
+
+    S.save("loginView", view)
     return
 
 #endregion
