@@ -11,7 +11,6 @@ ln -sfT ../../sources/ressources/audio audio
 ln -sfT ../../sources/ressources/video video
 
 ln -sf ../../sources/ressources/favicon/* .
-ln -sf ../../sources/ressources/crypto-pbkdf2.js .
 
 popd
 
