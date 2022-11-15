@@ -4,7 +4,7 @@
     .backshadow-block 
         p.hint !{content.svnLoginHintText}
 
-        form#patient-svn-login-form 
+        form#compatibility-svn-login-form 
             label#svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
             #svn-block
                 input#svn-part-input(name="svn-part" type="text" maxlength="4")
@@ -22,7 +22,7 @@
         h3#no-pin-question !{content.svnLoginNoPinQuestionText}
         p.hint !{content.svnLoginNoPinHintText}
 
-        form#patient-renew-pin-form(name="pin" method="POST" action="")
+        form#compatibility-renew-pin-form(name="pin" method="POST" action="")
             input#hidden-pin-send-input(type="hidden" name="pin_send" value="1")
             label#pin-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
             #pin-renew-svn-block

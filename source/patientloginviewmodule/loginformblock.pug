@@ -1,0 +1,34 @@
+#loginformblock.form-section-block
+    .form-block-heading 
+        h2#login-heading-text !{content.svnLoginHeadingText}
+    .backshadow-block 
+        p.hint !{content.svnLoginHintText}
+
+        //- form#patient-svn-login-form 
+        //-     label#svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
+        //-     #svn-block
+        //-         input#svn-part-input(name="svn-part" type="text" maxlength="4")
+        //-         #svn-separator -
+        //-         input#birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+        //-     label#pin-label(for="pin") !{content.svnLoginPinLabelText}
+        //-     input#pin-input(type="number" name="pin")
+        //-     #svn-error-feedback-text
+        //-     button#svn-submit-button(type="submit") !{content.svnLoginSubmitButtonText}
+        //-     .empty-cell
+
+        //- .agb-hint-block: p.hint !{content.agbHintText}
+
+    .grey-extension-block
+        h3#no-code-question !{content.svnLoginNoPinQuestionText}
+        p.hint !{content.svnLoginNoPinHintText}
+
+        //- form#patient-renew-pin-form(name="pin" method="POST" action="")
+        //-     input#hidden-pin-send-input(type="hidden" name="pin_send" value="1")
+        //-     label#pin-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
+        //-     #pin-renew-svn-block
+        //-         input#pin-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
+        //-         #pin-renew-svn-separator -
+        //-         input#pin-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+        //-     #pin-renew-error-feedback-text
+        //-     button#pin-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
+        //-     .empty-cell

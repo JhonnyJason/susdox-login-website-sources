@@ -1,7 +1,7 @@
 ############################################################
 #region debug
 import { createLogFunctions } from "thingy-debug"
-{log, olog} = createLogFunctions("patientloginviewmodule")
+{log, olog} = createLogFunctions("compatibitlityloginviewmodule")
 #endregion
 
 ############################################################
@@ -24,21 +24,21 @@ pinRenewBirthdayPartLength = 0
 ############################################################
 export initialize = ->
     log "initialize"
-    patientloginHeading.addEventListener("click", backButtonClicked)
-    # svnSubmitButton.addEventListener("click", svnSubmitClicked)
-    # authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
-    # pinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
+    compatibilityloginHeading.addEventListener("click", backButtonClicked)
+    svnSubmitButton.addEventListener("click", svnSubmitClicked)
+    authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
+    pinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
 
-    # svnPartInput.addEventListener("keyup", svnPartKeyUpped)
-    # birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
-    # pinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
-    # pinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
+    svnPartInput.addEventListener("keyup", svnPartKeyUpped)
+    birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
+    pinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
+    pinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
 
-    # svnPartLength = svnPartInput.value.length
-    # svnBirthdayPartLength = birthdayPartInput.value.length
+    svnPartLength = svnPartInput.value.length
+    svnBirthdayPartLength = birthdayPartInput.value.length
 
-    # pinRenewSvnPartLength = pinRenewSvnPartInput.value.length
-    # pinRenewBirthdayPartLength = pinRenewBirthdayPartInput.value.length
+    pinRenewSvnPartLength = pinRenewSvnPartInput.value.length
+    pinRenewBirthdayPartLength = pinRenewBirthdayPartInput.value.length
 
     return
 
@@ -245,8 +245,8 @@ doRenewPinRequest = (body) ->
 ############################################################
 #region focus inputs functions
 focusSVNPartFirst = ->
-    # svnPartInput.setSelectionRange(0, 0)
-    # svnPartInput.focus()
+    svnPartInput.setSelectionRange(0, 0)
+    svnPartInput.focus()
 
 focusSVNPartLast = ->
     svnPartInput.setSelectionRange(4, 4)
