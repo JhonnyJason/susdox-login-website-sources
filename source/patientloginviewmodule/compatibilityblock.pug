@@ -1,20 +1,11 @@
 #compatibilityblock.form-section-block
     .form-block-heading 
-        h2#compatibility-heading-text !{content.nosvnLoginHeadingText}
+        h2#compatibility-heading-text !{content.compatibilityLoginHeadingText}
     .backshadow-block 
-        p.hint !{content.nosvnLoginHintText}
-        //- form#patient-authcode-login-form
-        //-     label#authcode-birthday-label(for="birthday") !{content.nosvnLoginBirthdayLabelText}
-        //-     input#authcode-birthday-input(name="birthday" type="date")
-        //-     label#authcode-label(for="authcode") !{content.nosvnLoginAuthcodeLabelText}
-        //-     #authcode-block
-        //-         #authcode-prefix AT-
-        //-         input#authcode-input(name="authcode" type="number")
-        //-     #authcode-error-feedback-text
-        //-     button#authcode-submit-button(type="submit") !{content.nosvnLoginSubmitButtonText}
-        //-     .empty-cell
+        p.hint !{content.compatibilityLoginHintText}
+        button#access-compatibility-button() !{content.compatibilityLoginSwitchButtonText}
             
-        .agb-hint-block: p.hint !{content.agbHintText}
+        //- .agb-hint-block: p.hint !{content.agbHintText}
 
-    .grey-extension-block
-        p#no-code-hint.hint !{content.nosvnLoginNoAuthcodeHintText}
+    //- .grey-extension-block
+    //-     p#no-code-hint.hint !{content.copmatibilityLoginNoATHintText}

@@ -27,18 +27,18 @@ export initialize = ->
     compatibilityloginHeading.addEventListener("click", backButtonClicked)
     svnSubmitButton.addEventListener("click", svnSubmitClicked)
     authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
-    pinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
+    compatibilityPinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
 
     svnPartInput.addEventListener("keyup", svnPartKeyUpped)
     birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
-    pinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
-    pinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
+    compatibilityPinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
+    compatibilityPinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
 
     svnPartLength = svnPartInput.value.length
     svnBirthdayPartLength = birthdayPartInput.value.length
 
-    pinRenewSvnPartLength = pinRenewSvnPartInput.value.length
-    pinRenewBirthdayPartLength = pinRenewBirthdayPartInput.value.length
+    pinRenewSvnPartLength = compatibilityPinRenewSvnPartInput.value.length
+    pinRenewBirthdayPartLength = compatibilityPinRenewBirthdayPartInput.value.length
 
     return
 
@@ -73,7 +73,7 @@ birthdayPartKeyUpped = (evt) ->
 
 pinRenewSVNPartKeyUpped = (evt) ->
     # log "pinRenewSVNPartKeyUpped"
-    value = pinRenewSvnPartInput.value
+    value = compatibilityPinRenewSvnPartInput.value
     pinRenewSvnPartLength = value.length
     # olog {newLength}
 
@@ -86,7 +86,7 @@ pinRenewSVNPartKeyUpped = (evt) ->
 
 pinRenewBirthdayPartKeyUpped = (evt) ->
     # log "pinRenewBirthdayPartKeyUpped"
-    value = pinRenewBirthdayPartInput.value
+    value = compatibilityPinRenewBirthdayPartInput.value
     newLength = value.length
     # olog {newLength}
 
@@ -150,20 +150,20 @@ svnSubmitClicked = (evt) ->
 pinRenewSubmitClicked = (evt) ->
     log "pinRenewSubmitClicked"
     evt.preventDefault()
-    pinRenewSubmitButton.disabled = true
+    compatibilityPinRenewSubmitButton.disabled = true
     try
         resetAllErrorFeedback()
 
-        if !pinRenewSvnPartInput.value and !pinRenewBirthdayPartInput.value then return
+        if !compatibilityPinRenewSvnPartInput.value and !compatibilityPinRenewBirthdayPartInput.value then return
 
         renewPinBody = extractRenewPinBody()
         olog { renewPinBody } 
     
         response = await doRenewPinRequest(renewPinBody)
-        if !response.ok then errorFeedback("pinRenewPatient", ""+response.status)
+        if !response.ok then errorFeedback("codeRenewCompatibility", ""+response.status)
         
-    catch err then return errorFeedback("pinRenewPatient", "Other: " + err.message)
-    finally pinRenewSubmitButton.disabled = false
+    catch err then return errorFeedback("codeRenewCompatibility", "Other: " + err.message)
+    finally compatibilityPinRenewSubmitButton.disabled = false
     return
 
 ############################################################
@@ -195,9 +195,9 @@ extractNoSVNFormBody = ->
 
 extractRenewPinBody = ->
 
-    # username = ""+pinRenewSvnPartInput.value+pinRenewBirthdayPartInput.value
-    svn_pin1 = ""+pinRenewSvnPartInput.value
-    svn_pin2 = ""+pinRenewBirthdayPartInput.value
+    # username = ""+compatibilityPinRenewSvnPartInput.value+compatibilityPinRenewBirthdayPartInput.value
+    svn_pin1 = ""+compatibilityPinRenewSvnPartInput.value
+    svn_pin2 = ""+compatibilityPinRenewBirthdayPartInput.value
     pin_send = true
     pin_send_extern = true
 
@@ -258,12 +258,12 @@ focusBirthdayPartFirst = ->
 
 
 focusPinRenewSVNPartLast = ->
-    pinRenewSvnPartInput.setSelectionRange(4, 4)
-    pinRenewSvnPartInput.focus()
+    compatibilityPinRenewSvnPartInput.setSelectionRange(4, 4)
+    compatibilityPinRenewSvnPartInput.focus()
 
 focusPinRenewBirthdayPartFirst = ->
-    pinRenewBirthdayPartInput.setSelectionRange(0, 0)
-    pinRenewBirthdayPartInput.focus()
+    compatibilityPinRenewBirthdayPartInput.setSelectionRange(0, 0)
+    compatibilityPinRenewBirthdayPartInput.focus()
 
 
 #endregion

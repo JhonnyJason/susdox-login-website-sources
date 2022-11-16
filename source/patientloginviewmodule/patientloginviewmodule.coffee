@@ -25,55 +25,68 @@ pinRenewBirthdayPartLength = 0
 export initialize = ->
     log "initialize"
     patientloginHeading.addEventListener("click", backButtonClicked)
-    # svnSubmitButton.addEventListener("click", svnSubmitClicked)
-    # authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
-    # pinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
+    codeSubmitButton.addEventListener("click", codeSubmitButtonClicked)
+    codeRenewSubmitButton.addEventListener("click", codeRenewSubmitClicked)
+    accessCompatibilityButton.addEventListener("click", accessCompatibilityButtonClicked)
 
-    # svnPartInput.addEventListener("keyup", svnPartKeyUpped)
-    # birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
-    # pinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
-    # pinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
+    codeInput.addEventListener("keydown", codeInputKeyDowned)
+    codeInput.addEventListener("keyup", codeInputKeyUpped)
 
-    # svnPartLength = svnPartInput.value.length
-    # svnBirthdayPartLength = birthdayPartInput.value.length
+    codeRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
+    codeRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
 
-    # pinRenewSvnPartLength = pinRenewSvnPartInput.value.length
-    # pinRenewBirthdayPartLength = pinRenewBirthdayPartInput.value.length
+    pinRenewSvnPartLength = codeRenewSvnPartInput.value.length
+    pinRenewBirthdayPartLength = codeRenewBirthdayPartInput.value.length
 
     return
 
 ############################################################
 #region keyUpListeners
-svnPartKeyUpped = (evt) ->
+codeInputKeyDowned = (evt) ->
     # log "svnPartKeyUpped"
-    value = svnPartInput.value
-    svnPartLength = value.length
-    # olog {newLength}
-
-    if evt.keyCode == 46 then return
+    value = codeInput.value
+    codeLength = value.length
     
+    # 46 is delete
+    if evt.keyCode == 46 then return    
+    # 8 is backspace
     if evt.keyCode == 8 then return
-
-    if svnPartLength == 4 then focusBirthdayPartFirst()
+    # 27 is escape
+    if evt.keyCode == 27 then return
+    
+    # We we donot allow the input to grow furtherly
+    if codeLength == 13
+        evt.preventDefault()
+        return false
+    
+    if codeLength > 13 then codeInput.value = ""
+    
+    if !utl.isAlphanumericKeyCode(evt.keyCode)
+        evt.preventDefault()
+        return false
     return
 
-birthdayPartKeyUpped = (evt) ->
-    # log "birthdayPartKeyUpped"
-    value = birthdayPartInput.value
-    newLength = value.length
-    # olog {newLength}
+codeInputKeyUpped = (evt) ->
+    # log "svnPartKeyUpped"
+    value = codeInput.value
+    codeLength = value.length
 
-    if evt.keyCode != 8
-        svnBirthdayPartLength = newLength
-        return
-
-    if svnBirthdayPartLength == 0 then focusSVNPartLast()
-    else svnBirthdayPartLength = newLength
+    codeTokens = []
+    rawCode = value.replaceAll(" ", "")
+    log "rawCode #{rawCode}"
+    if rawCode.length > 0
+        codeTokens.push(rawCode.slice(0,3))
+    if rawCode.length > 3
+        codeTokens.push(rawCode.slice(3,6))
+    if rawCode.length > 6
+        codeTokens.push(rawCode.slice(6))
+    newValue = codeTokens.join("  ")
+    codeInput.value = newValue
     return
 
 pinRenewSVNPartKeyUpped = (evt) ->
     # log "pinRenewSVNPartKeyUpped"
-    value = pinRenewSvnPartInput.value
+    value = codeRenewSvnPartInput.value
     pinRenewSvnPartLength = value.length
     # olog {newLength}
 
@@ -86,7 +99,7 @@ pinRenewSVNPartKeyUpped = (evt) ->
 
 pinRenewBirthdayPartKeyUpped = (evt) ->
     # log "pinRenewBirthdayPartKeyUpped"
-    value = pinRenewBirthdayPartInput.value
+    value = codeRenewBirthdayPartInput.value
     newLength = value.length
     # olog {newLength}
 
@@ -104,100 +117,66 @@ pinRenewBirthdayPartKeyUpped = (evt) ->
 # using History
 backButtonClicked = -> window.history.back()
 
-############################################################
-authcodeSubmitClicked = (evt) ->
-    log "authcodeSubmitClicked"
-    evt.preventDefault()
-    authcodeSubmitButton.disabled = true
-    try
-        resetAllErrorFeedback()
-
-        loginBody = await extractNoSVNFormBody()
-        olog {loginBody}
-
-        if !loginBody.hashedPw and !loginBody.username then return
-
-        response = await doLoginRequest(loginBody)
-        
-        if !response.ok then errorFeedback("authcodePatient", ""+response.status)
-        else location.href = loginRedirectURL
-
-    catch err then return errorFeedback("authcodePatient", "Other: " + err.message)
-    finally authcodeSubmitButton.disabled = false
+accessCompatibilityButtonClicked = ->
+    log "accessCompatibilityButtonClicked"
+    S.save("loginView", "compatibility")
     return
-
-svnSubmitClicked = (evt) ->
-    log "svnSubmitClicked"
+    
+############################################################
+codeSubmitButtonClicked = (evt) ->
+    log "codeSubmitClicked"
     evt.preventDefault()
-    svnSubmitButton.disabled = true
+    codeSubmitButton.disabled = true
     try
         resetAllErrorFeedback()
        
-        loginBody = await extractSVNFormBody()
+        loginBody = await extractCodeFormBody()
         olog {loginBody}
 
         if !loginBody.hashedPw and !loginBody.username then return
 
         response = await doLoginRequest(loginBody)
         
-        if !response.ok then errorFeedback("svnPatient", ""+response.status)
+        if !response.ok then errorFeedback("codePatient", ""+response.status)
         else location.href = loginRedirectURL
 
-    catch err then return errorFeedback("svnPatient", "Other: " + err.message)
-    finally svnSubmitButton.disabled = false
+    catch err then return errorFeedback("codePatient", "Other: " + err.message)
+    finally codeSubmitButton.disabled = false
     return
 
-pinRenewSubmitClicked = (evt) ->
-    log "pinRenewSubmitClicked"
+codeRenewSubmitClicked = (evt) ->
+    log "codeRenewSubmitClicked"
     evt.preventDefault()
-    pinRenewSubmitButton.disabled = true
+    codeRenewSubmitButton.disabled = true
     try
         resetAllErrorFeedback()
 
-        if !pinRenewSvnPartInput.value and !pinRenewBirthdayPartInput.value then return
+        if !codeRenewSvnPartInput.value and !codeRenewBirthdayPartInput.value then return
 
         renewPinBody = extractRenewPinBody()
         olog { renewPinBody } 
     
         response = await doRenewPinRequest(renewPinBody)
-        if !response.ok then errorFeedback("pinRenewPatient", ""+response.status)
+        if !response.ok then errorFeedback("codeRenewPatient", ""+response.status)
         
-    catch err then return errorFeedback("pinRenewPatient", "Other: " + err.message)
-    finally pinRenewSubmitButton.disabled = false
+    catch err then return errorFeedback("codeRenewPatient", "Other: " + err.message)
+    finally codeRenewSubmitButton.disabled = false
     return
 
 ############################################################
-extractSVNFormBody = ->
+extractCodeFormBody = ->
+    username = ""+birthdayInput.value
+    code = codeInput.value.replaceAll(" ", "")
 
-    isMedic = false
-    rememberMe = false
+    ## TODO hash the password
     
-    username = ""+svnPartInput.value+birthdayPartInput.value
-    password = ""+pinInput.value
-
-    if !password then hashedPw = ""
-    else hashedPw = await computeHashedPw(username, password)
-    
-    return {username, hashedPw, isMedic, rememberMe}
-
-extractNoSVNFormBody = ->
-
-    isMedic = false
-    rememberMe = false
-
-    username = ""+authcodeBirthdayInput.value
-    password = "AT-"+authcodeInput.value
-    
-    if password == "AT-" then hashedPw = ""
-    else hashedPw = await computeHashedPw(username, password)
-    
-    return {username, hashedPw, isMedic, rememberMe}
+    return {username, code}
 
 extractRenewPinBody = ->
 
-    # username = ""+pinRenewSvnPartInput.value+pinRenewBirthdayPartInput.value
-    svn_pin1 = ""+pinRenewSvnPartInput.value
-    svn_pin2 = ""+pinRenewBirthdayPartInput.value
+    # username = ""+codeRenewSvnPartInput.value+codeRenewBirthdayPartInput.value
+    svn_pin1 = ""+codeRenewSvnPartInput.value
+    svn_pin2 = ""+codeRenewBirthdayPartInput.value
     pin_send = true
     pin_send_extern = true
 
@@ -244,40 +223,35 @@ doRenewPinRequest = (body) ->
 
 ############################################################
 #region focus inputs functions
-focusSVNPartFirst = ->
-    # svnPartInput.setSelectionRange(0, 0)
+focusBirthdayInput = ->
+    birthdayInput.focus()
     # svnPartInput.focus()
 
-focusSVNPartLast = ->
-    svnPartInput.setSelectionRange(4, 4)
-    svnPartInput.focus()
+focusCodeInput = ->
+    codeInput.setSelectionRange(0, 0)
+    codeInput.focus()
 
-focusBirthdayPartFirst = ->
-    birthdayPartInput.setSelectionRange(0, 0)
-    birthdayPartInput.focus()
 
 
 focusPinRenewSVNPartLast = ->
-    pinRenewSvnPartInput.setSelectionRange(4, 4)
-    pinRenewSvnPartInput.focus()
+    codeRenewSvnPartInput.setSelectionRange(4, 4)
+    codeRenewSvnPartInput.focus()
 
 focusPinRenewBirthdayPartFirst = ->
-    pinRenewBirthdayPartInput.setSelectionRange(0, 0)
-    pinRenewBirthdayPartInput.focus()
+    codeRenewBirthdayPartInput.setSelectionRange(0, 0)
+    codeRenewBirthdayPartInput.focus()
 
 
 #endregion
 
 
 ############################################################
-export enterWasClicked = (evt) ->
-    if pinInput.value then svnSubmitClicked(evt)
-    else if authcodeInput.value then authcodeSubmitClicked(evt)
-    return
+export enterWasClicked = (evt) -> codeSubmitClicked(evt)
 
 export onPageViewEntry = ->
     log "onPageViewEntry"
-    setTimeout(focusSVNPartFirst, 400)
+    # setTimeout(focusBirthdayInput, 400)
+    setTimeout(focusCodeInput, 400)
     return
 
 

@@ -23,12 +23,12 @@
         p.hint !{content.svnLoginNoPinHintText}
 
         form#compatibility-renew-pin-form(name="pin" method="POST" action="")
-            input#hidden-pin-send-input(type="hidden" name="pin_send" value="1")
-            label#pin-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
-            #pin-renew-svn-block
-                input#pin-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
-                #pin-renew-svn-separator -
-                input#pin-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
-            #pin-renew-error-feedback-text
-            button#pin-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
+            input#compatibility-hidden-pin-send-input(type="hidden" name="pin_send" value="1")
+            label#compatibility-pin-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
+            #compatibility-pin-renew-svn-block
+                input#compatibility-pin-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
+                #compatibility-pin-renew-svn-separator -
+                input#compatibility-pin-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+            #compatibility-pin-renew-error-feedback-text
+            button#compatibility-pin-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
             .empty-cell

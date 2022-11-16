@@ -113,3 +113,12 @@ export hashUsernamePw = (username, pwd) ->
 
     hash = await generatePBKDF2SubtleCrypto(username, pwd)
     return hash
+
+############################################################
+export isAlphanumericKeyCode = (code) ->
+    capitalAlpha = code >= 65 && code <= 90
+    smaallAlpha = code >= 97 && code <= 122
+    num = code >= 48 && code <= 57
+
+    if(num or smaallAlpha or capitalAlpha) then return true
+    else return false

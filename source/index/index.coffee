@@ -43,23 +43,31 @@ appStartup = ->
         history.pushState({}, "", base+"#doctor-login")
         setStateInDoctorView()
     
+    if loginView == "compatibility" 
+        history.replaceState({}, "", base)
+        history.pushState({}, "", base+"#compatibility-login")
+        setStateInCompatibilityView()
+    
     window.onhashchange = hashChanged
     return
 
 ############################################################
 #region loginView Changes
 loginViewChanged = ->
-    # console.log("loginViewChanged")
+    console.log("loginViewChanged")
     loginView = S.get("loginView")
 
-    if loginView == "patient" then setStateInPatientView()
-    else if loginView == "doctor" then setStateInDoctorView()
-    else unsetLoginViews()
+    switch(loginView)
+        when "patient" then setStateInPatientView()
+        when "doctor" then setStateInDoctorView()
+        when "compatibility" then setStateInCompatibilityView()
+        else unsetLoginViews()
     return
 
 ############################################################
 setStateInPatientView = ->
     doctorloginview.classList.remove("here")
+    compatibilityloginview.classList.remove("here")
     patientloginview.classList.add("here")
 
     location.hash = "#patient-login"
@@ -71,6 +79,7 @@ setStateInPatientView = ->
 
 setStateInDoctorView = ->
     patientloginview.classList.remove("here")
+    compatibilityloginview.classList.remove("here")
     doctorloginview.classList.add("here")
 
     location.hash = "#doctor-login"    
@@ -80,9 +89,23 @@ setStateInDoctorView = ->
     Modules.doctorloginviewmodule.onPageViewEntry()
     return
 
+setStateInCompatibilityView = ->
+    patientloginview.classList.remove("here")
+    doctorloginview.classList.remove("here")
+    compatibilityloginview.classList.add("here")
+
+    location.hash = "#compatibility-login"    
+
+    document.body.style.height = ""+compatibilityloginview.clientHeight+"px"
+    
+    Modules.compatibilityloginviewmodule.onPageViewEntry()
+    return
+
 unsetLoginViews = ->
+    console.log("unsetLoginViews")
     doctorloginview.classList.remove("here")
     patientloginview.classList.remove("here")
+    compatibilityloginview.classList.remove("here")
 
     location.hash = ""
 
@@ -98,6 +121,7 @@ hashChanged = (event) ->
 
     if location.hash == "#doctor-login" then view = "doctor"
     if location.hash == "#patient-login" then view = "patient"
+    if location.hash == "#compatibility-login" then view = "compatibility"
 
     S.save("loginView", view)
     return
