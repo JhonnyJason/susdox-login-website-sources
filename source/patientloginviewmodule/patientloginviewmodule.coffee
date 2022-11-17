@@ -22,6 +22,17 @@ pinRenewBirthdayPartLength = 0
 #endregion
 
 ############################################################
+count = 10000
+
+# c = count
+# before = performance.now()
+# while c--
+#     operations()
+# after = performacne.now()
+# dif = after - before
+# log "X took #{dif}ms"
+
+############################################################
 export initialize = ->
     log "initialize"
     patientloginHeading.addEventListener("click", backButtonClicked)
@@ -60,8 +71,11 @@ codeInputKeyDowned = (evt) ->
         return false
     
     if codeLength > 13 then codeInput.value = ""
-    
-    if !utl.isAlphanumericKeyCode(evt.keyCode)
+
+    # okay = utl.isAlphanumericString(evt.key)
+    okay = utl.isBase32String(evt.key)
+
+    if !okay
         evt.preventDefault()
         return false
     return
@@ -169,7 +183,7 @@ extractCodeFormBody = ->
     if !username then return {}
 
     code = codeInput.value.replaceAll(" ", "").toLowerCase()
-    if !utl.isAlphanumericString(code) then return {}
+    if !utl.isBase32String(code) then return {}
 
     isMedic = false
     rememberMe = false

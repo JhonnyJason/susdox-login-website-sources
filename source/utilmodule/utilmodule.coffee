@@ -11,13 +11,23 @@ import libsodium from "libsodium-wrappers"
 
 ############################################################
 charMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+validAlphanumeKeyCodes = null
+validBase32KeyCodes = null
 alphaNumRegex = new RegExp('^[a-z0-9]*$')
+base32Regex = new RegExp('^[a-km-np-z2-9]*$')
+
 sodium = null
 
 ############################################################
-count = 10000
+# count = 10000
 
-
+# c = count
+# before = performance.now()
+# while c--
+#     operations()
+# after = performacne.now()
+# dif = after - before
+# log "X took #{dif}ms"
 
 ############################################################
 export initialize = ->
@@ -25,6 +35,31 @@ export initialize = ->
     await libsodium.ready
     sodium = libsodium
     # olog Object.keys(sodium)
+    prepareValidKeyCodesMap()
+    return
+
+############################################################
+prepareValidKeyCodesMap = ->
+    validAlphanumeKeyCodes = []
+    validBase32KeyCodes = []
+    # validAlphanumeKeyCodes = new Array(255)
+    # validBase32KeyCodes = new Array(255)
+
+    # num = code >= 48 && code <= 57
+    for code in [48..57]
+        validAlphanumeKeyCodes[code] = true
+        if code != 48 and code != 49
+            validBase32KeyCodes[code] = true
+
+    # capitalAlpha = code >= 65 && code <= 90
+    for code in [65..90]
+        validAlphanumeKeyCodes[code] = true
+
+    # smallAlpha = code >= 97 && code <= 122
+    for code in [97..122]
+        validAlphanumeKeyCodes[code] = true
+        if code != 108 and code != 111
+            validBase32KeyCodes[code] = true
     return
 
 ############################################################
@@ -147,14 +182,13 @@ export argon2HashPw = (pin, birthdate) ->
     return hashHex
 
 
+############################################################
+export isAlphanumericCode = (code) -> validAlphanumeKeyCodes[code]
+
+export isBase32Code = (code) -> validBase32KeyCodes[code]
+
 
 ############################################################
-export isAlphanumericKeyCode = (code) ->
-    capitalAlpha = code >= 65 && code <= 90
-    smaallAlpha = code >= 97 && code <= 122
-    num = code >= 48 && code <= 57
+export isAlphanumericString = (string) -> alphaNumRegex.test(string)
 
-    if(num or smaallAlpha or capitalAlpha) then return true
-    else return false
-
-export isAlphanumericString = (code) -> alphaNumRegex.test(code)
+export isBase32String = (string) -> base32Regex.test(string) 
