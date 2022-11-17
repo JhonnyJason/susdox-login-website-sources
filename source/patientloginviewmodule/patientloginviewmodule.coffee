@@ -43,6 +43,7 @@ export initialize = ->
     codeInput.addEventListener("keydown", codeInputKeyDowned)
     codeInput.addEventListener("keyup", codeInputKeyUpped)
 
+    noCodeQuestion.addEventListener("click", noCodeQuestionClicked)
     codeRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
     codeRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
 
@@ -136,6 +137,11 @@ accessCompatibilityButtonClicked = ->
     S.save("loginView", "compatibility")
     return
     
+noCodeQuestionClicked = (evnt) ->
+    extensionBlock = patientloginview.getElementsByClassName("extension-block-content")[0]
+    extensionBlock.classList.toggle("shown")
+    return
+
 ############################################################
 codeSubmitButtonClicked = (evt) ->
     log "codeSubmitClicked"

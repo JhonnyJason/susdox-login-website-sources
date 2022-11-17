@@ -21,6 +21,7 @@ indexdomconnect.initialize = () ->
     global.codeInput = document.getElementById("code-input")
     global.codeErrorFeedbackText = document.getElementById("code-error-feedback-text")
     global.codeSubmitButton = document.getElementById("code-submit-button")
+    global.noCodeQuestion = document.getElementById("no-code-question")
     global.renewCodeForm = document.getElementById("renew-code-form")
     global.codeRenewSvnPartInput = document.getElementById("code-renew-svn-part-input")
     global.codeRenewBirthdayPartInput = document.getElementById("code-renew-birthday-part-input")

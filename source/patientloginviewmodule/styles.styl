@@ -8,9 +8,31 @@
 
     #no-code-question
         font-weight: bold
-        margin-bottom 10px
+        // margin-bottom 10px
         cursor pointer
+        z-index: 3
+        position relative
 
+    .grey-extension-block
+        background-color transparent
+        padding 0
+
+    .grey-extension-block > *
+        background-color cd-lightgrey
+        padding 20px
+
+    .extension-block-content
+        position relative
+        padding-top 0
+        z-index 0
+        top -300px
+        opacity 0
+        transition: all 0.3s 
+        
+    .extension-block-content.shown
+        transform: translateY(300px)
+        opacity: 1
+        
 #access-compatibility-button
     min-width 150px
 

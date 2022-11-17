@@ -1,7 +1,7 @@
 #loginformblock.form-section-block
     .form-block-heading 
         h2#login-heading-text !{content.codeLoginHeadingText}
-    .backshadow-block 
+    .backshadow-block
         p.hint !{content.codeLoginHintText}
 
         form#patient-code-login-form 
@@ -16,16 +16,17 @@
         .agb-hint-block: p.hint !{content.agbHintText}
 
     .grey-extension-block
-        h3#no-code-question !{content.codeLoginNoCodeQuestionText}
-        p.hint !{content.codeLoginNoCodeHintText}
+        h3#no-code-question() !{content.codeLoginNoCodeQuestionText}
+        .extension-block-content
+            p.hint !{content.codeLoginNoCodeHintText}
 
-        form#renew-code-form(name="pin" method="POST" action="")
-            input#hidden-pin-send-input(type="hidden" name="pin_send" value="1")
-            label#code-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
-            #code-renew-svn-block
-                input#code-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
-                #code-renew-svn-separator -
-                input#code-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
-            #code-renew-error-feedback-text
-            button#code-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
-            .empty-cell
+            form#renew-code-form(name="pin" method="POST" action="")
+                input#hidden-pin-send-input(type="hidden" name="pin_send" value="1")
+                label#code-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
+                #code-renew-svn-block
+                    input#code-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
+                    #code-renew-svn-separator -
+                    input#code-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+                #code-renew-error-feedback-text
+                button#code-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
+                .empty-cell
