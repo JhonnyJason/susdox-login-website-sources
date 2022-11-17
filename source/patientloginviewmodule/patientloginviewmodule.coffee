@@ -167,18 +167,16 @@ codeRenewSubmitClicked = (evt) ->
 extractCodeFormBody = ->
     username = ""+birthdayInput.value
     if !username then return {}
-    
+
     code = codeInput.value.replaceAll(" ", "").toLowerCase()
     if !utl.isAlphanumericString(code) then return {}
 
-    olog {
-        username,
-        code
-    }
+    isMedic = false
+    rememberMe = false
 
     hashedPw = utl.argon2HashPw(code, username)
 
-    return {username, hashedPw}
+    return {username, hashedPw, isMedic, rememberMe}
 
 extractRenewPinBody = ->
 
