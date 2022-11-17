@@ -6,9 +6,26 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as tbut from "thingy-byte-utils"
+import libsodium from "libsodium-wrappers"
+
 
 ############################################################
 charMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+alphaNumRegex = new RegExp('^[a-z0-9]*$')
+sodium = null
+
+############################################################
+count = 10000
+
+
+
+############################################################
+export initialize = ->
+    log "initialize"
+    await libsodium.ready
+    sodium = libsodium
+    # olog Object.keys(sodium)
+    return
 
 ############################################################
 # from - MIT LICENSE Copyright 2011 Jon Leighton - https://gist.github.com/jonleighton/958841 
@@ -114,6 +131,23 @@ export hashUsernamePw = (username, pwd) ->
     hash = await generatePBKDF2SubtleCrypto(username, pwd)
     return hash
 
+export argon2HashPw = (pin, birthdate) ->
+    salt = birthdate + "SUSDOX"
+    log salt
+
+    hash = sodium.crypto_pwhash(
+        32,        # Output size in bytes
+        pin,       # Will be converted to a UTF-8 Uint8Array by sodium.js
+        salt,      # Dito
+        1,         # Number of hash iterations
+        67108864,  # Use 64MB memory
+        sodium.crypto_pwhash_ALG_ARGON2ID13	# Hash algorithm: argon2id
+    )
+    hashHex = tbut.bytesToHex(hash)
+    return hashHex
+
+
+
 ############################################################
 export isAlphanumericKeyCode = (code) ->
     capitalAlpha = code >= 65 && code <= 90
@@ -122,3 +156,5 @@ export isAlphanumericKeyCode = (code) ->
 
     if(num or smaallAlpha or capitalAlpha) then return true
     else return false
+
+export isAlphanumericString = (code) -> alphaNumRegex.test(code)

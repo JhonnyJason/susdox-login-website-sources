@@ -9,5 +9,6 @@ export modulesToDebug =
     patientloginviewmodule: true
     doctorloginviewmodule: true
     registrationviewmodule: true
+    utilmodule: true
 
 addModulesToDebug(modulesToDebug)
