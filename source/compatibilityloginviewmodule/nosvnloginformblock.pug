@@ -5,7 +5,7 @@
         p.hint !{content.nosvnLoginHintText}
         form#compatibility-authcode-login-form
             label#authcode-birthday-label(for="birthday") !{content.nosvnLoginBirthdayLabelText}
-            input#authcode-birthday-input(name="birthday" type="date")
+            input#authcode-birthday-input(name="birthday" type="date" max="2999-12-31")
             label#authcode-label(for="authcode") !{content.nosvnLoginAuthcodeLabelText}
             #authcode-block
                 #authcode-prefix AT-

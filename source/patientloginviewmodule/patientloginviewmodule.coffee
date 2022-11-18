@@ -88,14 +88,21 @@ codeInputKeyUpped = (evt) ->
 
     codeTokens = []
     rawCode = value.replaceAll(" ", "")
+    rLen = rawCode.length
+    
     log "rawCode #{rawCode}"
-    if rawCode.length > 0
+    if rLen > 0
         codeTokens.push(rawCode.slice(0,3))
-    if rawCode.length > 3
+    if rLen > 3
         codeTokens.push(rawCode.slice(3,6))
-    if rawCode.length > 6
+    if rLen > 6
         codeTokens.push(rawCode.slice(6))
     newValue = codeTokens.join("  ")
+    
+    del = evt.keyCode == 46 || evt.keyCode == 8
+
+    if rLen == 3 || rLen == 6 then newValue += "  " unless del
+
     codeInput.value = newValue
     return
 

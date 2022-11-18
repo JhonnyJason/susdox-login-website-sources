@@ -6,7 +6,7 @@
 
         form#patient-code-login-form 
             label#birthday-label(for="birthday") !{content.codeLoginDateLabelText}
-            input#birthday-input(name="birthday" type="date")
+            input#birthday-input(name="birthday" type="date" max="2999-12-31")
             label#code-label(for="code") !{content.codeLoginCodeLabelText}
             input#code-input(type="text" name="code")
             #code-error-feedback-text

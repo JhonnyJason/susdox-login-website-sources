@@ -4,6 +4,7 @@ domconnect.initialize()
 
 delete Modules.patientloginviewmodule
 delete Modules.doctorloginviewmodule
+delete Modules.compatibilityloginviewmodule
 
 global.allModules = Modules
 
@@ -28,8 +29,8 @@ appStartup = ->
         setStateInDoctorView()
 
     if location.hash == "#patient-registration"
-        history.replaceState({}, "", supportBase)
-        history.pushState({}, "", supportBase+"#patient-registration")   
+        history.replaceState({}, "", base)
+        history.pushState({}, "", base+"#patient-registration")   
         setStateInPatientView()
 
     window.onhashchange = hashChanged
