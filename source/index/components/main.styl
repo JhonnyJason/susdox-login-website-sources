@@ -7,19 +7,26 @@ main
     max-width 1024px
     margin auto
     h1
-        font-size: 32pt
+        font-size: 30pt
         font-weight: bold
-        line-height: 110%
+        line-height: 105%
 
     .login-button
         background-color cd-turquoise
-        padding 20px
+        padding 15px
         display flex
         align-items: center
         justify-content: space-between
         overflow: hidden
         text-align left
-
+    .login-text
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        
+    .login-arrow
+        height 35px
+        width 35px
         svg
             height 35px
             width 35px
@@ -36,27 +43,30 @@ main
     box-sizing: border-box
 
 #content-title
-    padding-bottom 20px
+    padding-bottom 10px
 
 #content-slogan
-    padding-bottom 60px
-    
+    padding-bottom 35px
+    font-size: 13pt
+    line-height: 120%
+
 #patient-login-block
-    margin-bottom 90px
+    margin-bottom 50px
 
 #doctor-login-block
-    margin-bottom 30px
+    margin-bottom 20px
 
 #support-block
     padding-bottom 30px
 
 #main-block-decoration
     display: none
-    width 800px
+    width 500px
     background-image url("img/iStock_Frau.png")
     background-size: contain
     background-repeat: no-repeat
     background-position center
+    margin-left auto
 
 
 @media screen and (min-width: 800px)
