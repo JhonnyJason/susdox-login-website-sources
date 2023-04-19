@@ -4,3 +4,6 @@
 [submodule "source/statemodule"]
 	path = source/statemodule
 	url = git@github.com:JhonnyJason/pwa-sources-statemodule.git
+[submodule "source/scrollrolldatepickermodule"]
+	path = source/scrollrolldatepickermodule
+	url = git@github.com:JhonnyJason/pwa-sources-scrollrolldatepickermodule.git
