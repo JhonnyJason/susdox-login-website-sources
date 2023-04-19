@@ -5,6 +5,9 @@ import { createLogFunctions } from "thingy-debug"
 #endregion
 
 ############################################################
+import { ScrollRollDatepicker } from "./scrollrolldatepickermodule.js"
+
+############################################################
 import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
 import { resetAllErrorFeedback, errorFeedback } from "./errorfeedbackmodule.js"
@@ -19,7 +22,12 @@ svnBirthdayPartLength = 0
 pinRenewSvnPartLength = 0
 pinRenewBirthdayPartLength = 0
 
+currentCode = ""
+
 #endregion
+
+############################################################
+datePicker = null
 
 ############################################################
 count = 10000
@@ -50,47 +58,37 @@ export initialize = ->
     pinRenewSvnPartLength = codeRenewSvnPartInput.value.length
     pinRenewBirthdayPartLength = codeRenewBirthdayPartInput.value.length
 
+    options =
+        element: "birthday-input"
+        # height: 32
+    datePicker = new ScrollRollDatepicker(options)
+    datePicker.initialize()
+
     return
 
 ############################################################
 #region keyUpListeners
 codeInputKeyDowned = (evt) ->
-    # log "svnPartKeyUpped"
-    value = codeInput.value
-    codeLength = value.length
-    
+    log "codeInputKeyDowned"
+
+    # 13 is enter
+    if evt.keyCode == 13
+        evt.preventDefault()
+        codeSubmitButtonClicked()
+        return    
     # 46 is delete
     if evt.keyCode == 46 then return    
     # 8 is backspace
     if evt.keyCode == 8 then return
     # 27 is escape
     if evt.keyCode == 27 then return
-    
-    # We we donot allow the input to grow furtherly
-    if codeLength == 13
-        evt.preventDefault()
-        return false
-    
-    if codeLength > 13 then codeInput.value = ""
 
-    # okay = utl.isAlphanumericString(evt.key)
-    okay = utl.isBase32String(evt.key)
-
-    if !okay
-        evt.preventDefault()
-        return false
-    return
-
-codeInputKeyUpped = (evt) ->
-    # log "svnPartKeyUpped"
-    value = codeInput.value
-    codeLength = value.length
+    rawCode = codeInput.value.replaceAll(" ", "").toLowerCase()
+    if rawCode != currentCode then rawCode = currentCode
+    rLen = rawCode.length
 
     codeTokens = []
-    rawCode = value.replaceAll(" ", "")
-    rLen = rawCode.length
     
-    log "rawCode #{rawCode}"
     if rLen > 0
         codeTokens.push(rawCode.slice(0,3))
     if rLen > 3
@@ -98,10 +96,37 @@ codeInputKeyUpped = (evt) ->
     if rLen > 6
         codeTokens.push(rawCode.slice(6))
     newValue = codeTokens.join("  ")
-    
-    del = evt.keyCode == 46 || evt.keyCode == 8
 
-    if rLen == 3 || rLen == 6 then newValue += "  " unless del
+    if (rLen == 3 or rLen == 6) then rawCode += "  "    
+
+    codeInput.value = newValue
+    return
+
+codeInputKeyUpped = (evt) ->
+    log "codeInputKeyUpped"
+
+    rawCode = codeInput.value.replaceAll(" ", "").toLowerCase()
+    log "rawCode #{rawCode}"
+    newCode = ""
+    # filter out all the illegal characters
+    for c in rawCode when utl.isAlphanumericString(c)
+        newCode += c
+
+    rLen = newCode.length
+    if rLen > 9 then newCode = newCode.slice(0, 9)
+    currentCode = newCode
+    rLen = newCode.length
+
+    codeTokens = []
+    
+    log "newCode #{newCode}"
+    if rLen > 0
+        codeTokens.push(newCode.slice(0,3))
+    if rLen > 3
+        codeTokens.push(newCode.slice(3,6))
+    if rLen > 6
+        codeTokens.push(newCode.slice(6))
+    newValue = codeTokens.join("  ")
 
     codeInput.value = newValue
     return
@@ -192,16 +217,19 @@ codeRenewSubmitClicked = (evt) ->
 
 ############################################################
 extractCodeFormBody = ->
-    username = ""+birthdayInput.value
+    username = datePicker.value
     if !username then return {}
 
     code = codeInput.value.replaceAll(" ", "").toLowerCase()
-    if !utl.isBase32String(code) then return {}
+    # if !utl.isBase32String(code) then return {}
+    if !utl.isAlphanumericString(code) then return {}
 
     isMedic = false
     rememberMe = false
 
-    hashedPw = utl.argon2HashPw(code, username)
+    if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
+    else if code.length == 6 then hashedPw = await utl.hashUsernamePw(username, code)
+    else throw new Error("Unexpevded code Length!")
 
     return {username, hashedPw, isMedic, rememberMe}
 

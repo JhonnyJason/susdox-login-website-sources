@@ -6,7 +6,7 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as tbut from "thingy-byte-utils"
-import libsodium from "libsodium-wrappers"
+# import libsodium from "libsodium-wrappers-sumo"
 
 
 ############################################################
@@ -16,7 +16,12 @@ validBase32KeyCodes = null
 alphaNumRegex = new RegExp('^[a-z0-9]*$')
 base32Regex = new RegExp('^[a-km-np-z2-9]*$')
 
-sodium = null
+# sodium = null
+
+############################################################
+argon2Worker = null
+argon2HashResolve = null
+argon2HashReject = null
 
 ############################################################
 # count = 10000
@@ -32,8 +37,16 @@ sodium = null
 ############################################################
 export initialize = ->
     log "initialize"
-    await libsodium.ready
-    sodium = libsodium
+    argon2Worker = new Worker("argon2worker.js")
+    argon2Worker.addEventListener("message", argon2WorkerResponded)
+
+    # if window.Worker? then argon2Worker = new Worker("argon2worker.js")
+    # else
+    #     await libsodium.ready
+    #     sodium = libsodium
+
+    # await libsodium.ready
+    # sodium = libsodium
     # olog Object.keys(sodium)
     prepareValidKeyCodesMap()
     return
@@ -158,6 +171,15 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
     derivedKeyBase64 = bufferToBase64(derivedKeyBytes)
     return derivedKeyBase64
 
+argon2WorkerResponded = (evnt) ->
+    log "argon2WorkerResponded"
+    log evnt.data
+    if evnt.data? then { error, hashHex } = evnt.data
+    if argon2HashResolve? and hashHex? then return argon2HashResolve(hashHex)
+    if argon2HashReject? and error? then return argon2HashReject(error)
+    log "argon2Worker response did not cause any effect!"
+    return
+
 ############################################################
 export hashUsernamePw = (username, pwd) ->
     if username.length < 4 then username = username + username + username
@@ -166,20 +188,44 @@ export hashUsernamePw = (username, pwd) ->
     hash = await generatePBKDF2SubtleCrypto(username, pwd)
     return hash
 
-export argon2HashPw = (pin, birthdate) ->
-    salt = birthdate + "SUSDOX"
-    log salt
+# export argon2HashPwLocal = (pin, birthdate) ->
+#     salt = birthdate + "SUSDOX"
+#     log salt
 
-    hash = sodium.crypto_pwhash(
-        32,        # Output size in bytes
-        pin,       # Will be converted to a UTF-8 Uint8Array by sodium.js
-        salt,      # Dito
-        1,         # Number of hash iterations
-        67108864,  # Use 64MB memory
-        sodium.crypto_pwhash_ALG_ARGON2ID13	# Hash algorithm: argon2id
-    )
-    hashHex = tbut.bytesToHex(hash)
-    return hashHex
+#     hash = sodium.crypto_pwhash(
+#         32,        # Output size in bytes
+#         pin,       # Will be converted to a UTF-8 Uint8Array by sodium.js
+#         salt,      # Dito
+#         1,         # Number of hash iterations
+#         67108864,  # Use 64MB memory
+#         sodium.crypto_pwhash_ALG_ARGON2ID13	# Hash algorithm: argon2id
+#     )
+#     hashHex = tbut.bytesToHex(hash)
+#     return hashHex
+
+export argon2HashPw = (pin, birthdate) ->
+    log "argon2HashPw"
+    # if !argon2Worker? then return argon2HashPwLocal()
+    promisedHash = new Promise (resolve, reject) ->
+        argon2HashResolve = resolve
+        argon2HashReject = reject
+        return
+    
+    args = {pin, birthdate}
+    argon2Worker.postMessage(args)
+
+    try 
+        hashHex = await promisedHash
+        # olog { hashHex }
+        return hashHex
+    catch err
+        log "Argon2 threw an Error!"
+        log err
+    finally
+        argon2HashResolve = null
+        argon2HashReject = null
+    return
+
 
 
 ############################################################
