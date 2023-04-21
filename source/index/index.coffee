@@ -43,10 +43,10 @@ appStartup = ->
         history.pushState({}, "", base+"#doctor-login")
         setStateInDoctorView()
     
-    if loginView == "compatibility" 
-        history.replaceState({}, "", base)
-        history.pushState({}, "", base+"#compatibility-login")
-        setStateInCompatibilityView()
+    # if loginView == "compatibility" 
+    #     history.replaceState({}, "", base)
+    #     history.pushState({}, "", base+"#compatibility-login")
+    #     # setStateInCompatibilityView()
     
     window.onhashchange = hashChanged
     return
@@ -67,7 +67,7 @@ loginViewChanged = ->
 ############################################################
 setStateInPatientView = ->
     doctorloginview.classList.remove("here")
-    compatibilityloginview.classList.remove("here")
+    # compatibilityloginview.classList.remove("here")
     patientloginview.classList.add("here")
 
     location.hash = "#patient-login"
@@ -79,7 +79,7 @@ setStateInPatientView = ->
 
 setStateInDoctorView = ->
     patientloginview.classList.remove("here")
-    compatibilityloginview.classList.remove("here")
+    # compatibilityloginview.classList.remove("here")
     doctorloginview.classList.add("here")
 
     location.hash = "#doctor-login"    
@@ -89,23 +89,23 @@ setStateInDoctorView = ->
     Modules.doctorloginviewmodule.onPageViewEntry()
     return
 
-setStateInCompatibilityView = ->
-    patientloginview.classList.remove("here")
-    doctorloginview.classList.remove("here")
-    compatibilityloginview.classList.add("here")
+# setStateInCompatibilityView = ->
+#     patientloginview.classList.remove("here")
+#     doctorloginview.classList.remove("here")
+#     compatibilityloginview.classList.add("here")
 
-    location.hash = "#compatibility-login"    
+#     location.hash = "#compatibility-login"    
 
-    document.body.style.height = ""+compatibilityloginview.clientHeight+"px"
+#     document.body.style.height = ""+compatibilityloginview.clientHeight+"px"
     
-    Modules.compatibilityloginviewmodule.onPageViewEntry()
-    return
+#     Modules.compatibilityloginviewmodule.onPageViewEntry()
+#     return
 
 unsetLoginViews = ->
     console.log("unsetLoginViews")
     doctorloginview.classList.remove("here")
     patientloginview.classList.remove("here")
-    compatibilityloginview.classList.remove("here")
+    # compatibilityloginview.classList.remove("here")
 
     location.hash = ""
 

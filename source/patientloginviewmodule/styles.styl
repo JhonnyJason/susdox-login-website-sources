@@ -38,9 +38,31 @@
     .extension-block-content.shown
         transform: translateY(300px)
         opacity: 1
-        
-#access-compatibility-button
-    min-width 150px
+    
+#idaustriablock
+    .backshadow-block 
+        display flex
+        align-items: center
+        flex-direction: column
+    #idaustria-logo
+        width 120px
+        height 120px
+        border-radius: 50%
+        box-shadow: 0 0 5px alpha(#000, 0.2)
+        cursor pointer
+        object-fit: contain
+        object-position: center
+        margin-bottom 15px
+        transition: transform 0.3s
+
+    #idaustria-logo:hover
+        filter: grayscale(100%)
+
+    #idaustria-logo:active
+        transform scale(0.9)
+
+// #access-compatibility-button
+//     min-width 150px
 
 
 #renew-code-form
@@ -71,4 +93,4 @@
         .form-section
             display grid
             grid-gap 50px
-            grid-template-columns: auto auto
+            grid-template-columns: 1fr 1fr

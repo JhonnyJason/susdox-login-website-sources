@@ -46,7 +46,7 @@ export initialize = ->
     patientloginHeading.addEventListener("click", backButtonClicked)
     codeSubmitButton.addEventListener("click", codeSubmitButtonClicked)
     codeRenewSubmitButton.addEventListener("click", codeRenewSubmitClicked)
-    accessCompatibilityButton.addEventListener("click", accessCompatibilityButtonClicked)
+    # accessCompatibilityButton.addEventListener("click", accessCompatibilityButtonClicked)
 
     codeInput.addEventListener("keydown", codeInputKeyDowned)
     codeInput.addEventListener("keyup", codeInputKeyUpped)
@@ -164,10 +164,10 @@ pinRenewBirthdayPartKeyUpped = (evt) ->
 # using History
 backButtonClicked = -> window.history.back()
 
-accessCompatibilityButtonClicked = ->
-    log "accessCompatibilityButtonClicked"
-    S.save("loginView", "compatibility")
-    return
+# accessCompatibilityButtonClicked = ->
+#     log "accessCompatibilityButtonClicked"
+#     S.save("loginView", "compatibility")
+#     return
     
 noCodeQuestionClicked = (evnt) ->
     extensionBlock = patientloginview.getElementsByClassName("extension-block-content")[0]
@@ -228,8 +228,10 @@ extractCodeFormBody = ->
     rememberMe = false
 
     if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
-    else if code.length == 6 then hashedPw = await utl.hashUsernamePw(username, code)
-    else throw new Error("Unexpevded code Length!")
+    # else if code.length == 6 then hashedPw = await utl.hashUsernamePw(username, code)
+    else if code.length == 6 then hashedPw = code
+    else if code.length == 8 and (code.indexOf("at")==0) then hashedPw = code.slice(2)
+    else throw new Error("Unexpected code Length!")
 
     return {username, hashedPw, isMedic, rememberMe}
 

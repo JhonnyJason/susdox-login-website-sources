@@ -4,7 +4,6 @@ domconnect.initialize()
 
 delete Modules.patientloginviewmodule
 delete Modules.doctorloginviewmodule
-delete Modules.compatibilityloginviewmodule
 
 global.allModules = Modules
 
