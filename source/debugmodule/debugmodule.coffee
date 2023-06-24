@@ -6,7 +6,7 @@ export modulesToDebug =
     # configmodule: true
     # statemodule: true
     errorfeedbackmodule: true
-    # patientloginviewmodule: true
+    patientloginviewmodule: true
     # doctorloginviewmodule: true
     # registrationviewmodule: true
     # utilmodule: true

@@ -87,21 +87,21 @@ export errorFeedbackDoctorLogin = (reason) ->
 
 ############################################################
 export resetAllErrorFeedback = ->
-    doctorloginForm.classList.remove("error")
+    if doctorloginForm? then doctorloginForm.classList.remove("error")
 
-    patientCodeLoginForm.classList.remove("error")
-    renewCodeForm.classList.remove("error")
+    if patientCodeLoginForm? then patientCodeLoginForm.classList.remove("error")
+    if renewCodeForm? then renewCodeForm.classList.remove("error")
 
-    codeErrorFeedbackText.innerHTML = ""
-    codeRenewErrorFeedbackText.innerHTML = ""
+    if codeErrorFeedbackText? then codeErrorFeedbackText.innerHTML = ""
+    if codeRenewErrorFeedbackText? then codeRenewErrorFeedbackText.innerHTML = ""
 
-    compatibilityAuthcodeLoginForm.classList.remove("error")
-    compatibilitySvnLoginForm.classList.remove("error")
-    compatibilityRenewPinForm.classList.remove("error")    
+    if compatibilityAuthcodeLoginForm? then compatibilityAuthcodeLoginForm.classList.remove("error")
+    if compatibilitySvnLoginForm? then compatibilitySvnLoginForm.classList.remove("error")
+    if compatibilityRenewPinForm? then compatibilityRenewPinForm.classList.remove("error")    
 
-    svnErrorFeedbackText.innerHTML = ""
-    authcodeErrorFeedbackText.innerHTML = ""
-    compatibilityPinRenewErrorFeedbackText.innerHTML = ""
+    if svnErrorFeedbackText? then svnErrorFeedbackText.innerHTML = ""
+    if authcodeErrorFeedbackText? then authcodeErrorFeedbackText.innerHTML = ""
+    if compatibilityPinRenewErrorFeedbackText? then compatibilityPinRenewErrorFeedbackText.innerHTML = ""
         
     adjustBodyHeight()
     return

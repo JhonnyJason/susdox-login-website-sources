@@ -181,17 +181,17 @@ codeSubmitButtonClicked = (evt) ->
     codeSubmitButton.disabled = true
     try
         resetAllErrorFeedback()
-       
+
         loginBody = await extractCodeFormBody()
         olog {loginBody}
 
         if !loginBody.hashedPw and !loginBody.username then return
 
         response = await doLoginRequest(loginBody)
-        
+
         if !response.ok then errorFeedback("codePatient", ""+response.status)
         else location.href = loginRedirectURL
-
+        
     catch err then return errorFeedback("codePatient", "Other: " + err.message)
     finally codeSubmitButton.disabled = false
     return
@@ -227,10 +227,16 @@ extractCodeFormBody = ->
     isMedic = false
     rememberMe = false
 
-    if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
-    # else if code.length == 6 then hashedPw = await utl.hashUsernamePw(username, code)
-    else if code.length == 6 then hashedPw = code
-    else if code.length == 8 and (code.indexOf("at")==0) then hashedPw = code.slice(2)
+    ## version, sending plaintext code for 6-digit code and accept 6-digi code with prefix "at"
+    # if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
+    # # else if code.length == 6 then hashedPw = await utl.hashUsernamePw(username, code)
+    # else if code.length == 6 then hashedPw = code
+    # else if code.length == 8 and (code.indexOf("at")==0) then hashedPw = code.slice(2)
+    # else throw new Error("Unexpected code Length!")
+
+    ## version, always using argon2 hash
+    if code.length == 8 and (code.indexOf("at")==0) then code = code.slice(2)
+    if code.length == 9 or code.length == 6 then hashedPw = await utl.argon2HashPw(code, username)
     else throw new Error("Unexpected code Length!")
 
     return {username, hashedPw, isMedic, rememberMe}
