@@ -58,11 +58,13 @@ export initialize = ->
     pinRenewSvnPartLength = codeRenewSvnPartInput.value.length
     pinRenewBirthdayPartLength = codeRenewBirthdayPartInput.value.length
 
-    options =
-        element: "birthday-input"
-        # height: 32
-    datePicker = new ScrollRollDatepicker(options)
-    datePicker.initialize()
+    try
+        options =
+            element: "birthday-input"
+            # height: 32
+        datePicker = new ScrollRollDatepicker(options)
+        datePicker.initialize()
+    catch err then log err
 
     return
 
