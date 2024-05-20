@@ -46,7 +46,7 @@ export initialize = ->
     patientloginHeading.addEventListener("click", backButtonClicked)
     codeSubmitButton.addEventListener("click", codeSubmitButtonClicked)
     codeRenewSubmitButton.addEventListener("click", codeRenewSubmitClicked)
-    # accessCompatibilityButton.addEventListener("click", accessCompatibilityButtonClicked)
+    accessCompatibilityButton.addEventListener("click", accessCompatibilityButtonClicked)
 
     codeInput.addEventListener("keydown", codeInputKeyDowned)
     codeInput.addEventListener("keyup", codeInputKeyUpped)
@@ -166,10 +166,10 @@ pinRenewBirthdayPartKeyUpped = (evt) ->
 # using History
 backButtonClicked = -> window.history.back()
 
-# accessCompatibilityButtonClicked = ->
-#     log "accessCompatibilityButtonClicked"
-#     S.save("loginView", "compatibility")
-#     return
+accessCompatibilityButtonClicked = ->
+    log "accessCompatibilityButtonClicked"
+    S.save("loginView", "compatibility")
+    return
     
 noCodeQuestionClicked = (evnt) ->
     extensionBlock = patientloginview.getElementsByClassName("extension-block-content")[0]

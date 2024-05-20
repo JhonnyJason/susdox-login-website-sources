@@ -1,9 +1,9 @@
 //- patientloginform structure
-#patientloginview.fullpage-view
+#compatibilityloginview.fullpage-view
 
     .pageviewheader
 
-        #patientlogin-heading.pageview-heading
+        #compatibilitylogin-heading.pageview-heading
             .back-arrow: svg: use(href="#svg-left-chevron")
             .pageviewheader-logo-block
                 .pageviewheader-logo
@@ -17,10 +17,9 @@
         p.content-slogan !{sharedContent.contentSloganText}
 
         .form-section
-            include loginformblock.pug
-            //- include idaustriablock.pug
-            include compatibilityblock.pug
+            include svnloginformblock.pug 
+            include nosvnloginformblock.pug
 
-        .dark-support-block: include ../supportbuttonmodule/helpandsupportbutton.pug
+        .dark-support-block: include ../supportbuttonmodule/supportbutton.pug
     
     .footer-section: include ../footermodule/footer.pug

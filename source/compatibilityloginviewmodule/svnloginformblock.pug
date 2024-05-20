@@ -1,0 +1,34 @@
+#svnloginformblock.form-section-block
+    .form-block-heading 
+        h2#svnlogin-heading-text !{content.svnLoginHeadingText}
+    .backshadow-block 
+        p.hint !{content.svnLoginHintText}
+
+        form#compatibility-svn-login-form 
+            label#svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
+            #svn-block
+                input#svn-part-input(name="svn-part" type="text" maxlength="4")
+                #svn-separator -
+                input#birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+            label#pin-label(for="pin") !{content.svnLoginPinLabelText}
+            input#pin-input(type="number" name="pin")
+            #svn-error-feedback-text
+            button#svn-submit-button(type="submit") !{content.svnLoginSubmitButtonText}
+            .empty-cell
+
+        .agb-hint-block: p.hint !{content.agbHintText}
+
+    .grey-extension-block
+        h3#no-pin-question !{content.svnLoginNoPinQuestionText}
+        p.hint !{content.svnLoginNoPinHintText}
+
+        form#compatibility-renew-pin-form(name="pin" method="POST" action="")
+            input#compatibility-hidden-pin-send-input(type="hidden" name="pin_send" value="1")
+            label#compatibility-pin-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
+            #compatibility-pin-renew-svn-block
+                input#compatibility-pin-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
+                #compatibility-pin-renew-svn-separator -
+                input#compatibility-pin-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+            #compatibility-pin-renew-error-feedback-text
+            button#compatibility-pin-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
+            .empty-cell
