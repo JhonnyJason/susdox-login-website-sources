@@ -73,8 +73,12 @@ startUp = ->
 
 ############################################################
 checkURLHash = ->
-    if location.hash == "#doctor-login" then triggers.doctorLogin()
-    if location.hash == "#patient-login" then triggers.patientLogin()
+    url = new URL(window.location)
+    hash = url.hash
+    history.replaceState(history.state, document.title, "/")
+    
+    if hash == "#doctor-login" then triggers.doctorLogin()
+    if hash == "#patient-login" then triggers.patientLogin()
     return
 
 ############################################################
