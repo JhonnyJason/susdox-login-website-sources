@@ -6,21 +6,19 @@ import { createLogFunctions } from "thingy-debug"
 
 ############################################################
 import * as S from "./statemodule.js"
+import * as triggers from "./navtriggers.js"
 
 ############################################################
 export initialize = ->
     log "initialize"
-    patientregistrationviewHeading.addEventListener("click", backButtonClicked)
+    patientregistrationviewHeading.addEventListener("click", triggers.back)
     patientregistrationSubmitButton.addEventListener("click", submitButtonClicked)
     return
 
 ############################################################
 # using History
-backButtonClicked = -> window.history.back()
-
 ############################################################
 # no History
-# backButtonClicked = -> S.set("registrationView", "none")
 
 ############################################################
 submitButtonClicked = ->

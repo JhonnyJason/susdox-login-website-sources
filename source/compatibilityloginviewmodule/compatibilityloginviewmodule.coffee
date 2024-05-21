@@ -5,10 +5,14 @@ import { createLogFunctions } from "thingy-debug"
 #endregion
 
 ############################################################
-import * as S from "./statemodule.js"
+import { ScrollRollDatepicker } from "./scrollrolldatepickermodule.js"
+
+############################################################import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
+import * as triggers from "./navtriggers.js"
+
 import { resetAllErrorFeedback, errorFeedback } from "./errorfeedbackmodule.js"
-import { loginURL, loginRedirectURL, renewPinURL } from "./configmodule.js"
+import { legacyLoginURL, loginRedirectURL, requestCodeURL } from "./configmodule.js"
 
 
 ############################################################
@@ -22,23 +26,43 @@ pinRenewBirthdayPartLength = 0
 #endregion
 
 ############################################################
+phoneNumberRegex = /^\+?[0-9]+$/gm
+
+############################################################
+noSVNDatePicker = null
+requestDatePicker = null
+
+############################################################
 export initialize = ->
     log "initialize"
-    compatibilityloginHeading.addEventListener("click", backButtonClicked)
+    compatibilityloginHeading.addEventListener("click", triggers.back)
     svnSubmitButton.addEventListener("click", svnSubmitClicked)
     authcodeSubmitButton.addEventListener("click", authcodeSubmitClicked)
-    compatibilityPinRenewSubmitButton.addEventListener("click", pinRenewSubmitClicked)
+    requestCodeSubmitButton.addEventListener("click", requestCodeSubmitClicked)
 
     svnPartInput.addEventListener("keyup", svnPartKeyUpped)
     birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
-    compatibilityPinRenewSvnPartInput.addEventListener("keyup", pinRenewSVNPartKeyUpped)
-    compatibilityPinRenewBirthdayPartInput.addEventListener("keyup", pinRenewBirthdayPartKeyUpped)
+
+
+    noPinQuestion.addEventListener("click", noPinQuestionClicked)
 
     svnPartLength = svnPartInput.value.length
     svnBirthdayPartLength = birthdayPartInput.value.length
 
-    pinRenewSvnPartLength = compatibilityPinRenewSvnPartInput.value.length
-    pinRenewBirthdayPartLength = compatibilityPinRenewBirthdayPartInput.value.length
+    try
+        options =
+            element: "authcode-birthday-input"
+            # height: 32
+        noSVNDatePicker = new ScrollRollDatepicker(options)
+        noSVNDatePicker.initialize()
+
+        options =
+            element: "request-birthday-input"
+            # height: 32
+        requestDatePicker = new ScrollRollDatepicker(options)
+        requestDatePicker.initialize()
+
+    catch err then log err
 
     return
 
@@ -98,11 +122,16 @@ pinRenewBirthdayPartKeyUpped = (evt) ->
     else pinRenewBirthdayPartLength = newLength
     return
 
+noPinQuestionClicked = ->
+    log "noPinQuestionClicked"
+    extensionBlock = requestcodeformblock.getElementsByClassName("extension-block-content")[0]
+    extensionBlock.classList.toggle("shown")
+    return
+
 #endregion
 
 ############################################################
 # using History
-backButtonClicked = -> window.history.back()
 
 ############################################################
 authcodeSubmitClicked = (evt) ->
@@ -147,23 +176,22 @@ svnSubmitClicked = (evt) ->
     finally svnSubmitButton.disabled = false
     return
 
-pinRenewSubmitClicked = (evt) ->
-    log "pinRenewSubmitClicked"
+requestCodeSubmitClicked = (evt) ->
+    log "requestCodeSubmitClicked"
     evt.preventDefault()
-    compatibilityPinRenewSubmitButton.disabled = true
+    requestCodeSubmitButton.disabled = true
     try
-        resetAllErrorFeedback()
+        resetAllErrorFeedback()        
+        if !requestDatePicker.value and !requestPhoneInput.value then return
 
-        if !compatibilityPinRenewSvnPartInput.value and !compatibilityPinRenewBirthdayPartInput.value then return
-
-        renewPinBody = extractRenewPinBody()
-        olog { renewPinBody } 
+        requestCodeBody = extractRequestCodeBody()
+        olog { requestCodeBody } 
     
-        response = await doRenewPinRequest(renewPinBody)
-        if !response.ok then errorFeedback("codeRenewCompatibility", ""+response.status)
+        response = await doRequestCode(requestCodeBody)
+        if !response.ok then errorFeedback("requestCode", ""+response.status)
         
-    catch err then return errorFeedback("codeRenewCompatibility", "Other: " + err.message)
-    finally compatibilityPinRenewSubmitButton.disabled = false
+    catch err then return errorFeedback("requestCode", "Other: " + err.message)
+    finally requestCodeSubmitButton.disabled = false
     return
 
 ############################################################
@@ -185,7 +213,7 @@ extractNoSVNFormBody = ->
     isMedic = false
     rememberMe = false
 
-    username = ""+authcodeBirthdayInput.value
+    username = noSVNDatePicker.value
     password = "AT-"+authcodeInput.value
     
     if password == "AT-" then hashedPw = ""
@@ -193,16 +221,18 @@ extractNoSVNFormBody = ->
     
     return {username, hashedPw, isMedic, rememberMe}
 
-extractRenewPinBody = ->
+extractRequestCodeBody = ->
+    log "extractRequestCodeBody"
+    dateOfBirth = requestDatePicker.value
+    phoneNumber = requestPhoneInput.value.replaceAll(/[ \-\(\)]/g, "")
+    
+    phoneNumberValid = phoneNumber.length > 6 and phoneNumber.length < 25
+    if phoneNumberValid then phoneNumberValid = phoneNumberRegex.test(phoneNumber)
 
-    # username = ""+compatibilityPinRenewSvnPartInput.value+compatibilityPinRenewBirthdayPartInput.value
-    svn_pin1 = ""+compatibilityPinRenewSvnPartInput.value
-    svn_pin2 = ""+compatibilityPinRenewBirthdayPartInput.value
-    pin_send = true
-    pin_send_extern = true
+    if !phoneNumberValid then throw new InputError("Fehler in der Telefonnummer!")
+    if !dateOfBirth then throw new InputError("Kein Geburtsdatum gewählt!")
 
-    # return {username, pin_send, pin_send_extern}
-    return {svn_pin1, svn_pin2, pin_send, pin_send_extern}
+    return {dateOfBirth, phoneNumber}
 
 ############################################################
 computeHashedPw = (username, pwd) ->
@@ -212,35 +242,32 @@ computeHashedPw = (username, pwd) ->
 doLoginRequest = (body) ->
     method = "POST"
     mode = 'cors'
-    redirect =  'follow'
-    credentials = 'include'
     
 
     # json body
     headers = { 'Content-Type': 'application/json' }
     body = JSON.stringify(body)
 
-    fetchOptions = { method, mode, redirect, credentials, headers, body }
+    fetchOptions = { method, mode, headers, body }
 
-    try return fetch(loginURL, fetchOptions)
+    try return fetch(legacyLoginURL, fetchOptions)
     catch err then log err
 
-doRenewPinRequest = (body) ->
+doRequestCode = (body) ->
     method = "POST"
     mode = 'cors'
-    redirect =  'follow'
-    credentials = 'include'
     
-    # url encoded
-    headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-    body = new URLSearchParams(body)
+    # # url encoded
+    # headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+    # body = new URLSearchParams(body)
 
+    headers = { 'Content-Type': 'application/json' }
+    body = JSON.stringify(body)
+    
+    fetchOptions = { method, mode, headers, body }
 
-    fetchOptions = { method, mode, redirect, credentials, headers, body }
-
-    try return fetch(renewPinURL, fetchOptions)
+    try return fetch(requestCodeURL, fetchOptions)
     catch err then log err
-
 
 ############################################################
 #region focus inputs functions

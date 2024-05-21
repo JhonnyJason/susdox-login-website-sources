@@ -1,109 +1,42 @@
 import Modules from "./allmodules"
 import domconnect from "./supportdomconnect"
+
+import * as nav from "navhandler"
+
+############################################################
+import * as uiState from "./uistatemodule.js"
+import * as triggers from "./navtriggers.js"
+
 domconnect.initialize()
 
 delete Modules.patientloginviewmodule
 delete Modules.doctorloginviewmodule
+delete Modules.compatibilityloginviewmodule
 
 global.allModules = Modules
 
 ############################################################
-S = Modules.statemodule
-
-############################################################
-registrationView = null
+appBaseState = null
 
 ############################################################
 appStartup = ->
-    doctorregistrationBlock.addEventListener("click", doctorregistrationClicked)
-    patientregistrationBlock.addEventListener("click", patientregistrationClicked)
+    # nav.initialize(setNavState, setNavState, true)
+    nav.initialize(setNavState, setNavState)
 
-    S.addOnChangeListener("registrationView", registrationViewChanged)
-    
-    base = location.href.split("#")[0]
+    doctorregistrationBlock.addEventListener("click", triggers.doctorRegistration)
+    patientregistrationBlock.addEventListener("click", triggers.patientRegistration)
 
-    if location.hash == "#doctor-registration" 
-        history.replaceState({}, "", base)
-        history.pushState({}, "", base+"#doctor-registration")
-        setStateInDoctorView()
-
-    if location.hash == "#patient-registration"
-        history.replaceState({}, "", base)
-        history.pushState({}, "", base+"#patient-registration")   
-        setStateInPatientView()
-
-    window.onhashchange = hashChanged
+    nav.appLoaded()
     return
+
 
 ############################################################
-#region registratinView Changes
-registrationViewChanged = ->
-    # console.log("registrationViewChanged")
-    registrationView = S.get("registrationView")
-
-    if registrationView == "patient" then setStateInPatientView()
-    else if registrationView == "doctor" then setStateInDoctorView()
-    else unsetRegistrationView()
+setNavState = (navState) ->
+    appBaseState = navState.base
+    if appBaseState == "RootState" then appBaseState = "support"
+    uiState.applyUIStateBase(appBaseState)
     return
 
-############################################################
-setStateInPatientView = ->
-    # console.log "setStateInPatientView"
-    doctorregistrationview.classList.remove("here")
-    patientregistrationview.classList.add("here")
-
-    location.hash = "#patient-registration"
-
-    document.body.style.height = ""+patientregistrationview.clientHeight+"px"
-    Modules.patientregistrationviewmodule.onPageViewEntry()
-    return
-
-setStateInDoctorView = ->
-    # console.log "setStateInDoctorView"
-    doctorregistrationview.classList.add("here")
-    patientregistrationview.classList.remove("here")
-
-    location.hash = "#doctor-registration"
-
-    document.body.style.height = ""+doctorregistrationview.clientHeight+"px"
-    Modules.doctorregistrationviewmodule.onPageViewEntry()
-    return
-
-unsetRegistrationView = ->
-    # console.log "unsetRegistrationView"
-    doctorregistrationview.classList.remove("here")
-    patientregistrationview.classList.remove("here")
-
-    location.hash = ""
-
-    document.body.style.height = "auto"
-    return
-
-############################################################
-hashChanged = (event) ->
-    # console.log("hash has changed")
-    # console.log(location.hash)
-
-    view = "none"
-
-    if location.hash == "#doctor-registration" then view = "doctor"
-    if location.hash == "#patient-registration" then view = "patient"
-
-    S.set("registrationView", view)
-    return
-
-#endregion
-
-############################################################
-doctorregistrationClicked = ->
-    # console.log("doctorregistrationClicked")
-    S.set("registrationView", "doctor")
-    return
-
-patientregistrationClicked = ->
-    # console.log("patientregistrationClicked")
-    S.set("registrationView", "patient" )
-    return
 
 ############################################################
 run = ->

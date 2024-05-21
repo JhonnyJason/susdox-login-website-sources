@@ -10,6 +10,7 @@ import { ScrollRollDatepicker } from "./scrollrolldatepickermodule.js"
 ############################################################
 import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
+import * as triggers from "./navtriggers.js"
 import { resetAllErrorFeedback, errorFeedback } from "./errorfeedbackmodule.js"
 import { loginURL, loginRedirectURL, renewPinURL } from "./configmodule.js"
 
@@ -43,7 +44,7 @@ count = 10000
 ############################################################
 export initialize = ->
     log "initialize"
-    patientloginHeading.addEventListener("click", backButtonClicked)
+    patientloginHeading.addEventListener("click", triggers.back)
     codeSubmitButton.addEventListener("click", codeSubmitButtonClicked)
     codeRenewSubmitButton.addEventListener("click", codeRenewSubmitClicked)
     accessCompatibilityButton.addEventListener("click", accessCompatibilityButtonClicked)
@@ -164,8 +165,6 @@ pinRenewBirthdayPartKeyUpped = (evt) ->
 
 ############################################################
 # using History
-backButtonClicked = -> window.history.back()
-
 accessCompatibilityButtonClicked = ->
     log "accessCompatibilityButtonClicked"
     S.save("loginView", "compatibility")

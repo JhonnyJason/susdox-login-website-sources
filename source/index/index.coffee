@@ -1,149 +1,80 @@
 import Modules from "./allmodules"
 import domconnect from "./indexdomconnect"
-import {loginRedirectURL} from "./configmodule.js"
 
+import * as nav from "navhandler"
+
+############################################################
+import * as uiState from "./uistatemodule.js"
+import * as triggers from "./navtriggers.js"
+
+############################################################
+import * as patientLoginView from "./patientloginviewmodule.js"
+import * as doctorLoginView from "./doctorloginviewmodule.js"
+import * as compatibilityLoginView from "./compatibilityloginviewmodule.js"
+
+############################################################
+import { loginRedirectURL } from "./configmodule.js"
+
+############################################################
 domconnect.initialize()
 
+############################################################
+## Remove unused modules to not trigger uncaught Exceptions
 delete Modules.doctorregistrationviewmodule
 delete Modules.patientregistrationviewmodule
 
 global.allModules = Modules
 
 ############################################################
-S = Modules.statemodule
-
-############################################################
-loginView = null
+appBaseState = "RootState"
 
 ############################################################
 appStartup = ->
-    checkInstantRedirect()
+    # nav.initialize(loadAppWithNavState, setNavState, true)
+    nav.initialize(loadAppWithNavState, setNavState)
 
-    patientLoginBlock.addEventListener("click", patientLoginClicked)
-    doctorLoginBlock.addEventListener("click", doctorLoginClicked)
-    
+    patientLoginBlock.addEventListener("click", triggers.patientLogin)
+    doctorLoginBlock.addEventListener("click", triggers.doctorLogin)
+
     document.addEventListener("keydown", keyDowned)
 
-    loginView = S.get("loginView")
-    if location.hash == "#doctor-login" then loginView = "doctor"
-    if location.hash == "#patient-login" then loginView = "patient"
-
-    S.save("loginView", loginView)
-
-    S.addOnChangeListener("loginView", loginViewChanged)
-    base = location.href.split("#")[0]
-
-    if loginView == "patient" 
-        history.replaceState({}, "", base)
-        history.pushState({}, "", base+"#patient-login")
-        setStateInPatientView()
-
-    if loginView == "doctor" 
-        history.replaceState({}, "", base)
-        history.pushState({}, "", base+"#doctor-login")
-        setStateInDoctorView()
+    nav.appLoaded()
+    return
     
-    if loginView == "compatibility" 
-        history.replaceState({}, "", base)
-        history.pushState({}, "", base+"#compatibility-login")
-        # setStateInCompatibilityView()
-    
-    window.onhashchange = hashChanged
+
+############################################################
+loadAppWithNavState = (navState) ->
+    appBaseState = navState.base
+    if appBaseState == "RootState" then appBaseState = "index"
+    await startUp()
+    uiState.applyUIStateBase(appBaseState)
     return
 
 ############################################################
-#region loginView Changes
-loginViewChanged = ->
-    console.log("loginViewChanged")
-    loginView = S.get("loginView")
-
-    switch(loginView)
-        when "patient" then setStateInPatientView()
-        when "doctor" then setStateInDoctorView()
-        when "compatibility" then setStateInCompatibilityView()
-        else unsetLoginViews()
-    return
-
-############################################################
-setStateInPatientView = ->
-    doctorloginview.classList.remove("here")
-    compatibilityloginview.classList.remove("here")
-    patientloginview.classList.add("here")
-
-    location.hash = "#patient-login"
-
-    document.body.style.height =""+patientloginview.clientHeight+"px"
-
-    Modules.patientloginviewmodule.onPageViewEntry()
-    return
-
-setStateInDoctorView = ->
-    patientloginview.classList.remove("here")
-    compatibilityloginview.classList.remove("here")
-    doctorloginview.classList.add("here")
-
-    location.hash = "#doctor-login"    
-
-    document.body.style.height = ""+doctorloginview.clientHeight+"px"
-    
-    Modules.doctorloginviewmodule.onPageViewEntry()
-    return
-
-setStateInCompatibilityView = ->
-    patientloginview.classList.remove("here")
-    doctorloginview.classList.remove("here")
-    compatibilityloginview.classList.add("here")
-
-    location.hash = "#compatibility-login"    
-
-    document.body.style.height = ""+compatibilityloginview.clientHeight+"px"
-    
-    Modules.compatibilityloginviewmodule.onPageViewEntry()
-    return
-
-unsetLoginViews = ->
-    console.log("unsetLoginViews")
-    doctorloginview.classList.remove("here")
-    patientloginview.classList.remove("here")
-    compatibilityloginview.classList.remove("here")
-
-    location.hash = ""
-
-    document.body.style.height = "auto"
-    return
-
-############################################################
-hashChanged = (event) ->
-    # console.log("hash has changed")
-    # console.log(location.hash)
-
-    view = "none"
-
-    if location.hash == "#doctor-login" then view = "doctor"
-    if location.hash == "#patient-login" then view = "patient"
-    if location.hash == "#compatibility-login" then view = "compatibility"
-
-    S.save("loginView", view)
-    return
-
-#endregion
-
-############################################################
-patientLoginClicked = ->
-    console.log("patientLoginClicked")
-    S.save("loginView", "patient")
-    return
-
-doctorLoginClicked = ->
-    console.log("doctorLoginClicked")
-    S.save("loginView", "doctor")
+setNavState = (navState) ->
+    appBaseState = navState.base
+    if appBaseState == "RootState" then appBaseState = "index"
+    uiState.applyUIStateBase(appBaseState)
     return
 
 ############################################################
 keyDowned = (evt) ->
     return unless evt.keyCode == 13
-    if loginView == "doctor" then Modules.doctorloginviewmodule.enterWasClicked(evt)
-    if loginView == "patient" then Modules.patientloginviewmodule.enterWasClicked(evt)
+    if appBaseState == "doctor" then doctorLoginView.enterWasClicked(evt)
+    # if appBaseState == "patient" then patientLoginView.enterWasClicked(evt)
+    if appBaseState == "patient" then compatibilityLoginView.enterWasClicked(evt)
+    return
+
+############################################################
+startUp = ->
+    checkInstantRedirect()
+    checkURLHash()
+    return
+
+############################################################
+checkURLHash = ->
+    if location.hash == "#doctor-login" then triggers.doctorLogin()
+    if location.hash == "#patient-login" then triggers.patientLogin()
     return
 
 ############################################################
@@ -162,6 +93,10 @@ checkInstantRedirect = ->
     if passwordExists and usernameExists
         location.href = loginRedirectURL
     return
+
+
+
+
 
 ############################################################
 run = ->

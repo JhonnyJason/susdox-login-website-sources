@@ -79,6 +79,14 @@ export errorFeedbackCodeRenew = (reason) ->
     log "Error: "+reason
     return
 
+export errorFeedbackRequestCode = (reason) ->
+    requestCodeForm.classList.add("error")
+    switch reason
+        when "404", "401" then requestCodeErrorFeedbackText.innerHTML = pinRenewErrorText
+        else requestCodeErrorFeedbackText.innerHTML = "Connection Error!"
+    log "Error: "+reason
+    return
+
 
 export errorFeedbackDoctorLogin = (reason) ->
     doctorloginForm.classList.add("error")
@@ -91,6 +99,7 @@ export resetAllErrorFeedback = ->
 
     if patientCodeLoginForm? then patientCodeLoginForm.classList.remove("error")
     if renewCodeForm? then renewCodeForm.classList.remove("error")
+    if requestCodeForm? then requestCodeForm.classList.remove("error")
 
     if codeErrorFeedbackText? then codeErrorFeedbackText.innerHTML = ""
     if codeRenewErrorFeedbackText? then codeRenewErrorFeedbackText.innerHTML = ""
@@ -102,7 +111,8 @@ export resetAllErrorFeedback = ->
     if svnErrorFeedbackText? then svnErrorFeedbackText.innerHTML = ""
     if authcodeErrorFeedbackText? then authcodeErrorFeedbackText.innerHTML = ""
     if compatibilityPinRenewErrorFeedbackText? then compatibilityPinRenewErrorFeedbackText.innerHTML = ""
-        
+    if requestCodeErrorFeedbackText? then requestCodeErrorFeedbackText.innerHTML = ""
+
     adjustBodyHeight()
     return
 
@@ -114,6 +124,8 @@ export errorFeedback = (usecase, reason) ->
         when "codePatient" then errorFeedbackCodeLogin(reason)
         when "codeRenewPatient" then errorFeedbackCodeRenew(reason)
         when "codeRenewCompatibility" then errorFeedbackPinRenew(reason)
+        when "requestCode" then errorFeedbackRequestCode(reason)
+
         else log "unknown error usecase: " + usecase
     adjustBodyHeight()
     return

@@ -7,9 +7,34 @@
         margin-bottom 15px
 
     #no-pin-question
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */        
         font-weight: bold
-        margin-bottom 10px
+        // margin-bottom 10px
         cursor pointer
+        z-index: 3
+        position relative
+
+    .grey-extension-block
+        background-color transparent
+        padding 0
+
+    .grey-extension-block > *
+        background-color cd-lightgrey
+        padding 20px
+    
+    .extension-block-content
+        position relative
+        padding-top 0
+        z-index 0
+        top -300px
+        opacity 0
+        transition: all 0.3s 
+        
+    .extension-block-content.shown
+        transform: translateY(300px)
+        opacity: 1
 
 #compatibility-svn-login-form
     #svn-block
@@ -52,7 +77,7 @@
             width calc(100% - 62px)
             box-sizing: border-box
 
-#compatibility-pin-renew-error-feedback-text
+#request-code-error-feedback-text
 #svn-error-feedback-text
 #authcode-error-feedback-text
     font-weight: bold

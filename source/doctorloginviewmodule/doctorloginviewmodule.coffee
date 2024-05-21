@@ -7,21 +7,20 @@ import { createLogFunctions } from "thingy-debug"
 ############################################################
 import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
+import * as triggers from "./navtriggers.js"
 import { errorFeedback, resetAllErrorFeedback } from "./errorfeedbackmodule.js"
 import { loginURL, loginRedirectURL } from "./configmodule.js"
 
 ############################################################
 export initialize = ->
     log "initialize"
-    doctorloginHeading.addEventListener("click", backButtonClicked)
+    doctorloginHeading.addEventListener("click", triggers.back)
     doctorloginSubmitButton.addEventListener("click", loginClicked)
     doctormiscContinueButton.addEventListener("click", doctormiscContinueButtonClicked)
     return
 
 ############################################################
 # using History
-backButtonClicked = -> window.history.back()
-
 ############################################################
 # no History
 # backButtonClicked = -> S.save("loginView", "none")
