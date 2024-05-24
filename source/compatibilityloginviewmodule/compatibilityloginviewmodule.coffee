@@ -222,7 +222,7 @@ extractNoSVNFormBody = ->
     rememberMe = false
 
     username = noSVNDatePicker.value
-    console.log(username)
+    # console.log(username)
     password = "AT-"+authcodeInput.value
     pw = password
     ## Testing
