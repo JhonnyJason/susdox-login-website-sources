@@ -202,11 +202,12 @@ extractSVNFormBody = ->
     
     username = ""+svnPartInput.value+birthdayPartInput.value
     password = ""+pinInput.value
+    pw = password
 
     if !password then hashedPw = ""
     else hashedPw = await computeHashedPw(username, password)
     
-    return {username, hashedPw, isMedic, rememberMe}
+    return {username, hashedPw, pw, isMedic, rememberMe}
 
 extractNoSVNFormBody = ->
 
@@ -214,12 +215,18 @@ extractNoSVNFormBody = ->
     rememberMe = false
 
     username = noSVNDatePicker.value
+    console.log(username)
     password = "AT-"+authcodeInput.value
-    
+    pwd = password
+    ## Testing
+    # username = "mengelhardt"
+    # password = "medexdoc"
+
     if password == "AT-" then hashedPw = ""
     else hashedPw = await computeHashedPw(username, password)
     
-    return {username, hashedPw, isMedic, rememberMe}
+    # console.log(hashedPw)
+    return {username, hashedPw, pw, isMedic, rememberMe}
 
 extractRequestCodeBody = ->
     log "extractRequestCodeBody"

@@ -9,7 +9,7 @@ import * as S from "./statemodule.js"
 import * as utl from "./utilmodule.js"
 import * as triggers from "./navtriggers.js"
 import { errorFeedback, resetAllErrorFeedback } from "./errorfeedbackmodule.js"
-import { loginURL, loginRedirectURL } from "./configmodule.js"
+import { loginURL, legacyLoginURL, loginRedirectURL } from "./configmodule.js"
 
 ############################################################
 export initialize = ->
@@ -97,7 +97,7 @@ extractLoginBody = ->
     # return {vpn, username, hashedPw, isMedic, rememberMe, usedURL}
     return {vpn, username, hashedPw, isMedic, rememberMe}
 
-computeHashedPw = (vpn, username, pwd) -> 
+computeHashedPw = (vpn, username, pwd) ->
     if vpn == 'wfpi'
         if username == 'engi' then return utl.hashUsernamePw(vpn+username, pwd)
         else return utl.hashUsernamePw(username+'.'+vpn, pwd)
@@ -121,7 +121,8 @@ doLoginRequest = (body) ->
 
     fetchOptions = { method, mode, redirect, credentials, headers, body }
 
-    try return fetch(loginURL, fetchOptions)
+    # try return fetch(loginURL, fetchOptions)
+    try return fetch(legacyLoginURL, fetchOptions)
     catch err then log err
 
 ############################################################
