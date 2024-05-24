@@ -30,25 +30,19 @@ appBaseState = "RootState"
 
 ############################################################
 appStartup = ->
-    # nav.initialize(loadAppWithNavState, setNavState, true)
-    nav.initialize(loadAppWithNavState, setNavState)
+    nav.initialize(setNavState, setNavState, true)
+    # nav.initialize(setNavState, setNavState)
 
     patientLoginBlock.addEventListener("click", triggers.patientLogin)
     doctorLoginBlock.addEventListener("click", triggers.doctorLogin)
 
     document.addEventListener("keydown", keyDowned)
 
-    nav.appLoaded()
+    checkInstantRedirect()
+    await nav.appLoaded()
+    checkURLHash()
     return
     
-
-############################################################
-loadAppWithNavState = (navState) ->
-    appBaseState = navState.base
-    if appBaseState == "RootState" then appBaseState = "index"
-    await startUp()
-    uiState.applyUIStateBase(appBaseState)
-    return
 
 ############################################################
 setNavState = (navState) ->
@@ -66,17 +60,12 @@ keyDowned = (evt) ->
     return
 
 ############################################################
-startUp = ->
-    checkInstantRedirect()
-    checkURLHash()
-    return
-
-############################################################
 checkURLHash = ->
     url = new URL(window.location)
     hash = url.hash
-    history.replaceState(history.state, document.title, "/")
-    
+    route = url.pathname
+    history.replaceState(history.state, document.title, route)
+
     if hash == "#doctor-login" then triggers.doctorLogin()
     if hash == "#patient-login" then triggers.patientLogin()
     return
@@ -95,7 +84,8 @@ checkInstantRedirect = ->
         if c.indexOf("username=") == 0 then usernameExists = true
     
     if passwordExists and usernameExists
-        location.href = loginRedirectURL
+        console.log(loginRedirectURL)
+        # location.href = loginRedirectURL
     return
 
 

@@ -149,7 +149,9 @@ authcodeSubmitClicked = (evt) ->
         response = await doLoginRequest(loginBody)
         
         if !response.ok then errorFeedback("authcodePatient", ""+response.status)
-        else location.href = loginRedirectURL
+        else
+            console.log(loginRedirectURL) 
+            # location.href = loginRedirectURL
 
     catch err then return errorFeedback("authcodePatient", "Other: " + err.message)
     finally authcodeSubmitButton.disabled = false
@@ -170,7 +172,9 @@ svnSubmitClicked = (evt) ->
         response = await doLoginRequest(loginBody)
         
         if !response.ok then errorFeedback("svnPatient", ""+response.status)
-        else location.href = loginRedirectURL
+        else 
+            console.log(loginRedirectURL)
+            # location.href = loginRedirectURL
 
     catch err then return errorFeedback("svnPatient", "Other: " + err.message)
     finally svnSubmitButton.disabled = false

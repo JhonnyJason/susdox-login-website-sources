@@ -20,20 +20,31 @@ appBaseState = null
 
 ############################################################
 appStartup = ->
-    # nav.initialize(setNavState, setNavState, true)
-    nav.initialize(setNavState, setNavState)
+    nav.initialize(setNavState, setNavState, true)
+    # nav.initialize(setNavState, setNavState)
 
     doctorregistrationBlock.addEventListener("click", triggers.doctorRegistration)
     patientregistrationBlock.addEventListener("click", triggers.patientRegistration)
 
-    nav.appLoaded()
+    await nav.appLoaded()
+    checkURLHash()
     return
 
+checkURLHash = ->
+    url = new URL(window.location)
+    hash = url.hash
+    route = url.pathname
+    history.replaceState(history.state, document.title, route)
+
+    if hash == "#doctor-registration" then triggers.doctorRegistration()
+    if hash == "#patient-registration" then triggers.patientRegistration()
+    return
 
 ############################################################
 setNavState = (navState) ->
     appBaseState = navState.base
     if appBaseState == "RootState" then appBaseState = "support"
+
     uiState.applyUIStateBase(appBaseState)
     return
 

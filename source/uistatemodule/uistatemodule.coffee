@@ -84,7 +84,7 @@ applyBaseState["doctor-registration"] = ->
     patientregistrationview.classList.remove("here")
 
     document.body.style.height = ""+doctorregistrationview.clientHeight+"px"
-    doctorRegistrationViewm.onPageViewEntry()
+    doctorRegistrationView.onPageViewEntry()
     return
 
 

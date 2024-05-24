@@ -16,7 +16,7 @@ export initialize = ->
     log "initialize"
     doctorloginHeading.addEventListener("click", triggers.back)
     doctorloginSubmitButton.addEventListener("click", loginClicked)
-    doctormiscContinueButton.addEventListener("click", doctormiscContinueButtonClicked)
+    doctormiscContinueButton.addEventListener("click", triggers.patientLogin)
     return
 
 ############################################################
@@ -24,12 +24,6 @@ export initialize = ->
 ############################################################
 # no History
 # backButtonClicked = -> S.save("loginView", "none")
-
-############################################################
-doctormiscContinueButtonClicked = (evt) ->
-    log "doctormiscContinueButtonClicked"
-    S.save("loginView", "patient")
-    return
 
 ############################################################
 loginClicked = (evt) ->
@@ -51,7 +45,9 @@ loginClicked = (evt) ->
 
         response = await doLoginRequest(loginBody)
         if !response.ok then errorFeedback("doctor", ""+response.status)
-        else location.href = redirectURL        
+        else
+            console.log(redirectURL) 
+            location.href = redirectURL        
         
         # responseBody = await response.json()
         # responseHeaders = response.headers
@@ -73,7 +69,6 @@ loginClicked = (evt) ->
 
         # # response.redirect(loginRedirectURL+responseBody.redirect)
         # location.href = loginRedirectURL+"?"+params.toString()
-
 
     catch err then return errorFeedback("doctor", "Other: " + err.message)
     finally doctorloginSubmitButton.disabled = false
