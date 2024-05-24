@@ -192,8 +192,8 @@ codeSubmitButtonClicked = (evt) ->
 
         if !response.ok then errorFeedback("codePatient", ""+response.status)
         else
-            console.log(loginRedirectURL) 
-            # location.href = loginRedirectURL
+            alert("redirect to: #{loginRedirectURL}") 
+            location.href = loginRedirectURL
         
     catch err then return errorFeedback("codePatient", "Other: " + err.message)
     finally codeSubmitButton.disabled = false

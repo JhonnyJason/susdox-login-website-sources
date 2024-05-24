@@ -150,8 +150,8 @@ authcodeSubmitClicked = (evt) ->
         
         if !response.ok then errorFeedback("authcodePatient", ""+response.status)
         else
-            console.log(loginRedirectURL) 
-            # location.href = loginRedirectURL
+            alert("redirect to: #{loginRedirectURL}") 
+            location.href = loginRedirectURL
 
     catch err then return errorFeedback("authcodePatient", "Other: " + err.message)
     finally authcodeSubmitButton.disabled = false
@@ -173,8 +173,8 @@ svnSubmitClicked = (evt) ->
         
         if !response.ok then errorFeedback("svnPatient", ""+response.status)
         else 
-            console.log(loginRedirectURL)
-            # location.href = loginRedirectURL
+            alert("redirect to: #{loginRedirectURL}") 
+            location.href = loginRedirectURL
 
     catch err then return errorFeedback("svnPatient", "Other: " + err.message)
     finally svnSubmitButton.disabled = false
@@ -193,6 +193,9 @@ requestCodeSubmitClicked = (evt) ->
     
         response = await doRequestCode(requestCodeBody)
         if !response.ok then errorFeedback("requestCode", ""+response.status)
+        else
+            requestDatePicker.reset()
+            requestPhoneInput.value = ""
         
     catch err then return errorFeedback("requestCode", "Other: " + err.message)
     finally requestCodeSubmitButton.disabled = false
@@ -221,7 +224,7 @@ extractNoSVNFormBody = ->
     username = noSVNDatePicker.value
     console.log(username)
     password = "AT-"+authcodeInput.value
-    pwd = password
+    pw = password
     ## Testing
     # username = "mengelhardt"
     # password = "medexdoc"

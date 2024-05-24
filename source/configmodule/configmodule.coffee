@@ -13,7 +13,7 @@ export loginURL = productionRoot+authPartProduction+"/login" # production
 export legacyLoginURL = "https://www.bilder-befunde.at/pwa-api/api/v1/login/"
 
 ########################################################
-export loginRedirectURL = "https://webview.bilder-befunde.at/webview"
+export loginRedirectURL = "https://www.bilder-befunde.at/webview"
 
 ########################################################
 export requestCodeURL = "https://www.bilder-befunde.at/pwa-api/api/v1/request-code/"

@@ -30,8 +30,8 @@ appBaseState = "RootState"
 
 ############################################################
 appStartup = ->
-    nav.initialize(setNavState, setNavState, true)
-    # nav.initialize(setNavState, setNavState)
+    # nav.initialize(setNavState, setNavState, true)
+    nav.initialize(setNavState, setNavState)
 
     patientLoginBlock.addEventListener("click", triggers.patientLogin)
     doctorLoginBlock.addEventListener("click", triggers.doctorLogin)
@@ -84,8 +84,8 @@ checkInstantRedirect = ->
         if c.indexOf("username=") == 0 then usernameExists = true
     
     if passwordExists and usernameExists
-        console.log(loginRedirectURL)
-        # location.href = loginRedirectURL
+        alert("redirect to: #{loginRedirectURL}") 
+        location.href = loginRedirectURL
     return
 
 

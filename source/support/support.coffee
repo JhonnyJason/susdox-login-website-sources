@@ -20,8 +20,8 @@ appBaseState = null
 
 ############################################################
 appStartup = ->
-    nav.initialize(setNavState, setNavState, true)
-    # nav.initialize(setNavState, setNavState)
+    # nav.initialize(setNavState, setNavState, true)
+    nav.initialize(setNavState, setNavState)
 
     doctorregistrationBlock.addEventListener("click", triggers.doctorRegistration)
     patientregistrationBlock.addEventListener("click", triggers.patientRegistration)
