@@ -192,7 +192,7 @@ codeSubmitButtonClicked = (evt) ->
 
         if !response.ok then errorFeedback("codePatient", ""+response.status)
         else
-            alert("redirect to: #{loginRedirectURL}") 
+            #alert("redirect to: #{loginRedirectURL}") 
             location.href = loginRedirectURL
         
     catch err then return errorFeedback("codePatient", "Other: " + err.message)

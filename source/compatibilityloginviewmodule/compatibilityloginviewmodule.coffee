@@ -150,7 +150,7 @@ authcodeSubmitClicked = (evt) ->
         
         if !response.ok then errorFeedback("authcodePatient", ""+response.status)
         else
-            alert("redirect to: #{loginRedirectURL}") 
+            #alert("redirect to: #{loginRedirectURL}") 
             location.href = loginRedirectURL
 
     catch err then return errorFeedback("authcodePatient", "Other: " + err.message)
@@ -173,7 +173,7 @@ svnSubmitClicked = (evt) ->
         
         if !response.ok then errorFeedback("svnPatient", ""+response.status)
         else 
-            alert("redirect to: #{loginRedirectURL}") 
+            #alert("redirect to: #{loginRedirectURL}") 
             location.href = loginRedirectURL
 
     catch err then return errorFeedback("svnPatient", "Other: " + err.message)
