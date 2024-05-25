@@ -26,8 +26,37 @@
 
 #no-login-data
     margin-bottom 5px
-// #get-login-data-link    
-//     text-transform: uppercase
+
+#get-login-data-link    
+        display: block
+
+a#get-login-data-link.click-button
+    margin-top 50px
+    background-color cd-darkblue
+    color white
+    font-size: 14pt
+    padding 15px
+    padding-left 30px
+    display flex
+    align-items: center
+    justify-content: space-between
+    overflow: hidden
+    text-align left
+    // width 50%
+    // min-width 280px
+
+    #get-login-text
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        
+    #get-login-arrow
+        height 35px
+        width 35px
+        svg
+            height 35px
+            width 35px
+
 
 // use larger screens
 @media screen and (min-width: 750px)

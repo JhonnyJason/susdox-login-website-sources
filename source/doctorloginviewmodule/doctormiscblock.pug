@@ -6,6 +6,10 @@
         button#doctormisc-continue-button() !{content.doctormiscContinueText}
         //- .agb-hint-block: .hint !{content.agbHintText}
 
-    .grey-extension-block 
-        p#no-login-data !{content.doctormiscNoLoginDataText}
-        a#get-login-data-link(href="support.html#doctor-registration") !{content.doctormiscGetLoginDataLinkText}
+    //- .grey-extension-block 
+    //-     p#no-login-data !{content.doctormiscNoLoginDataText}
+    //-     //- #patient-login-block
+    a#get-login-data-link.click-button
+        #get-login-text !{content.doctormiscGetLoginDataLinkText}
+        #get-login-arrow: svg: use(href="#svg-right-chevron")
+        //- a(href="support.html#doctor-registration") !{}
