@@ -17,6 +17,7 @@ export initialize = ->
     doctorloginHeading.addEventListener("click", triggers.back)
     doctorloginSubmitButton.addEventListener("click", loginClicked)
     doctormiscContinueButton.addEventListener("click", triggers.patientLogin)
+    getLoginDataButton.addEventListener("click", getLoginDataButtonClicked)
     return
 
 ############################################################
@@ -24,6 +25,11 @@ export initialize = ->
 ############################################################
 # no History
 # backButtonClicked = -> S.save("loginView", "none")
+
+getLoginDataButtonClicked = ->
+    log "getLoginDataButtonClicked"
+    location.href = "./support.html#doctor-registration"
+    return
 
 ############################################################
 loginClicked = (evt) ->
