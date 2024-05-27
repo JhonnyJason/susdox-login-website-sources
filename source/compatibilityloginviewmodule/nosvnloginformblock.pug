@@ -4,9 +4,9 @@
     .backshadow-block 
         p.hint !{content.nosvnLoginHintText}
         form#compatibility-authcode-login-form
-            label#authcode-birthday-label(for="birthday") !{content.nosvnLoginBirthdayLabelText}
+            label#authcode-birthday-label(for="authcode-birthday-input") !{content.nosvnLoginBirthdayLabelText}
             input#authcode-birthday-input(name="birthday" type="date" max="2999-12-31")
-            label#authcode-label(for="authcode") !{content.nosvnLoginAuthcodeLabelText}
+            label#authcode-label(for="#authcode-input") !{content.nosvnLoginAuthcodeLabelText}
             #authcode-block
                 #authcode-prefix AT-
                 input#authcode-input(name="authcode" type="number")

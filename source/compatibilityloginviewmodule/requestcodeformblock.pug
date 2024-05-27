@@ -18,11 +18,16 @@
 
     //-     .agb-hint-block: p.hint !{content.agbHintText}
 
-    .grey-extension-block
-        h3#no-pin-question() !{content.svnLoginNoPinQuestionText}
-        .extension-block-content
-            p.hint !{content.requestCodeHintText}
+    //- .grey-extension-block
+    //-     h3#no-pin-question() !{content.svnLoginNoPinQuestionText}
+    //-     .extension-block-content
+    //-         p.hint !{content.requestCodeHintText}
 
+    .form-block-heading 
+        h2#no-pin-question() !{content.svnLoginNoPinTitleButtonText}
+    .extension-block-content
+        .backshadow-block
+            p.hint !{content.svnLoginNoPinHintText}
             form#request-code-form(name="pin" method="POST" action="")
                 label(for="request-birthday-input")=content.codeLoginDateLabelText
                 input#request-birthday-input(type="date")

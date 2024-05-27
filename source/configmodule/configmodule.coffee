@@ -16,6 +16,9 @@ export legacyLoginURL = "https://www.bilder-befunde.at/pwa-api/api/v1/login/"
 export loginRedirectURL = "https://www.bilder-befunde.at/webview"
 
 ########################################################
+export supportRequestURL = "https://www.bilder-befunde.at/pwa-api/api/v1/support/"
+
+########################################################
 export requestCodeURL = "https://www.bilder-befunde.at/pwa-api/api/v1/request-code/"
 
 ########################################################

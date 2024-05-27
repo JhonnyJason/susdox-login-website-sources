@@ -238,3 +238,13 @@ export isBase32Code = (code) -> validBase32KeyCodes[code]
 export isAlphanumericString = (string) -> alphaNumRegex.test(string)
 
 export isBase32String = (string) -> base32Regex.test(string) 
+
+############################################################
+export extractJsonFormData = (form) ->
+    if typeof form == "string" then form = document.getElementById(form)
+
+    json = {}
+    for el in form.elements when el.type != "submit"
+        if el.type == "checkbox" then json[el.name] = el.checked
+        else json[el.name] = el.value
+    return json

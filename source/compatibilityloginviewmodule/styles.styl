@@ -30,11 +30,18 @@
         z-index 0
         top -300px
         opacity 0
-        transition: all 0.3s 
+        // transition: all 0.3s 
         
     .extension-block-content.shown
         transform: translateY(300px)
         opacity: 1
+        // transition: none 
+
+    .form-block-heading 
+        position relative
+        z-index 999
+    // .form-section-block
+    //     overflow: hidden
 
 #compatibility-svn-login-form
     #svn-block

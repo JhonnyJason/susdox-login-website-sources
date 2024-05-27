@@ -43,8 +43,11 @@ export initialize = ->
     svnPartInput.addEventListener("keyup", svnPartKeyUpped)
     birthdayPartInput.addEventListener("keyup", birthdayPartKeyUpped)
 
-
     noPinQuestion.addEventListener("click", noPinQuestionClicked)
+
+    linkButtons = compatibilityloginview.getElementsByClassName("link-button")
+    # console.log("number of link buttons: #{linkButtons.length}")
+    linkButtons[0].addEventListener("click", supportButtonClicked)
 
     svnPartLength = svnPartInput.value.length
     svnBirthdayPartLength = birthdayPartInput.value.length
@@ -199,6 +202,13 @@ requestCodeSubmitClicked = (evt) ->
         
     catch err then return errorFeedback("requestCode", "Other: " + err.message)
     finally requestCodeSubmitButton.disabled = false
+    return
+
+############################################################
+supportButtonClicked = (evnt) ->
+    log "supportButtonClicked"
+    evnt.preventDefault()
+    location.href = "/support.html#patient-registration"
     return
 
 ############################################################

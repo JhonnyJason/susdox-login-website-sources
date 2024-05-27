@@ -1,43 +1,53 @@
 #doctorregistrationformblock.form-section-block
     .form-block-heading
-        h2#doctorregistration-heading-text !{content.registrationHeadingText}
+        h2#doctorregistration-heading-text !{content.doctorSupportFormHeadingText}
     .backshadow-block
-        form#doctorregistration-form(name="register" method="post" action="https://webview.bilder-befunde.at/webview/index.php?site=scripts/login.php&value=&register=1&check=1")
-            label#doctor-title-label(for="title") !{content.registrationTitleLableText}  
+        form#doctorregistration-form
+            label#doctor-title-label(for="doctor-title-input") !{content.registrationTitleLabelText}  
             input#doctor-title-input(name="title" type="text")
             
-            label#doctor-firstname-label(for="firstname") !{content.registrationFirstnameLableText}
-            input#doctor-firstname-input(name="firstname" type="text")
+            label#doctor-firstname-label(for="doctor-firstname-input") !{content.registrationFirstnameLabelText}
+            input#doctor-firstname-input(name="firstname" type="text" required)
             
-            label#doctor-lastname-label(for="lastname") !{content.registrationLastnameLableText} 
-            input#doctor-lastname-input(name="lastname" type="text")
+            label#doctor-lastname-label(for="doctor-lastname-input") !{content.registrationLastnameLabelText} 
+            input#doctor-lastname-input(name="lastname" type="text" required)
 
-            label#doctor-address-label(for="address") !{content.registrationAddressLableText} 
-            input#doctor-address-input(name="address" type="text")
+            label#doctor-address-label(for="doctor-address-input") !{content.registrationAddressLabelText} 
+            input#doctor-address-input(name="address" type="text" required)
             
-            label#doctor-location-label(for="plz") !{content.registrationPLZLableText} 
+            label#doctor-location-label(for="doctor-plz-input") !{content.registrationPLZLabelText} 
             #doctor-location-block
-                input#doctor-plz-input(name="plz" type="text" maxlength="5")
-                input#doctor-location-input(name="city" type="text")
+                input#doctor-plz-input(name="plz" type="text" maxlength="5" required)
+                input#doctor-location-input(name="city" type="text" required)
 
-            label#doctor-email-label(for="email") !{content.registrationEmailLableText}  
-            input#doctor-email-input(name="email" type="email")
-            
-            label#doctor-fax-label(for="fax") !{content.registrationFaxLableText}  
+            label#doctor-email-label(for="doctor-email-input") !{content.registrationEmailLabelText}  
+            input#doctor-email-input(name="email" type="email" required)
+
+            label#doctor-profession-label(for="doctor-profession-input") !{content.registrationProfessionLabelText}  
+            input#doctor-profession-input(name="profession" type="text")
+
+            label#doctor-contract-label(for="doctor-contract-input") !{content.registrationContractLabelText}  
+            input#doctor-contract-input(name="contract" type="text")
+
+            label#doctor-message-label(for="doctor-message-input") !{content.registrationCauseLabelText}  
+            textarea#doctor-message-input(name="message" rows="10^" required)
+
+
+            label#doctor-fax-label(for="doctor-fax-input") !{content.registrationFaxLabelText}  
             input#doctor-fax-input(name="fax" type="text")
 
             .empty-cell 
             #doctor-want-fax-block
                 input#doctor-want-fax-input(name="contact_fax" type="checkbox")
-                label#doctor-want-fax-label(for="contact_fax") !{content.registrationContactFaxLableText}
+                label#doctor-want-fax-label(for="doctor-want-fax-input") !{content.registrationContactFaxLabelText}
 
-            label#doctor-phone-label(for="phone") !{content.registrationPhoneLableText} 
-            input#doctor-phone-input(name="phone" type="text")
+            label#doctor-phone-label(for="doctor-phone-input") !{content.registrationPhoneLabelText} 
+            input#doctor-phone-input(name="phone" type="text" required)
 
             .empty-cell 
             #doctor-want-call-block
                 input#doctor-want-call-input(name="contact_phone" type="checkbox")
-                label#doctor-want-call-label(for="contact_phone") !{content.registrationContactPhoneLableText}
+                label#doctor-want-call-label(for="doctor-want-call-input") !{content.registrationContactPhoneLabelText}
 
             .empty-cell
             button#doctorregistration-submit-button(type="submit" name="submit") !{content.registrationSubmitButtonText}
