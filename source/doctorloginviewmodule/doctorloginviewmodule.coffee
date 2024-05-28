@@ -28,7 +28,7 @@ export initialize = ->
 
 getLoginDataButtonClicked = ->
     log "getLoginDataButtonClicked"
-    location.href = "./support.html#doctor-registration"
+    location.href = "support.html#doctor-registration"
     return
 
 ############################################################

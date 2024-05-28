@@ -92,6 +92,7 @@ birthdayPartKeyUpped = (evt) ->
 
     if evt.keyCode != 8
         svnBirthdayPartLength = newLength
+        if newLength == 6 then focusPinInput()
         return
 
     if svnBirthdayPartLength == 0 then focusSVNPartLast()
@@ -208,7 +209,7 @@ requestCodeSubmitClicked = (evt) ->
 supportButtonClicked = (evnt) ->
     log "supportButtonClicked"
     evnt.preventDefault()
-    location.href = "/support.html#patient-registration"
+    location.href = "support.html#patient-registration"
     return
 
 ############################################################
@@ -307,6 +308,7 @@ focusBirthdayPartFirst = ->
     birthdayPartInput.setSelectionRange(0, 0)
     birthdayPartInput.focus()
 
+focusPinInput = -> pinInput.focus()
 
 focusPinRenewSVNPartLast = ->
     compatibilityPinRenewSvnPartInput.setSelectionRange(4, 4)

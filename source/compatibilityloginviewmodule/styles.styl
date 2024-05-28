@@ -27,7 +27,7 @@
     .extension-block-content
         position relative
         padding-top 0
-        z-index 0
+        z-index -1
         top -300px
         opacity 0
         // transition: all 0.3s 
@@ -35,6 +35,7 @@
     .extension-block-content.shown
         transform: translateY(300px)
         opacity: 1
+        z-index 1
         // transition: none 
 
     .form-block-heading 
