@@ -2,6 +2,9 @@
     .form-block-heading
         h2#doctorregistration-heading-text !{content.doctorSupportFormHeadingText}
     .backshadow-block
+        #doctorsupport-success-frame
+            #doctorsupport-success-decoration: svg: use(href="#svg-check-icon")
+            #doctorsupport-success-message !{content.doctorsupportSuccessMessage}
         form#doctorregistration-form
             label#doctor-title-label(for="doctor-title-input") !{content.registrationTitleLabelText}  
             input#doctor-title-input(name="title" type="text")

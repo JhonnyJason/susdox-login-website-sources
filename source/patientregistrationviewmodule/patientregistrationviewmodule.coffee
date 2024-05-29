@@ -39,9 +39,23 @@ patientsupportFormSubmitted = (evnt) ->
     formJSON.birthday = datePicker.value
     formJSON.isMedic = false
     olog formJSON
-    
-    doSupportRequest(formJSON)
+
+    try
+        patientregistrationSubmitButton.disabled = true
+        response = await doSupportRequest(formJSON)
+        if response.ok then setSuccessFrame()
+        else throw new Error("Response Status: #{response.status}")
+    catch err then log err
+    finally patientregistrationSubmitButton.disabled = false
     return
+
+############################################################
+setSuccessFrame = ->
+    log "setSuccessFrame"
+    patientregistrationview.classList.add("success")
+    document.body.style.height = ""+patientregistrationview.clientHeight+"px"
+    return
+
 
 ############################################################
 doSupportRequest = (body) ->
@@ -72,5 +86,6 @@ initializeDatePicker = ->
 ############################################################
 export onPageViewEntry = ->
     if !datePickerIsInitialized then initializeDatePicker()
+    patientregistrationview.classList.remove("success")
     # TODO focus on initial field
     return

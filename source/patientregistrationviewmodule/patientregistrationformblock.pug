@@ -2,6 +2,9 @@
     .form-block-heading
         h2#patientregistration-heading-text !{content.patientSupportFormHeadingText}
     .backshadow-block
+        #patientsupport-success-frame
+            #patientsupport-success-decoration: svg: use(href="#svg-check-icon")
+            #patientsupport-success-message !{content.patientsupportSuccessMessage}
         //- form#patientsupport-form(name="patient-support" method="post" action="https://www.bilder-befunde.at/pwa-api/api/v1/support/")
         form#patientsupport-form
             label#patient-title-label(for="patient-title-input") !{content.registrationTitleLabelText}  

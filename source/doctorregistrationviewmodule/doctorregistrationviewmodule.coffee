@@ -31,7 +31,21 @@ doctorregistrationFormSubmitted = (evnt) ->
     formJSON.isMedic = true
 
     olog formJSON
-    doSupportRequest(formJSON)
+
+    try
+        doctorregistrationSubmitButton.disabled = true
+        response = await doSupportRequest(formJSON)
+        if response.ok then setSuccessFrame()
+        else throw new Error("Response Status: #{response.status}")
+    catch err then log err
+    finally doctorregistrationSubmitButton.disabled = false
+    return
+
+############################################################
+setSuccessFrame = ->
+    log "setSuccessFrame"
+    doctorregistrationview.classList.add("success")
+    document.body.style.height = ""+doctorregistrationview.clientHeight+"px"
     return
 
 ############################################################
@@ -52,5 +66,7 @@ doSupportRequest = (body) ->
 
 ############################################################
 export onPageViewEntry = ->
+    doctorregistrationview.classList.remove("success")
+
     # TODO focus on initial field
     return
