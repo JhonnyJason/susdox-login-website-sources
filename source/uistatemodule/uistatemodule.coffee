@@ -34,11 +34,10 @@ applyBaseState["patient-login"] = ->
     patientloginview.classList.remove("here")
     doctorloginview.classList.remove("here")
     compatibilityloginview.classList.add("here")
+    compatibilityLoginView.onPageViewEntry()
 
     document.body.style.height = ""+compatibilityloginview.clientHeight+"px"
     
-    compatibilityLoginView.onPageViewEntry()
-
     ## this is real patient login state
     # doctorloginview.classList.remove("here")
     # compatibilityloginview.classList.remove("here")
@@ -57,10 +56,9 @@ applyBaseState["doctor-login"] = ->
     patientloginview.classList.remove("here")
     compatibilityloginview.classList.remove("here")
     doctorloginview.classList.add("here")
-
-    document.body.style.height = ""+doctorloginview.clientHeight+"px"
-    
     doctorLoginView.onPageViewEntry()
+
+    document.body.style.height = ""+doctorloginview.clientHeight+"px"    
     return
 
 ############################################################
@@ -74,17 +72,17 @@ applyBaseState["support"] = ->
 applyBaseState["patient-registration"] = ->
     doctorregistrationview.classList.remove("here")
     patientregistrationview.classList.add("here")
+    patientRegistrationView.onPageViewEntry()    
 
     document.body.style.height = ""+patientregistrationview.clientHeight+"px"
-    patientRegistrationView.onPageViewEntry()    
     return
 
 applyBaseState["doctor-registration"] = ->    
     doctorregistrationview.classList.add("here")
     patientregistrationview.classList.remove("here")
+    doctorRegistrationView.onPageViewEntry()
 
     document.body.style.height = ""+doctorregistrationview.clientHeight+"px"
-    doctorRegistrationView.onPageViewEntry()
     return
 
 
