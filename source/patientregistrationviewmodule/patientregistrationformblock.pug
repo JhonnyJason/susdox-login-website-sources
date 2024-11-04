@@ -32,11 +32,11 @@
 
             .empty-cell 
             #patient-want-email-block
-                input#patient-want-email-input(name="contact_email" type="checkbox")
+                input#patient-want-email-input(name="contact_email" type="checkbox" checked)
                 label#patient-want-email-label(for="patient-want-email-input") !{content.registrationContactEmailLabelText}
 
             label#patient-phone-label(for="patient-phone-input") !{content.registrationPhoneLabelText} 
-            input#patient-phone-input(name="phone" type="text" required)
+            input#patient-phone-input(name="phone" type="text")
 
             .empty-cell 
             #patient-want-call-block
@@ -44,7 +44,7 @@
                 label#patient-want-call-label(for="patient-want-call-input") !{content.registrationContactPhoneLabelText}
 
             label#patient-referrer-label(for="patient-referrer-input") !{content.registrationOrganizationLabelText}  
-            input#patient-referrer-input(name="organization" type="text")
+            input#patient-referrer-input(name="organization" type="text" required)
 
             label#patient-message-label(for="patient-message-input") !{content.registrationMessageLabelText}  
             textarea#patient-message-input(name="message" rows="10^")

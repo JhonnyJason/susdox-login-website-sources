@@ -69,13 +69,22 @@ main
 
 #main-block-decoration
     display: none
+    position relative
     width 500px
     background-image url("img/iStock_Frau.png")
     background-size: contain
     background-repeat: no-repeat
     background-position center
     margin-left auto
-
+    
+    p
+        font-size: 12px
+        position absolute
+        bottom -20px
+        left 50%
+        transform translateX(-50%)
+    a
+        text-decoration underline
 
 @media screen and (min-width: 800px)
     #main-block-decoration
