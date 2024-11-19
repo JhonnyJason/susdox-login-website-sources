@@ -5,6 +5,8 @@ productionRoot = "https://bilder-befunde.at"
 authPartProduction = "/service/api/v1/auth"
 authPartDemo = "/caas/api/v1/auth"
 
+currentOrigin = window.location.origin
+
 ########################################################
 # export loginURL = demoRoot+authPartDemo+"/login" # demo
 export loginURL = productionRoot+authPartProduction+"/login" # production
@@ -13,7 +15,8 @@ export loginURL = productionRoot+authPartProduction+"/login" # production
 export legacyLoginURL = "https://www.bilder-befunde.at/pwa-api/api/v1/login/"
 
 ########################################################
-export loginRedirectURL = "https://www.bilder-befunde.at/webview"
+# export loginRedirectURL = "https://www.bilder-befunde.at/webview"
+export loginRedirectURL = currentOrigin+"/home"
 
 ########################################################
 export supportRequestURL = "https://www.bilder-befunde.at/pwa-api/api/v1/support/"
