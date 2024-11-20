@@ -108,14 +108,9 @@ computeHashedPw = (vpn, username, pwd) ->
 doLoginRequest = (body) ->
     method = "POST"
     mode = 'cors'
-    redirect =  'follow'
-    # redirect =  'manual'
+    redirect =  'manual'
     credentials = 'include'
     
-    # url encoded
-    # headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-    # body = new URLSearchParams(body)
-
     # json body
     headers = { 'Content-Type': 'application/json' }
     body = JSON.stringify(body)
