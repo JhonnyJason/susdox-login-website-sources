@@ -267,13 +267,15 @@ computeHashedPw = (username, pwd) ->
 doLoginRequest = (body) ->
     method = "POST"
     mode = 'cors'
-    
+    redirect =  'manual'
+    credentials = 'include'
+
 
     # json body
     headers = { 'Content-Type': 'application/json' }
     body = JSON.stringify(body)
 
-    fetchOptions = { method, mode, headers, body }
+    fetchOptions = { method, mode, redirect, credentials, headers, body }
 
     try return fetch(legacyLoginURL, fetchOptions)
     catch err then log err
