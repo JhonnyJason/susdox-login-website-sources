@@ -128,10 +128,14 @@ bufferToBase64 = (buffer) ->
 generatePBKDF2SubtleCrypto = (username, pwd) ->
     crypto = window.crypto.subtle
     
+    olog {username, pwd}
+
     # saltBytes = crypto.getRandomValues(new Uint8Array(8))
     
     saltBytes = tbut.utf8ToBytes(username)
     rawKeyBytes = tbut.utf8ToBytes(pwd)
+
+    olog {saltBytes, rawKeyBytes}
 
     keyBytes = await crypto.importKey(
         'raw',
@@ -154,7 +158,7 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
         # // but the api requires that it must be specified.
         # // For AES the length required to be 128 or 256 bits (not bytes)
         # { "name": 'AES-CBC',"length": 256},
-        { 
+        {
             "name": 'HMAC', 
             "hash": "SHA-1", 
             "length": 160 
@@ -169,6 +173,8 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
 
     derivedKeyBytes = await crypto.exportKey("raw", derivedKeyObj)
     derivedKeyBase64 = bufferToBase64(derivedKeyBytes)
+
+    olog {derivedKeyBytes, derivedKeyBase64}
     return derivedKeyBase64
 
 argon2WorkerResponded = (evnt) ->
