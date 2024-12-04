@@ -128,24 +128,28 @@ bufferToBase64 = (buffer) ->
 generatePBKDF2SubtleCrypto = (username, pwd) ->
     crypto = window.crypto.subtle
     
-    olog {username, pwd}
+    # olog {username, pwd}
 
     # saltBytes = crypto.getRandomValues(new Uint8Array(8))
     
     saltBytes = tbut.utf8ToBytes(username)
     rawKeyBytes = tbut.utf8ToBytes(pwd)
 
-    olog {saltBytes, rawKeyBytes}
+    # olog {saltBytes, rawKeyBytes}
 
-    keyBytes = await crypto.importKey(
+    # rawKeyBytes = new ArrayBuffer()
+    # log "setting rawKeyBytes to empty ArrayBuffer"
+    
+    initialKeyObj = await crypto.importKey(
         'raw',
         rawKeyBytes, 
         {name: 'PBKDF2'}, 
         false, 
         ['deriveBits', 'deriveKey']
     )
-    
-    # saltBytes = null
+
+    # saltBytes = new ArrayBuffer()
+    # log "setting rawSaltBytes to empty ArrayBuffer"
 
     derivedKeyObj = await crypto.deriveKey(
         { 
@@ -155,7 +159,7 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
             # "hash": 'SHA-256'
             "hash": 'SHA-1'
         },
-        keyBytes,
+        initialKeyObj,
         # // Note: we don't actually need a cipher suite,
         # // but the api requires that it must be specified.
         # // For AES the length required to be 128 or 256 bits (not bytes)
@@ -176,7 +180,7 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
     derivedKeyBytes = await crypto.exportKey("raw", derivedKeyObj)
     derivedKeyBase64 = bufferToBase64(derivedKeyBytes)
 
-    olog {derivedKeyBytes, derivedKeyBase64}
+    # olog {derivedKeyBytes, derivedKeyBase64}
     return derivedKeyBase64
 
 argon2WorkerResponded = (evnt) ->
