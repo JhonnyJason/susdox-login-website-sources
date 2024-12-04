@@ -144,6 +144,8 @@ generatePBKDF2SubtleCrypto = (username, pwd) ->
         false, 
         ['deriveBits', 'deriveKey']
     )
+    
+    # saltBytes = null
 
     derivedKeyObj = await crypto.deriveKey(
         { 

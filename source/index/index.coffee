@@ -80,8 +80,8 @@ checkInstantRedirect = ->
     
     for cookie in cookies
         c = cookie.trim()
-        if c.indexOf("password=") == 0 and c.length > 9 then passwordExists = true
-        if c.indexOf("username=") == 0 and c.length > 9 then usernameExists = true
+        if c.indexOf("password=") == 0 and c.length > 11 then passwordExists = true
+        if c.indexOf("username=") == 0 and c.length > 11 then usernameExists = true
     
     if passwordExists and usernameExists
         # alert("redirect to: #{loginRedirectURL}") 
