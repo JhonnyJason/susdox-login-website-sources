@@ -13,6 +13,6 @@ export modulesToDebug =
     # doctorregistrationviewmodule: true
     # registrationviewmodule: true
     # scrollrolldatepickermodule: true
-    utilmodule: true
+    # utilmodule: true
 
 addModulesToDebug(modulesToDebug)
