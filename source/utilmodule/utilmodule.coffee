@@ -128,7 +128,7 @@ bufferToBase64 = (buffer) ->
 generatePBKDF2SubtleCrypto = (username, pwd) ->
     crypto = window.crypto.subtle
     
-    # olog {username, pwd}
+    olog {username, pwd}
 
     # saltBytes = crypto.getRandomValues(new Uint8Array(8))
     
