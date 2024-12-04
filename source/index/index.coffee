@@ -83,6 +83,8 @@ checkInstantRedirect = ->
         if c.indexOf("password=") == 0 and c.length > 11 then passwordExists = true
         if c.indexOf("username=") == 0 and c.length > 11 then usernameExists = true
     
+    alert("cookies were: #{cookies}")
+    
     if passwordExists and usernameExists
         # alert("redirect to: #{loginRedirectURL}") 
         location.href = loginRedirectURL
