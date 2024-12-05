@@ -32,6 +32,9 @@ phoneNumberRegex = /^\+?[0-9]+$/gm
 noSVNDatePicker = null
 requestDatePicker = null
 
+requestCodeSuccess = document.getElementById("request-code-success")
+requestCodeSuccessMessage = requestCodeSuccess.innerHTML
+
 ############################################################
 export initialize = ->
     log "initialize"
@@ -198,6 +201,7 @@ requestCodeSubmitClicked = (evt) ->
         response = await doRequestCode(requestCodeBody)
         if !response.ok then errorFeedback("requestCode", ""+response.status)
         else
+            codeRequestSuccessFeedback()
             requestDatePicker.reset()
             requestPhoneInput.value = ""
         
@@ -292,9 +296,17 @@ doRequestCode = (body) ->
     body = JSON.stringify(body)
     
     fetchOptions = { method, mode, headers, body }
+    
+    return {ok: true}
 
     try return fetch(requestCodeURL, fetchOptions)
     catch err then log err
+
+codeRequestSuccessFeedback = ->
+    log "codeRequestSuccessFeedback"
+    log requestCodeSuccessMessage
+    requestCodeErrorFeedbackText.innerHTML = requestCodeSuccessMessage
+    return
 
 ############################################################
 #region focus inputs functions

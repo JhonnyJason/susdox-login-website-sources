@@ -16,8 +16,6 @@ pinRenewErrorText = null
 ############################################################
 export initialize = ->
     log "initialize"
-
-
     svnLogin404ErrorText = svnLoginError404.innerHTML
     svnLogin401ErrorText = svnLoginError401.innerHTML
     nosvnLoginErrorText = nosvnLoginError.innerHTML

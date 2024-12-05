@@ -9,7 +9,7 @@ export modulesToDebug =
     # errorfeedbackmodule: true
     # patientloginviewmodule: true
     # patientregistrationviewmodule: true
-    doctorloginviewmodule: true
+    # doctorloginviewmodule: true
     # doctorregistrationviewmodule: true
     # registrationviewmodule: true
     # scrollrolldatepickermodule: true
