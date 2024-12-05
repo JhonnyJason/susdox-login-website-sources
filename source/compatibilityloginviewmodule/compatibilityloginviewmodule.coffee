@@ -148,7 +148,8 @@ authcodeSubmitClicked = (evt) ->
     try
         resetAllErrorFeedback()
 
-        loginBody = await extractNoSVNFormBody()
+        try loginBody = await extractNoSVNFormBody()
+        catch err then return errorFeedback("authcodePatient", "input")
         olog {loginBody}
 
         if !loginBody.hashedPw and !loginBody.username then return
@@ -171,7 +172,8 @@ svnSubmitClicked = (evt) ->
     try
         resetAllErrorFeedback()
        
-        loginBody = await extractSVNFormBody()
+        try loginBody = await extractSVNFormBody()
+        catch err then return errorFeedback("svnPatient", "input")
         olog {loginBody}
 
         if !loginBody.hashedPw and !loginBody.username then return
@@ -195,7 +197,8 @@ requestCodeSubmitClicked = (evt) ->
         resetAllErrorFeedback()        
         if !requestDatePicker.value and !requestPhoneInput.value then return
 
-        requestCodeBody = extractRequestCodeBody()
+        try requestCodeBody = extractRequestCodeBody()
+        catch err then return errorFeedback("requestCode", "input")
         olog { requestCodeBody } 
     
         response = await doRequestCode(requestCodeBody)
@@ -297,8 +300,6 @@ doRequestCode = (body) ->
     
     fetchOptions = { method, mode, headers, body }
     
-    return {ok: true}
-
     try return fetch(requestCodeURL, fetchOptions)
     catch err then log err
 

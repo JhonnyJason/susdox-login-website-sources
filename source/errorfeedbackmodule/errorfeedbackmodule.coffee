@@ -37,7 +37,7 @@ export errorFeedbackSVNLogin = (reason) ->
 
     switch reason
         when "404" then svnErrorFeedbackText.innerHTML = svnLogin404ErrorText
-        when "401" then svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
+        when "401", "input" then svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
         else svnErrorFeedbackText.innerHTML = "Connection Error!"
     log "Error: "+reason
     return
@@ -47,7 +47,7 @@ export errorFeedbackCodeLogin = (reason) ->
 
     switch reason
         when "404" then svnErrorFeedbackText.innerHTML = svnLogin404ErrorText
-        when "401" then svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
+        when "401", "input" then svnErrorFeedbackText.innerHTML = svnLogin401ErrorText
         else codeErrorFeedbackText.innerHTML = "Connection Error!"
     log "Error: "+reason
     return
@@ -56,7 +56,7 @@ export errorFeedbackAuthcodeLogin = (reason) ->
     compatibilityAuthcodeLoginForm.classList.add("error")
 
     switch reason
-        when "404", "401" then authcodeErrorFeedbackText.innerHTML = nosvnLoginErrorText
+        when "404", "401", "input" then authcodeErrorFeedbackText.innerHTML = nosvnLoginErrorText
         else authcodeErrorFeedbackText.innerHTML = "Connection Error!"
     log "Error: "+reason
     return
@@ -64,7 +64,7 @@ export errorFeedbackAuthcodeLogin = (reason) ->
 export errorFeedbackPinRenew = (reason) ->
     compatibilityRenewPinForm.classList.add("error")
     switch reason
-        when "404" then compatibilityPinRenewErrorFeedbackText.innerHTML = pinRenewErrorText
+        when "404", "401", "input" then compatibilityPinRenewErrorFeedbackText.innerHTML = pinRenewErrorText
         else compatibilityPinRenewErrorFeedbackText.innerHTML = "Connection Error!"
     log "Error: "+reason
     return
@@ -72,7 +72,7 @@ export errorFeedbackPinRenew = (reason) ->
 export errorFeedbackCodeRenew = (reason) ->
     renewCodeForm.classList.add("error")
     switch reason
-        when "404" then codeRenewErrorFeedbackText.innerHTML = pinRenewErrorText
+        when "404", "401", "input" then codeRenewErrorFeedbackText.innerHTML = pinRenewErrorText
         else codeRenewErrorFeedbackText.innerHTML = "Connection Error!"
     log "Error: "+reason
     return
@@ -80,7 +80,7 @@ export errorFeedbackCodeRenew = (reason) ->
 export errorFeedbackRequestCode = (reason) ->
     requestCodeForm.classList.add("error")
     switch reason
-        when "404", "401" then requestCodeErrorFeedbackText.innerHTML = pinRenewErrorText
+        when "404", "401", "input" then requestCodeErrorFeedbackText.innerHTML = pinRenewErrorText
         else requestCodeErrorFeedbackText.innerHTML = "Connection Error!"
     log "Error: "+reason
     return
