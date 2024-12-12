@@ -77,6 +77,7 @@ export initialize = ->
 svnPartKeyUpped = (evt) ->
     # log "svnPartKeyUpped"
     value = svnPartInput.value
+    # console.log(typeof value)
     svnPartLength = value.length
     # olog {newLength}
 
@@ -85,6 +86,11 @@ svnPartKeyUpped = (evt) ->
     if evt.keyCode == 8 then return
 
     if svnPartLength == 4 then focusBirthdayPartFirst()
+    if svnPartLength > 4 
+        realValue = value.slice(0, 4)
+        # excessValue = value.slice(4) ## do somtething with it?
+        svnPartInput.value = realValue
+        focusBirthdayPartFirst()
     return
 
 birthdayPartKeyUpped = (evt) ->
