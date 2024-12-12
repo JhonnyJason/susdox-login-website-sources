@@ -24,9 +24,9 @@
                 input#hidden-pin-send-input(type="hidden" name="pin_send" value="1")
                 label#code-renew-svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
                 #code-renew-svn-block
-                    input#code-renew-svn-part-input(name="svn-part" type="text" maxlength="4")
+                    input#code-renew-svn-part-input(name="svn-part" type="number" maxlength="4")
                     #code-renew-svn-separator -
-                    input#code-renew-birthday-part-input(name="svn-birthday-part" type="text" maxlength="6")
+                    input#code-renew-birthday-part-input(name="svn-birthday-part" type="number" maxlength="6")
                 #code-renew-error-feedback-text
                 button#code-renew-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}
                 .empty-cell

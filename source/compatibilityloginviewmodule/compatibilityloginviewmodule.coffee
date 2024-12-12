@@ -312,15 +312,15 @@ codeRequestSuccessFeedback = ->
 ############################################################
 #region focus inputs functions
 focusSVNPartFirst = ->
-    svnPartInput.setSelectionRange(0, 0)
+    # svnPartInput.setSelectionRange(0, 0)
     svnPartInput.focus()
 
 focusSVNPartLast = ->
-    svnPartInput.setSelectionRange(4, 4)
+    # svnPartInput.setSelectionRange(4, 4)
     svnPartInput.focus()
 
 focusBirthdayPartFirst = ->
-    birthdayPartInput.setSelectionRange(0, 0)
+    # birthdayPartInput.setSelectionRange(0, 0)
     birthdayPartInput.focus()
 
 focusPinInput = -> pinInput.focus()
