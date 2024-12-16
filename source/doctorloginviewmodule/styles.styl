@@ -28,16 +28,18 @@
     margin-bottom 5px
 
 #get-login-data-button.click-button
+    display grid
+    grid-template-columns: auto 35px
     margin-top 50px
+    width 100%
+    box-sizing: border-box
+    padding 15px
+    padding-left 30px
+    overflow: hidden
+
     background-color cd-darkblue
     color white
     font-size: 14pt
-    padding 15px
-    padding-left 30px
-    display flex
-    align-items: center
-    justify-content: space-between
-    overflow: hidden
     text-align left
     // width 50%
     // min-width 280px
@@ -48,6 +50,7 @@
         text-overflow: ellipsis
         
     #get-login-arrow
+        align-self: center
         height 35px
         width 35px
         svg
