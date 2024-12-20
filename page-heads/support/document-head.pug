@@ -18,6 +18,13 @@ html(lang=languageTag)
         //- Manifest
         link(rel='manifest' href='data:application/manifest+json,{"name":"'+pageTitle+'", "short_name": "SusDoX", "description": "'+pageDescription+'", "start_url":"'+pageURL+'", "background_color": "rgba(255,255,255,1)", "theme_color": "rgba(255,255,255,1)", "icons": [ { "src": "/android-chrome-96x96.png", "sizes": "96x96", "type": "image/png" } ], "display": "standalone", "orientation": "portrait" }')
 
+        //- Languages + Canonical
+        link(rel="canonical" href=pageURL)
+        link(rel="alternate" hreflang="x-default" href=xDefault)
+        each alt in alternateLangs
+            link(rel="alternate" hreflang=alt.lang href=alt.url)
+
+
         //- Favicon
         link(rel="icon", type="image/png", sizes="32x32", href="favicon-32x32.png")
         link(rel="icon", type="image/png", sizes="16x16", href="favicon-16x16.png")
