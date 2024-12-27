@@ -31,7 +31,7 @@ export initialize = ->
     patientregistrationviewHeading.addEventListener("click", triggers.back)
     patientsupportForm.addEventListener("submit", patientsupportFormSubmitted)
     requestCodeForm.addEventListener("submit", requestCodeSubmitted)
-    noPinQuestion.addEventListener("click", noPinQuestionClicked)
+    # noPinQuestion.addEventListener("click", noPinQuestionClicked)
     return
 
 ############################################################
