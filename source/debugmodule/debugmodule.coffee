@@ -8,7 +8,7 @@ export modulesToDebug =
     # statemodule: true
     # errorfeedbackmodule: true
     # patientloginviewmodule: true
-    # patientregistrationviewmodule: true
+    patientregistrationviewmodule: true
     # doctorloginviewmodule: true
     # doctorregistrationviewmodule: true
     # registrationviewmodule: true

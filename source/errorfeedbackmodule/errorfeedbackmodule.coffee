@@ -25,10 +25,10 @@ export initialize = ->
 ############################################################
 adjustBodyHeight = ->
     loginView = S.get("loginView")
-    if loginView == "doctor"
-        document.body.style.height = ""+doctorloginview.clientHeight+"px"
-    else 
-        document.body.style.height =""+patientloginview.clientHeight+"px"
+    switch loginView
+        when "doctor" then document.body.style.height = ""+doctorloginview.clientHeight+"px"
+        when "patient" then document.body.style.height =""+patientloginview.clientHeight+"px"
+        else return
     return
 
 ############################################################

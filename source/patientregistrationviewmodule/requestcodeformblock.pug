@@ -1,0 +1,14 @@
+#requestcodeformblock.form-section-block
+    .form-block-heading 
+        h2#no-pin-question() !{content.svnLoginNoPinTitleButtonText}
+    .extension-block-content
+        .backshadow-block
+
+            form#request-code-form(name="pin" method="POST" action="")
+                label(for="request-birthday-input")=content.codeLoginDateLabelText
+                input#request-birthday-input(type="date")
+                label(for="request-phone-input")=content.requestCodePhoneLabel
+                input#request-phone-input(type="text")
+                #request-code-error-feedback-text
+                .empty-cell
+                button#request-code-submit-button(type="submit") !{content.svnLoginRenewPinSubmitButtonText}

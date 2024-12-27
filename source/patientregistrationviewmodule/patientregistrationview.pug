@@ -13,6 +13,9 @@
 
     .content-section 
         h1.content-title !{content.patientSupportTitle}
+        
+        .form-section: include requestcodeformblock.pug
+        h2.further-question !{content.patientSupportFurtherQuestionsText}
         p.content-slogan !{content.patientSupportSubText}
 
         .form-section: include patientregistrationformblock.pug
