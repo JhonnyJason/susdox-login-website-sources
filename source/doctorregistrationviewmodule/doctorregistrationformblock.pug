@@ -36,13 +36,13 @@
             textarea#doctor-message-input(name="message" rows="10^" required)
 
 
-            label#doctor-fax-label(for="doctor-fax-input") !{content.registrationFaxLabelText}  
-            input#doctor-fax-input(name="fax" type="text")
+            label(for="doctor-mobile-phone-input") !{content.registrationMobilePhoneLabelText}  
+            input#doctor-mobile-phone-input(name="mobile-phone" type="text")
 
             .empty-cell 
-            #doctor-want-fax-block
-                input#doctor-want-fax-input(name="contact_fax" type="checkbox")
-                label#doctor-want-fax-label(for="doctor-want-fax-input") !{content.registrationContactFaxLabelText}
+            #doctor-want-sms-block
+                input#doctor-want-sms-input(name="contact_sms" type="checkbox")
+                label(for="doctor-want-sms-input") !{content.registrationContactSMSLabelText}
 
             label#doctor-phone-label(for="doctor-phone-input") !{content.registrationPhoneLabelText} 
             input#doctor-phone-input(name="phone" type="text")
