@@ -1,18 +1,18 @@
 import { addModulesToDebug } from "thingy-debug"
 
 ############################################################
-export modulesToDebug = 
-    unbreaker: true
+modulesToDebug = { 
     # configmodule: true
-    compatibitlityloginviewmodule: true
+    # compatibitlityloginviewmodule: true
     # statemodule: true
-    errorfeedbackmodule: true
+    # errorfeedbackmodule: true
     # patientloginviewmodule: true
     # patientregistrationviewmodule: true
     # doctorloginviewmodule: true
     # doctorregistrationviewmodule: true
     # registrationviewmodule: true
     # scrollrolldatepickermodule: true
-    utilmodule: true
+    # utilmodule: true
+}
 
 addModulesToDebug(modulesToDebug)
