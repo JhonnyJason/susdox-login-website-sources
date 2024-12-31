@@ -187,7 +187,7 @@ svnSubmitClicked = (evt) ->
         response = await doLoginRequest(loginBody)
         
         if !response.ok then errorFeedback("svnPatient", ""+response.status)
-        else 
+        else
             #alert("redirect to: #{loginRedirectURL}") 
             location.href = loginRedirectURL
 
@@ -341,7 +341,6 @@ focusPinRenewBirthdayPartFirst = ->
 
 
 #endregion
-
 
 ############################################################
 export enterWasClicked = (evt) ->
