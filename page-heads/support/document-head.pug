@@ -16,7 +16,7 @@ html(lang=languageTag)
         meta(property='og:locale' content=pageLocale)
 
         //- Manifest
-        link(rel='manifest' href='data:application/manifest+json,{"name":"'+pageTitle+'", "short_name": "SusDoX", "description": "'+pageDescription+'", "start_url":"'+pageURL+'", "background_color": "rgba(255,255,255,1)", "theme_color": "rgba(255,255,255,1)", "icons": [ { "src": "android-chrome-96x96.png", "sizes": "96x96", "type": "image/png" } ], "display": "standalone", "orientation": "portrait" }')
+        link(rel='manifest' href='data:application/manifest+json,{"name":"'+pageTitle+'", "short_name": "SusDoX", "description": "'+pageDescription+'", "start_url":"'+pageURL+'", "background_color": "rgba(255,255,255,1)", "theme_color": "rgba(255,255,255,1)", "icons": [ { "src": "'+pageRoot+'android-chrome-96x96.png", "sizes": "96x96", "type": "image/png" } ], "display": "standalone", "orientation": "portrait" }')
 
         //- Languages + Canonical
         link(rel="canonical" href=pageURL)
