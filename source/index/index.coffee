@@ -77,15 +77,17 @@ checkInstantRedirect = ->
     
     passwordExists = false
     usernameExists = false
-    
+    tokenExists = false
+
     for cookie in cookies
         c = cookie.trim()
         if c.indexOf("password=") == 0 and c.length > 11 then passwordExists = true
         if c.indexOf("username=") == 0 and c.length > 11 then usernameExists = true
+        if c.indexOf("Sustsol-Webview-Token=") == 0 and c.length > 24 then tokenExists = true
     
     # alert("cookies were: #{cookies}")
 
-    if passwordExists and usernameExists
+    if tokenExists or (passwordExists and usernameExists)
         # alert("redirect to: #{loginRedirectURL}") 
         location.href = loginRedirectURL
     return
