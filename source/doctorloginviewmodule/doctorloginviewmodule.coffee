@@ -91,7 +91,7 @@ extractLoginBody = ->
     # password = password.replace("\n", "")
     # password = password.replace("\t", "")
     # password = password.replace("\r", "")
-    paswordd = password.trim()
+    password = password.trim()
     # usedURL = usedUrlSelect.value
     # log usedURL
 
