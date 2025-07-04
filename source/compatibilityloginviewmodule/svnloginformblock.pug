@@ -7,9 +7,12 @@
         form#compatibility-svn-login-form 
             label#svn-label(for="svn-part") !{content.svnLoginSVNLabelText}
             #svn-block
-                input#svn-part-input(name="svn-part" type="number" maxlength="4" placeholder="1234")
+                //- input#svn-part-input(name="svn-part" type="number" maxlength="4" placeholder="1234")
+                //- #svn-separator -
+                //- input#birthday-part-input(name="svn-birthday-part" type="number" maxlength="6" placeholder="020357")
+                input#svn-part-input(name="svn-part" type="text" maxlength="4" inputmode="numeric" pattern="/d*" placeholder="1234")
                 #svn-separator -
-                input#birthday-part-input(name="svn-birthday-part" type="number" maxlength="6" placeholder="020357")
+                input#birthday-part-input(name="svn-birthday-part" type="text" maxlength="6" inputmode="numeric" pattern="/d*"  placeholder="020357")
             label#pin-label(for="pin") !{content.svnLoginPinLabelText}
             input#pin-input(type="text" name="pin")
             #svn-error-feedback-text

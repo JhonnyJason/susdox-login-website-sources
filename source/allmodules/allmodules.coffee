@@ -4,7 +4,6 @@ import * as debugmodule from "./debugmodule.js"
 import * as doctorloginviewmodule from "./doctorloginviewmodule.js"
 import * as doctorregistrationviewmodule from "./doctorregistrationviewmodule.js"
 import * as errorfeedbackmodule from "./errorfeedbackmodule.js"
-import * as patientloginviewmodule from "./patientloginviewmodule.js"
 import * as patientregistrationviewmodule from "./patientregistrationviewmodule.js"
 import * as scrollrolldatepickermodule from "./scrollrolldatepickermodule.js"
 import * as statemodule from "./statemodule.js"
@@ -18,7 +17,6 @@ Modules = {
     doctorloginviewmodule,
     doctorregistrationviewmodule,
     errorfeedbackmodule,
-    patientloginviewmodule,
     patientregistrationviewmodule,
     scrollrolldatepickermodule,
     statemodule,

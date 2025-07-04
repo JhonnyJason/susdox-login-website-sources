@@ -76,25 +76,36 @@ export initialize = ->
 #region keyUpListeners
 svnPartKeyUpped = (evt) ->
     # log "svnPartKeyUpped"
+    svnPartInput.value = svnPartInput.value.replace(/\D/g, '')
+    # svnPartInput.value = svnPartInput.value.replace(".", "")
+    # svnPartInput.value = svnPartInput.value.replace("e", "")
+    # svnPartInput.value = svnPartInput.value.replace("i", "")    
     value = svnPartInput.value
     # console.log(typeof value)
     svnPartLength = value.length
     # olog {newLength}
 
-    if evt.keyCode == 46 then return
+    # Code 46 is "."
+    # if evt.keyCode == 46 then return
     
+    # Code 8 is backspace
     if evt.keyCode == 8 then return
 
     if svnPartLength == 4 then focusBirthdayPartFirst()
-    if svnPartLength > 4 
-        realValue = value.slice(0, 4)
-        # excessValue = value.slice(4) ## do somtething with it?
-        svnPartInput.value = realValue
-        focusBirthdayPartFirst()
+    # if svnPartLength > 4 
+    #     realValue = value.slice(0, 4)
+    #     # excessValue = value.slice(4) ## do somtething with it?
+    #     svnPartInput.value = realValue
+    #     focusBirthdayPartFirst()
     return
 
 birthdayPartKeyUpped = (evt) ->
     # log "birthdayPartKeyUpped"
+    svnPartInput.value = svnPartInput.value.replace(/\D/g, '')
+    # birthdayPartInput.value = birthdayPartInput.value.replace(".", "")
+    # birthdayPartInput.value = birthdayPartInput.value.replace("e", "")
+    # birthdayPartInput.value = birthdayPartInput.value.replace("i", "")
+
     value = birthdayPartInput.value
     newLength = value.length
     # olog {newLength}
@@ -102,6 +113,10 @@ birthdayPartKeyUpped = (evt) ->
     if evt.keyCode != 8
         svnBirthdayPartLength = newLength
         if newLength == 6 then focusPinInput()
+        # if newLength > 6
+        #     realValue = value.slice(0, 6)
+        #     birthdayPartInput.value = realValue
+        #     focusPinInput()
         return
 
     if svnBirthdayPartLength == 0 then focusSVNPartLast()

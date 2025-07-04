@@ -5,7 +5,7 @@ import { createLogFunctions } from "thingy-debug"
 #endregion
 
 ############################################################
-import * as patientLoginView from "./patientloginviewmodule.js"
+# import * as patientLoginView from "./patientloginviewmodule.js"
 import * as doctorLoginView from "./doctorloginviewmodule.js"
 import * as compatibilityLoginView from "./compatibilityloginviewmodule.js"
 
@@ -31,7 +31,7 @@ applyBaseState["index"] = ->
 ############################################################
 applyBaseState["patient-login"] = ->
     ## actually is compatibility state...
-    patientloginview.classList.remove("here")
+    # patientloginview.classList.remove("here")
     doctorloginview.classList.remove("here")
     compatibilityloginview.classList.add("here")
     compatibilityLoginView.onPageViewEntry()
