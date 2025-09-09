@@ -22,7 +22,6 @@ currentBase = null
 ############################################################
 applyBaseState["index"] = ->
     doctorloginview.classList.remove("here")
-    patientloginview.classList.remove("here")
     compatibilityloginview.classList.remove("here")
 
     document.body.style.height = "auto"
@@ -53,7 +52,6 @@ applyBaseState["patient-login"] = ->
 ############################################################
 applyBaseState["doctor-login"] = ->
 
-    patientloginview.classList.remove("here")
     compatibilityloginview.classList.remove("here")
     doctorloginview.classList.add("here")
     doctorLoginView.onPageViewEntry()

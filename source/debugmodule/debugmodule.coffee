@@ -11,7 +11,7 @@ modulesToDebug = {
     # doctorloginviewmodule: true
     # doctorregistrationviewmodule: true
     # registrationviewmodule: true
-    # scrollrolldatepickermodule: true
+    scrollrolldatepickermodule: true
     # utilmodule: true
 }
 

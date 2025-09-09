@@ -101,7 +101,7 @@ svnPartKeyUpped = (evt) ->
 
 birthdayPartKeyUpped = (evt) ->
     # log "birthdayPartKeyUpped"
-    svnPartInput.value = svnPartInput.value.replace(/\D/g, '')
+    birthdayPartInput.value = birthdayPartInput.value.replace(/\D/g, '')
     # birthdayPartInput.value = birthdayPartInput.value.replace(".", "")
     # birthdayPartInput.value = birthdayPartInput.value.replace("e", "")
     # birthdayPartInput.value = birthdayPartInput.value.replace("i", "")
