@@ -8,6 +8,7 @@
                 label(for="request-birthday-input")=content.codeLoginDateLabelText
                 input#request-birthday-input(type="date")
                 label(for="request-phone-input")=content.requestCodePhoneLabel
+                    span.request-phone-hint!=content.svnLoginNoPinPhoneNumberHintText
                 input#request-phone-input(type="text")
                 #request-code-error-feedback-text
                 .empty-cell
