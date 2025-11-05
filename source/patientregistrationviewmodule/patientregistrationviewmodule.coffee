@@ -27,9 +27,9 @@ phoneNumberRegex = /^\+?[0-9]+$/gm
 
 ############################################################
 # temporarily deprecated
-# export initialize = ->
-#     log "initialize"
-#     patientregistrationviewHeading.addEventListener("click", triggers.back)
+export initialize = ->
+    log "initialize"
+    patientregistrationviewHeading.addEventListener("click", triggers.back)
 #     patientsupportForm.addEventListener("submit", patientsupportFormSubmitted)
 #     requestCodeForm.addEventListener("submit", requestCodeSubmitted)
 #     # noPinQuestion.addEventListener("click", noPinQuestionClicked)
