@@ -30,10 +30,10 @@ phoneNumberRegex = /^\+?[0-9]+$/gm
 export initialize = ->
     log "initialize"
     patientregistrationviewHeading.addEventListener("click", triggers.back)
-#     patientsupportForm.addEventListener("submit", patientsupportFormSubmitted)
-#     requestCodeForm.addEventListener("submit", requestCodeSubmitted)
-#     # noPinQuestion.addEventListener("click", noPinQuestionClicked)
-#     return
+    patientsupportForm.addEventListener("submit", patientsupportFormSubmitted)
+    requestCodeForm.addEventListener("submit", requestCodeSubmitted)
+    # noPinQuestion.addEventListener("click", noPinQuestionClicked)
+    return
 
 ############################################################
 # using History
