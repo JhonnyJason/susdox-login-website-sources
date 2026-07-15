@@ -7,6 +7,7 @@ import * as errorfeedbackmodule from "./errorfeedbackmodule.js"
 import * as patientregistrationviewmodule from "./patientregistrationviewmodule.js"
 import * as scrollrolldatepickermodule from "./scrollrolldatepickermodule.js"
 import * as statemodule from "./statemodule.js"
+import * as susdoxshareloginmodule from "./susdoxshareloginmodule.js"
 import * as uistatemodule from "./uistatemodule.js"
 import * as utilmodule from "./utilmodule.js"
 
@@ -20,6 +21,7 @@ Modules = {
     patientregistrationviewmodule,
     scrollrolldatepickermodule,
     statemodule,
+    susdoxshareloginmodule,
     uistatemodule,
     utilmodule,
 }

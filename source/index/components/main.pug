@@ -11,7 +11,12 @@
                 .login-button.click-button
                     .login-text !{content.patientsLoginButtonText}
                     .login-arrow: svg: use(href="#svg-right-chevron")
-            #support-block: include ../../supportbuttonmodule/supportbutton.pug
+            #susdoxshare-login-block
+                .login-button.click-button
+                    .login-text !{content.susdoxShareLoginButtonText}
+                    .login-arrow: svg: use(href="#svg-down-chevron")
+                include ../../susdoxshareloginmodule/susdoxsharelogin.pug
+            //- #support-block: include ../../supportbuttonmodule/supportbutton.pug
         #main-block-decoration 
             p !{content.serviceNotice}
 

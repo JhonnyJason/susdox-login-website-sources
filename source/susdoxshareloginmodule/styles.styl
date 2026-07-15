@@ -1,0 +1,61 @@
+// susdoxsharelogin styles
+#susdoxsharelogin-block.form-section
+    padding 0
+    color cd-darkblue
+
+#susdoxsharelogin-block
+    .hint
+        margin-bottom 15px
+
+    .grey-extension-block
+        background-color transparent
+        padding 0
+
+    .grey-extension-block > *
+        background-color cd-lightgrey
+        padding 20px
+    
+    .extension-block-content
+        position relative
+        padding-top 0
+        z-index -1
+        top -300px
+        opacity 0
+        // transition: all 0.3s 
+        
+    .extension-block-content.shown
+        transform: translateY(300px)
+        opacity: 1
+        z-index 1001
+
+    // .form-block-heading 
+    //     position relative
+    //     z-index 999
+    //     h2 
+    //         font-size 16px
+
+    // .form-section-block
+    //     overflow: hidden
+            
+
+
+#susdoxshare-error-feedback-text
+    font-weight: bold
+    grid-column: 1 / 3
+    font-size 8pt
+    line-height: 120%
+    min-height: 13px
+    // text-align: right
+    // color: cd-error-red
+
+.error
+    #susdoxshare-error-feedback-text
+        color: cd-error-red
+
+// // use larger screens
+// @media screen and (min-width: 750px)
+//     #compatibilityloginview
+//         .form-section
+//             display grid
+//             grid-gap 50px
+//             grid-template-columns: auto auto

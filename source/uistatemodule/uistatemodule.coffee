@@ -10,6 +10,9 @@ import * as doctorLoginView from "./doctorloginviewmodule.js"
 import * as compatibilityLoginView from "./compatibilityloginviewmodule.js"
 
 ############################################################
+import * as susdoxShareLogin from "./susdoxshareloginmodule.js"
+
+############################################################
 import * as patientRegistrationView from "./patientregistrationviewmodule.js"
 import * as doctorRegistrationView from "./doctorregistrationviewmodule.js"
 
@@ -88,7 +91,9 @@ applyBaseState["doctor-registration"] = ->
 export applyUIStateBase = (base) ->
     log "applyUIBaseState #{base}"
     applyBaseFunction = applyBaseState[base]
+    susdoxShareLogin.turnDown()
 
+    
     if typeof applyBaseFunction != "function" then throw new Error("on applyUIStateBase: base '#{base}' apply function did not exist!")
 
     currentBase = base

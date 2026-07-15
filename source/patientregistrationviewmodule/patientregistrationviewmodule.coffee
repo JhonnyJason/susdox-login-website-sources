@@ -29,10 +29,11 @@ phoneNumberRegex = /^\+?[0-9]+$/gm
 # temporarily deprecated
 export initialize = ->
     log "initialize"
+    return
     patientregistrationviewHeading.addEventListener("click", triggers.back)
-    patientsupportForm.addEventListener("submit", patientsupportFormSubmitted)
-    requestCodeForm.addEventListener("submit", requestCodeSubmitted)
-    # noPinQuestion.addEventListener("click", noPinQuestionClicked)
+    # patientsupportForm.addEventListener("submit", patientsupportFormSubmitted)
+    # requestCodeForm.addEventListener("submit", requestCodeSubmitted)
+    # # noPinQuestion.addEventListener("click", noPinQuestionClicked)
     return
 
 ############################################################
@@ -157,6 +158,8 @@ initializeDatePickers = ->
 
 ############################################################
 export onPageViewEntry = ->
+    return ## nothing to do for iframe form
+
     if !datePickerIsInitialized then initializeDatePickers()
     patientregistrationview.classList.remove("success")
     # TODO focus on initial field

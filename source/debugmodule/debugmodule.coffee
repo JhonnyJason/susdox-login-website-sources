@@ -5,13 +5,14 @@ modulesToDebug = {
     # configmodule: true
     # compatibitlityloginviewmodule: true
     # statemodule: true
-    # errorfeedbackmodule: true
+    errorfeedbackmodule: true
     # patientloginviewmodule: true
     # patientregistrationviewmodule: true
     # doctorloginviewmodule: true
     # doctorregistrationviewmodule: true
     # registrationviewmodule: true
     scrollrolldatepickermodule: true
+    susdoxshareloginmodule: true
     # utilmodule: true
 }
 

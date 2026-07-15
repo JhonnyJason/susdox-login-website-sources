@@ -15,8 +15,9 @@ import * as utl from "./utilmodule.js"
 ############################################################
 export initialize = ->
     log "initialize"
+    return
     doctorregistrationviewHeading.addEventListener("click", triggers.back)
-    doctorregistrationForm.addEventListener("submit", doctorregistrationFormSubmitted)
+    # doctorregistrationForm.addEventListener("submit", doctorregistrationFormSubmitted)
     return
 
 ############################################################
@@ -66,6 +67,7 @@ doSupportRequest = (body) ->
 
 ############################################################
 export onPageViewEntry = ->
+    return ## nothing to do for iframe form
     doctorregistrationview.classList.remove("success")
 
     # TODO focus on initial field

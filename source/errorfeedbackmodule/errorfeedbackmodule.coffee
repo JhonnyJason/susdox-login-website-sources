@@ -52,6 +52,17 @@ export errorFeedbackCodeLogin = (reason) ->
     log "Error: "+reason
     return
 
+export errorFeedbackSusdoxshareLogin = (reason) ->
+    susdoxshareLoginForm.classList.add("error")
+
+    switch reason
+        when "404" then susdoxshareErrorFeedbackText.innerHTML = svnLogin404ErrorText
+        when "401", "input" then susdoxshareErrorFeedbackText.innerHTML = svnLogin401ErrorText
+        else susdoxshareErrorFeedbackText.innerHTML = "Connection Error!"
+    log "Error: "+reason
+    return
+
+
 export errorFeedbackAuthcodeLogin = (reason) ->
     compatibilityAuthcodeLoginForm.classList.add("error")
 
@@ -95,10 +106,12 @@ export errorFeedbackDoctorLogin = (reason) ->
 export resetAllErrorFeedback = ->
     if doctorloginForm? then doctorloginForm.classList.remove("error")
 
+    if susdoxshareLoginForm? then susdoxshareLoginForm.classList.remove("error")
     if patientCodeLoginForm? then patientCodeLoginForm.classList.remove("error")
     if renewCodeForm? then renewCodeForm.classList.remove("error")
     if requestCodeForm? then requestCodeForm.classList.remove("error")
 
+    if susdoxshareErrorFeedbackText? then susdoxshareErrorFeedbackText.innerHTML = ""
     if codeErrorFeedbackText? then codeErrorFeedbackText.innerHTML = ""
     if codeRenewErrorFeedbackText? then codeRenewErrorFeedbackText.innerHTML = ""
 
@@ -119,6 +132,7 @@ export errorFeedback = (usecase, reason) ->
         when "doctor" then errorFeedbackDoctorLogin(reason)
         when "svnPatient" then errorFeedbackSVNLogin(reason)
         when "authcodePatient" then errorFeedbackAuthcodeLogin(reason)
+        when "codeSusdoxshare" then errorFeedbackSusdoxshareLogin(reason)
         when "codePatient" then errorFeedbackCodeLogin(reason)
         when "codeRenewPatient" then errorFeedbackCodeRenew(reason)
         when "codeRenewCompatibility" then errorFeedbackPinRenew(reason)

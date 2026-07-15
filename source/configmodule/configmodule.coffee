@@ -12,6 +12,10 @@ currentOrigin = window.location.origin
 export loginURL = productionRoot+authPartProduction+"/login" # production
 
 ########################################################
+## TODO adjust endpoint to be real
+export loginSusdoxShareURL = productionRoot+authPartProduction+"/login" # production
+
+########################################################
 export legacyLoginURL = "https://www.bilder-befunde.at/pwa-api/api/v1/login/"
 
 ########################################################

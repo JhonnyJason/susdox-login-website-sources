@@ -4,32 +4,34 @@ header
     color cd-darkblue
     background-color white
 
-    #header-logo-block
-        margin-right: auto
-        margin-left 10px
-    
-    #header-logo
-        height 50px
-        width: 240px
-        margin auto
-        margin-bottom 10px
-        background-image: url("img/logo-positive.png")
-        background-size: contain
-        background-repeat: no-repeat
-        background-position center
-    
-    
+#header
+    display grid
+    grid-template-columns: auto auto
+    max-width max-content-width
+    margin auto
+    gap 20px
+
+#header-logo-block
+    margin-right: auto
+    margin-left 10px
+    grid-row: 1 / span 2;
+
     h1
         font-size: 14pt
         text-align: right    
         max-width: 320px
         margin auto
 
-#header
-    display grid
-    grid-template-columns: auto auto
-    max-width max-content-width
+#header-logo
+    height 50px
+    width: 240px
     margin auto
+    margin-bottom 10px
+    background-image: url("img/logo-positive.png")
+    background-size: contain
+    background-repeat: no-repeat
+    background-position center
+    
 
 #header-language-tags
     display flex
@@ -44,10 +46,31 @@ header
     padding 0 3px
     font-size: 10pt
 
+#support-link
+    margin-left auto
+    margin-right 10px
+    align-self end
+    font-weight: bold
+    font-size: 16pt
+    .short-link
+        display none
 
-
-@media screen and (max-width: 400px)
-    header
+@media screen and (max-width: 480px)
+    #header
         #header-logo
-            width 180px
+            width 160px 
             margin 0 0 auto 0
+        #header-subtitle
+            font-size: 11pt
+            margin-left 10px
+        #support-link
+            font-size: 13pt
+            text-align: right
+
+@media screen and (max-width: 350px)
+    #header
+        #support-link
+            .long-link
+                display none
+            .short-link
+                display block

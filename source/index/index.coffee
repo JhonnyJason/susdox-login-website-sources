@@ -11,6 +11,7 @@ import * as triggers from "./navtriggers.js"
 import * as patientLoginView from "./patientloginviewmodule.js"
 import * as doctorLoginView from "./doctorloginviewmodule.js"
 import * as compatibilityLoginView from "./compatibilityloginviewmodule.js"
+import * as susdoxShareLogin from "./susdoxshareloginmodule.js"
 
 ############################################################
 import { loginRedirectURL } from "./configmodule.js"
@@ -35,6 +36,9 @@ appStartup = ->
 
     patientLoginBlock.addEventListener("click", triggers.patientLogin)
     doctorLoginBlock.addEventListener("click", triggers.doctorLogin)
+
+    susdoxShareLoginButton = susdoxshareLoginBlock.getElementsByClassName("login-button")[0]
+    susdoxShareLoginButton.addEventListener("click", susdoxShareLogin.toggleActive)
 
     document.addEventListener("keydown", keyDowned)
 

@@ -1,0 +1,17 @@
+//- susdoxsharelogin structure
+#susdoxsharelogin-block.form-section
+    .extension-block-content
+        .backshadow-block
+            form#susdoxshare-login-form
+                label#susdoxshare-label(for="#susdoxshare-input") !{content.susdoxShareCodeLabelText}
+                input#susdoxshare-input(name="code" type="text" placeholder="Abc-123-dEF")
+                
+                label#susdoxshare-birthday-label(for="susdoxshare-birthday-input") !{content.nosvnLoginBirthdayLabelText}
+                input#susdoxshare-birthday-input(name="birthday" type="date" max="2999-12-31")
+                
+                #susdoxshare-error-feedback-text
+                
+                .empty-cell
+                button#susdoxshare-submit-button(type="submit") !{content.nosvnLoginSubmitButtonText}
+                
+            .agb-hint-block: p.hint !{content.agbHintText}
