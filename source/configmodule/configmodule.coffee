@@ -13,7 +13,8 @@ export loginURL = productionRoot+authPartProduction+"/login" # production
 
 ########################################################
 ## TODO adjust endpoint to be real
-export loginSusdoxShareURL = productionRoot+authPartProduction+"/login" # production
+export loginSusdoxShareURL = productionRoot+authPartProduction+"/susdoxshare" # production
+export redirectSusdoxShareURL = currentOrigin+"/home"
 
 ########################################################
 export legacyLoginURL = "https://www.bilder-befunde.at/pwa-api/api/v1/login/"

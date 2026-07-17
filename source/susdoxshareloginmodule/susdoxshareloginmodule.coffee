@@ -12,7 +12,10 @@ import { ScrollRollDatepicker } from "./scrollrolldatepickermodule.js"
 
 ############################################################
 import { resetAllErrorFeedback, errorFeedback } from "./errorfeedbackmodule.js"
-import { loginSusdoxShareURL } from "./configmodule.js"
+import { loginSusdoxShareURL, redirectSusdoxShareURL } from "./configmodule.js"
+
+############################################################
+codeSeparator = "-"
 
 ############################################################
 isActive = false
@@ -30,6 +33,11 @@ currentFormatted = ""
 #susdoxshare-birthday-input -> susdoxshareBirthdayInput 
 #susdoxshare-error-feedback-text -> susdoxshareErrorFeedbackText
 #susdoxshare-submit-button susdoxshareSubmitButton
+
+############################################################
+letMainThreadRun = ->
+    if window.scheduler? and window.scheduler.yield? then return scheduler.yield()
+    return new Promise((reslv) -> setTimeout(reslv, 0))
 
 ############################################################
 export initialize = ->
@@ -71,8 +79,13 @@ onFormSubmit = (evnt) ->
         # errorFeedback("codeSusdoxshare", "input")
         response = await doLoginRequest(loginBody)
         if !response.ok then errorFeedback("codeSusdoxshare", ""+response.status)
-        else location.href = loginRedirectURL
-        
+        else 
+            try res = await response.json()
+            catch err then log err
+            if res?.redirect_url then window.location.replace(res.redirect_url)          
+            # else window.location.replace(redirectSusdoxShareURL)
+            return
+
     catch err then return errorFeedback("codeSusdoxshare", "Other: " + err.message)
     finally susdoxshareSubmitButton.disabled = false
     return
@@ -101,8 +114,7 @@ inputKeyDowned = (evnt) ->
 onInput = (evnt) ->
     log "onInput"
     { raw, formatted } = formatCode(susdoxshareInput.value)
-    if susdoxshareInput.value == formatted then return
-    else currentCode = raw
+    currentCode = raw
 
     oldCursor = susdoxshareInput.selectionStart
 
@@ -121,6 +133,7 @@ onInput = (evnt) ->
 
 ############################################################
 formatCode = (uiString) ->
+    log "formatCode: "+uiString
     raw = ""
     for c in uiString when utl.isAlphanumericString(c)
         raw += c.toLowerCase()
@@ -133,7 +146,8 @@ formatCode = (uiString) ->
     tokens.push(raw.slice(3, 6)) if rLen > 3
     tokens.push(raw.slice(6)) if rLen > 6
 
-    formatted = tokens.join("  ")
+    formatted = tokens.join(codeSeparator)
+    olog { raw, formatted }
 
     return { raw, formatted }
 
@@ -154,9 +168,9 @@ extractCodeFormBody = ->
     # else throw new Error("Unexpected code Length!")
 
     ## version, always using argon2 hash
-    if code.length == 9 or code.length == 6 then hashedPw = await utl.argon2HashPw(code, username)
+    if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
     else 
-        console.error("Unexpected code Length! -> invalid input!")
+        console.error("Unexpected code Length! ("+code+") -> invalid input!")
         return {}
 
     return { username, hashedPw, isMedic, rememberMe }
@@ -182,6 +196,24 @@ doLoginRequest = (body) ->
     try return fetch(loginSusdoxShareURL, fetchOptions)
     catch err then log err
 
+############################################################
+ensureVisibleInputFields = ->
+    currentPos = document.documentElement.scrollTop || document.body.scrollTop
+    console.log("currentPos: "+currentPos)
+    console.log("document.body.scrollHeight: "+document.body.scrollHeight)
+    console.log("window.screen.height: "+window.screen.height)
+
+    scrollDestination = document.body.scrollHeight - window.screen.height - 180
+    console.log("scrollDestination: "+scrollDestination)
+
+    if currentPos > scrollDestination then return
+
+    window.scrollTo({ 
+        top: scrollDestination, 
+        behavior: "smooth"
+    });
+    return
+
 
 ############################################################
 focusBirthdayInput = -> susdoxshareBirthdayInput.focus()
@@ -193,9 +225,11 @@ focusCodeInput = ->
 
 ############################################################
 setUIState = ->
-    if isActive 
+    if isActive
         extensionBlock.classList.add("shown")
         focusCodeInput()
+        await letMainThreadRun()
+        ensureVisibleInputFields()
     else extensionBlock.classList.remove("shown")
     ## TODO focus on the code input
     return
