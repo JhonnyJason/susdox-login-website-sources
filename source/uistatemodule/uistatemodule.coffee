@@ -64,8 +64,8 @@ applyBaseState["doctor-login"] = ->
 
 ############################################################
 applyBaseState["support"] = ->
-    doctorregistrationview.classList.remove("here")
-    patientregistrationview.classList.remove("here")
+    # doctorregistrationview.classList.remove("here")
+    # patientregistrationview.classList.remove("here")
 
     document.body.style.height = "auto"
     return
