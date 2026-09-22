@@ -113,11 +113,22 @@ inputKeyDowned = (evnt) ->
 
 onInput = (evnt) ->
     log "onInput"
-    { raw, formatted } = formatCode4x4(susdoxshareInput.value)
+    uiString = susdoxshareInput.value
+    { raw, formatted } = formatCode4x4(uiString)
     # { raw, formatted } = formatCode3x3(susdoxshareInput.value)
     currentCode = raw
 
-    newCursor = adjustInputCursor4x4()
+    ## new cursor adjustment method
+    cursorStart = susdoxshareInput.selectionStart
+    cursorInCode = getCursorPositionInCode(cursorStart, uiString)
+    newCursor = getNewCursorInSeparatedChunks(cursorInCode, 4)
+
+
+    ## Method to check if we inserted or not
+    # isInsert = !evnt.inputType.startsWith('delete')
+    
+    ## Old cursor adjustment Method
+    # newCursor = adjustInputCursor4x4()
     # newCursor = adjustInputCursor3x3()
     
     susdoxshareInput.value = formatted
@@ -127,7 +138,20 @@ onInput = (evnt) ->
 #endregion
 
 ############################################################
-adjustInputCursor3x3 = (mode) ->
+getNewCursorInSeparatedChunks = (cPos, chunkSize) ->
+    numSeparators = Math.floor((cPos - 1) / chunkSize)
+    return cPos + numSeparators
+
+############################################################
+getCursorPositionInCode = (cPos, uiStr) ->
+    relStr = uiStr.slice(0, cPos)
+    ePos = 0 ## effective position 
+    for c in relStr
+        ePos += utl.isAlphanumericString(c)
+    return ePos
+
+############################################################
+adjustInputCursor3x3 = (isInsert) ->
     log "adjustInputCursor3x3"
     oldCursor = susdoxshareInput.selectionStart
 
