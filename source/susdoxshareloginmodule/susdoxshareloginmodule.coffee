@@ -113,18 +113,13 @@ inputKeyDowned = (evnt) ->
 
 onInput = (evnt) ->
     log "onInput"
-    { raw, formatted } = formatCode(susdoxshareInput.value)
+    { raw, formatted } = formatCode4x4(susdoxshareInput.value)
+    # { raw, formatted } = formatCode3x3(susdoxshareInput.value)
     currentCode = raw
 
-    oldCursor = susdoxshareInput.selectionStart
-
-    log oldCursor
-    switch(oldCursor)
-        when 4,5 then newCursor = 6
-        when 9,10 then newCursor = 11
-        else newCursor = oldCursor
-    log newCursor
-
+    newCursor = adjustInputCursor4x4()
+    # newCursor = adjustInputCursor3x3()
+    
     susdoxshareInput.value = formatted
     susdoxshareInput.setSelectionRange(newCursor, newCursor)
     return
@@ -132,8 +127,43 @@ onInput = (evnt) ->
 #endregion
 
 ############################################################
-formatCode = (uiString) ->
-    log "formatCode: "+uiString
+adjustInputCursor3x3 = (mode) ->
+    log "adjustInputCursor3x3"
+    oldCursor = susdoxshareInput.selectionStart
+
+    log oldCursor
+    switch(oldCursor)
+        when 4 then newCursor = 6
+        when 8 then newCursor = 10
+        else newCursor = oldCursor
+
+    ## something is off here
+    # switch(oldCursor)
+    #     when 4 then newCursor = 6
+    #     when 9 then newCursor = 12
+    #     else newCursor = oldCursor
+    # log newCursor
+
+    return newCursor
+
+############################################################
+adjustInputCursor4x4 = (mode) ->
+    log "adjustInputCursor4x4"
+    oldCursor = susdoxshareInput.selectionStart
+
+    log oldCursor
+    switch(oldCursor)
+        when 5 then newCursor = 7
+        when 10 then newCursor = 12
+        when 15 then newCursor = 17
+        else newCursor = oldCursor
+    log newCursor
+
+    return newCursor
+
+############################################################
+formatCode3x3 = (uiString) ->
+    log "formatCode3x3: "+uiString
     raw = ""
     for c in uiString when utl.isAlphanumericString(c)
         raw += c.toLowerCase()
@@ -145,6 +175,26 @@ formatCode = (uiString) ->
     tokens.push(raw.slice(0, 3)) if rLen > 0
     tokens.push(raw.slice(3, 6)) if rLen > 3
     tokens.push(raw.slice(6)) if rLen > 6
+
+    formatted = tokens.join(codeSeparator)
+    olog { raw, formatted }
+
+    return { raw, formatted }
+
+formatCode4x4 = (uiString) ->
+    log "formatCode4x4: "+uiString
+    raw = ""
+    for c in uiString when utl.isAlphanumericString(c)
+        raw += c.toLowerCase()
+    
+    raw = raw.slice(0, 16)
+    rLen = raw.length
+
+    tokens = []
+    tokens.push(raw.slice(0, 4)) if rLen > 0
+    tokens.push(raw.slice(4, 8)) if rLen > 4
+    tokens.push(raw.slice(8, 12)) if rLen > 8
+    tokens.push(raw.slice(12)) if rLen > 12
 
     formatted = tokens.join(codeSeparator)
     olog { raw, formatted }
@@ -168,8 +218,9 @@ extractCodeFormBody = ->
     # else throw new Error("Unexpected code Length!")
 
     ## version, always using argon2 hash
-    if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
-    else 
+    # if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
+    if code.length == 16 then hashedPw = await utl.argon2HashPw(code, username)
+    else
         console.error("Unexpected code Length! ("+code+") -> invalid input!")
         return {}
 
