@@ -12,7 +12,7 @@ import { ScrollRollDatepicker } from "./scrollrolldatepickermodule.js"
 
 ############################################################
 import { resetAllErrorFeedback, errorFeedback } from "./errorfeedbackmodule.js"
-import { loginSusdoxShareURL, redirectSusdoxShareURL } from "./configmodule.js"
+import { legacyShareURL as loginSusdoxShareURL, redirectSusdoxShareURL } from "./configmodule.js"
 
 ############################################################
 codeSeparator = "-"
@@ -70,16 +70,18 @@ onFormSubmit = (evnt) ->
         loginBody = await extractCodeFormBody()
         olog {loginBody}
 
-        if !loginBody.hashedPw and !loginBody.username then return focusCodeInput()
-            # return errorFeedback("codeSusdoxshare", "input")
-
+        if !loginBody.code and !loginBody.username 
+            errorFeedback("codeSusdoxshare", "input")
+            focusCodeInput()
+            return
+        # return errorFeedback("codeSusdoxshare", "input")
 
         # errorFeedback("codeSusdoxshare", "404")
         # errorFeedback("codeSusdoxshare", "401")
         # errorFeedback("codeSusdoxshare", "input")
         response = await doLoginRequest(loginBody)
         if !response.ok then errorFeedback("codeSusdoxshare", ""+response.status)
-        else 
+        else
             try res = await response.json()
             catch err then log err
             if res?.redirect_url then window.location.replace(res.redirect_url)          
@@ -243,12 +245,16 @@ extractCodeFormBody = ->
 
     ## version, always using argon2 hash
     # if code.length == 9 then hashedPw = await utl.argon2HashPw(code, username)
-    if code.length == 16 then hashedPw = await utl.argon2HashPw(code, username)
-    else
+    # if code.length == 16 then hashedPw = await utl.argon2HashPw(code, username)
+    # else
+    #     console.error("Unexpected code Length! ("+code+") -> invalid input!")
+    #     return {}
+
+    if code.length != 16
         console.error("Unexpected code Length! ("+code+") -> invalid input!")
         return {}
 
-    return { username, hashedPw, isMedic, rememberMe }
+    return { username, code, isMedic, rememberMe }
 
 # ############################################################
 # computeHashedPw = (username, pwd) ->

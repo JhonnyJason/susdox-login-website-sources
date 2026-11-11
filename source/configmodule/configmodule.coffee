@@ -18,6 +18,7 @@ export redirectSusdoxShareURL = currentOrigin+"/home"
 
 ########################################################
 export legacyLoginURL = "https://www.bilder-befunde.at/pwa-api/api/v1/login/"
+export legacyShareURL = "https://www.bilder-befunde.at/pwa-api/api/v1/susdox-share/"
 
 ########################################################
 # export loginRedirectURL = "https://www.bilder-befunde.at/webview"
