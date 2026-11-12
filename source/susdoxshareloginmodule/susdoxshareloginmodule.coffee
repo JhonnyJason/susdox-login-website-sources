@@ -192,7 +192,8 @@ formatCode3x3 = (uiString) ->
     log "formatCode3x3: "+uiString
     raw = ""
     for c in uiString when utl.isAlphanumericString(c)
-        raw += c.toLowerCase()
+        # raw += c.toLowerCase()
+        raw += c
     
     raw = raw.slice(0, 9)
     rLen = raw.length
@@ -211,7 +212,8 @@ formatCode4x4 = (uiString) ->
     log "formatCode4x4: "+uiString
     raw = ""
     for c in uiString when utl.isAlphanumericString(c)
-        raw += c.toLowerCase()
+        # raw += c.toLowerCase()
+        raw += c
     
     raw = raw.slice(0, 16)
     rLen = raw.length
