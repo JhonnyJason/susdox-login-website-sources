@@ -232,7 +232,7 @@ extractCodeFormBody = ->
     username = datePicker.value
     if !username then return {}
 
-    code = currentCode
+    code = currentCode.toLowerCase()
     isMedic = false
     rememberMe = false
 

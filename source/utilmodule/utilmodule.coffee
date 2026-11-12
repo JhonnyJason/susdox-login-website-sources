@@ -14,6 +14,7 @@ charMap = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 validAlphanumeKeyCodes = null
 validBase32KeyCodes = null
 alphaNumRegex = new RegExp('^[a-z0-9]*$')
+alphaNumCapsRegex = new RegExp('^[a-zA-Z0-9]*$')
 base32Regex = new RegExp('^[a-km-np-z2-9]*$')
 
 # sodium = null
@@ -239,7 +240,6 @@ export argon2HashPw = (pin, birthdate) ->
     return
 
 
-
 ############################################################
 export isAlphanumericCode = (code) -> validAlphanumeKeyCodes[code]
 
@@ -247,7 +247,7 @@ export isBase32Code = (code) -> validBase32KeyCodes[code]
 
 
 ############################################################
-export isAlphanumericString = (string) -> alphaNumRegex.test(string)
+export isAlphanumericString = (string) -> alphaNumCapsRegex.test(string)
 
 export isBase32String = (string) -> base32Regex.test(string) 
 
